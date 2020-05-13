@@ -36,9 +36,6 @@
                             <small class="d-block mt-2">{{ $message->description }}</small>
                         </td>
                         @foreach($project->languages as $language)
-                            @php
-                                $label = $message->name.'.'.$language->code
-                            @endphp
                             <td>
                                 @include('projects.message-inputs', [
                                     'language' => $language,
