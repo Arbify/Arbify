@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 
 class Language extends Model
 {
-    use SoftDeletes;
-
     const PLURAL_FORM_ZERO = 0b000001;
     const PLURAL_FORM_ONE = 0b000010;
     const PLURAL_FORM_TWO = 0b000100;
@@ -38,11 +35,3 @@ class Language extends Model
             })->get();
     }
 }
-
-//SELECT l.name language
-//FROM languages l
-//WHERE l.id NOT IN (
-//    SELECT languages.id FROM languages
-//      INNER JOIN language_project lp ON languages.id = lp.language_id
-//  WHERE lp.project_id = 2
-//)

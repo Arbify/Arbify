@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use InvalidArgumentException;
 
 class Message extends Model
 {
-    use SoftDeletes;
-
     public const TYPE_MESSAGE = 'message';
     public const TYPE_PLURAL = 'plural';
     public const TYPE_GENDER = 'gender';
@@ -26,22 +23,27 @@ class Message extends Model
 
     public function isMessage(): bool
     {
-        return $this->type == self::TYPES[self::TYPE_MESSAGE];
+        return $this->type == self::TYPE_MESSAGE;
     }
 
     public function isPlural(): bool
     {
-        return $this->type == self::TYPES[self::TYPE_PLURAL];
+        return $this->type == self::TYPE_PLURAL;
     }
 
     public function isGender(): bool
     {
-        return $this->type == self::TYPES[self::TYPE_GENDER];
+        return $this->type == self::TYPE_GENDER;
+    }
+
+    public function getTypeAttribute($type)
+    {
+        return array_flip(self::TYPES)[$type];
     }
 
     public function setTypeAttribute($value)
     {
-        if (!in_array($value, self::TYPES)) {
+        if (!array_key_exists($value, self::TYPES)) {
             throw new InvalidArgumentException("There's no $value message type.");
         }
 

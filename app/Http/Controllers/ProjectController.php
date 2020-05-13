@@ -80,8 +80,8 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Project  $project
+     * @param StoreProject $request
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
     public function update(StoreProject $request, Project $project)

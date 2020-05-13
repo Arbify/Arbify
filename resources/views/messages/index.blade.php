@@ -13,7 +13,7 @@
 
     <div class="container-fluid d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table class="table table-striped table-bordered bg-white">
+            <table class="table table-striped table-bordered bg-white w-auto" style="table-layout: fixed">
                 <colgroup>
                     <col style="width: 300px">
                     @foreach($project->languages as $language)
@@ -35,13 +35,26 @@
                 <tbody>
                     @foreach($project->messages as $message)
                         <tr>
-                            <th scope="row">
-                                <code class="d-block mb-2">{{ $message->name }}</code>
-                                @if($message->isPlural())
-                                    <span class="badge badge-light">PLURAL</span>
-                                @elseif($message->isGender())
-                                    <span class="badge badge-light">GENDER</span>
-                                @endif
+                            <th scope="row" class="font-weight-normal">
+                                <div class="d-flex flex-wrap align-items-baseline">
+                                    <strong><code class="d-block mb-1 mr-2">{{ $message->name }}</code></strong>
+
+                                    <div>
+                                        @if($message->isPlural())
+                                            <span class="badge badge-light mr-2">PLURAL</span>
+                                        @elseif($message->isGender())
+                                            <span class="badge badge-light mr-2">GENDER</span>
+                                        @endif
+                                        <a href="{{ route('messages.edit', [$project, $message]) }}" class="small">edit</a>
+                                        <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}" class="d-inline ml-2">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+
                                 <small class="d-block mt-2">{{ $message->description }}</small>
                             </th>
                             @foreach($project->languages as $language)
@@ -59,7 +72,7 @@
                 <tfoot>
                     <tr>
                         <td scope="row">
-                            <a href="#" class="btn btn-primary btn-block">Add message</a>
+                            <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add message</a>
                         </td>
                         <td colspan="{{ $project->languages->count() + 1 }}"></td>
                     </tr>
