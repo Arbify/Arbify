@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
@@ -10,12 +12,12 @@ class Project extends Model
         'name',
     ];
 
-    public function messages()
+    public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
     }
 
-    public function languages()
+    public function languages(): BelongsToMany
     {
         return $this->belongsToMany(Language::class)->withTimestamps();
     }
