@@ -35,13 +35,13 @@
                     <tr>
                         <td>{{ $project->id }}</td>
                         <td>
-                            <a href="{{ route('messages.index', $project->id) }}">{{ $project->name }}</a>
+                            <a href="{{ route('messages.index', $project) }}">{{ $project->name }}</a>
                         </td>
                         <td>{{ $project->messages->count() }}</td>
                         <td>{{ $project->languages->count() }}</td>
                         <td class="py-0 align-middle">
-                            <a href="{{ route('projects.edit', $project->id) }}">Edit</a>
-                            <form method="post" action="{{ route('projects.destroy', $project->id) }}" class="d-inline ml-2">
+                            <a href="{{ route('projects.edit', $project) }}">Edit</a>
+                            <form method="post" action="{{ route('projects.destroy', $project) }}" class="d-inline ml-2">
                                 @csrf
                                 @method('DELETE')
 

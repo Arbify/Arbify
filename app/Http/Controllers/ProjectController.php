@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddLanguageToProject;
 use App\Http\Requests\StoreProject;
 use App\Language;
 use App\Project;
@@ -86,7 +87,7 @@ class ProjectController extends Controller
     public function update(StoreProject $request, Project $project)
     {
         if (!$request->validated()) {
-            return redirect('projects.edit')
+            return redirect()->route('projects.edit')
                 ->withErrors($request)
                 ->withInput();
         }
@@ -110,5 +111,31 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')
             ->with('success', "Deleted <b>$project->name</b> successfully.");
+    }
+
+    public function addLanguage(Project $project)
+    {
+        $languages = Language::allExceptAlreadyInProject($project);
+
+        return view('projects.add-language', [
+            'project' => $project,
+            'languages' => $languages,
+        ]);
+    }
+
+    public function postAddLanguage(AddLanguageToProject $request, Project $project)
+    {
+        if (!$request->validated()) {
+            return redirect()->route('messages.index', $project)
+                ->withErrors($request)
+                ->withInput();
+        }
+
+        $language = Language::find($request->language);
+
+        $project->languages()->syncWithoutDetaching($language);
+
+        return redirect()->route('messages.index', $project)
+            ->with('success', "Added <b>$language->code</b> to <b>$project->name</b> successfully.");
     }
 }

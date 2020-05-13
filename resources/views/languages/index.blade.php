@@ -65,8 +65,8 @@
                         @endif
                     </td>
                     <td class="py-0 align-middle">
-                        <a href="{{ route('languages.edit', $language->id) }}">Edit</a>
-                        <form method="post" action="{{ route('languages.destroy', $language->id) }}" class="d-inline ml-2">
+                        <a href="{{ route('languages.edit', $language) }}">Edit</a>
+                        <form method="post" action="{{ route('languages.destroy', $language) }}" class="d-inline ml-2">
                             @csrf
                             @method('DELETE')
 

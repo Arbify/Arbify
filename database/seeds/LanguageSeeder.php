@@ -32,5 +32,12 @@ class LanguageSeeder extends Seeder
             'flag' => 'pl',
             'plural_forms' => Language::PLURAL_FORM_ONE | Language::PLURAL_FORM_FEW | Language::PLURAL_FORM_MANY,
         ]);
+
+        DB::table('languages')->insert([
+            'name' => 'Spanish',
+            'code' => 'es_ES',
+            'flag' => 'es',
+            'plural_forms' => Language::PLURAL_FORM_ONE | Language::PLURAL_FORM_OTHER,
+        ]);
     }
 }

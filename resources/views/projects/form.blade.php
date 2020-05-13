@@ -13,7 +13,7 @@
 
                     <div class="card-body">
                         @if(isset($project))
-                            <form method="POST" action="{{ route('projects.update', $project->id) }}">
+                            <form method="POST" action="{{ route('projects.update', $project) }}">
                             @method('PATCH')
                         @else
                             <form method="POST" action="{{ route('projects.store') }}">

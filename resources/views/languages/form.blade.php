@@ -13,7 +13,7 @@
 
                     <div class="card-body">
                         @if(isset($language))
-                            <form method="POST" action="{{ route('languages.update', $language->id) }}">
+                            <form method="POST" action="{{ route('languages.update', $language) }}">
                             @method('PATCH')
                         @else
                             <form method="POST" action="{{ route('languages.store') }}">

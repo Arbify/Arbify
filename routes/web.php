@@ -19,6 +19,13 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('/projects', 'ProjectController')
     ->except(['show']);
+
+Route::get('/projects/{project}/add-language', 'ProjectController@addLanguage')
+    ->name('projects.add-language');
+
+Route::post('/projects/{project}/add-language', 'ProjectController@postAddLanguage')
+    ->name('projects.post-add-language');
+
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);
 

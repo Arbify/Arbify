@@ -17,8 +17,8 @@ class CreateMessageValuesTable extends Migration
             $table->id();
             $table->foreignId('message_id')->constrained();
             $table->foreignId('language_id')->constrained();
-            $table->string('value');
             $table->string('form')->nullable();
+            $table->string('value');
             $table->timestamps();
         });
     }

@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="mb-5 container">Project: {{ $project->name }}</h2>
+    <div class="container">
+        <h2 class="mb-4">Messages - Project: {{ $project->name }}</h2>
+
+        @if (session('success'))
+            <div class="alert alert-success mb-4">
+                {!! session('success') !!}
+            </div>
+        @endif
+    </div>
 
     <div class="container-fluid d-flex justify-content-center">
         <div class="table-responsive w-auto">
@@ -20,7 +28,7 @@
                             <th>{{ $language->code }} - {{ $language->name }}</th>
                         @endforeach
                         <th>
-                            <a href="#" class="btn btn-primary">Add language</a>
+                            <a href="{{ route('projects.add-language', $project) }}" class="btn btn-primary">Add language</a>
                         </th>
                     </tr>
                 </thead>
@@ -38,7 +46,7 @@
                             </th>
                             @foreach($project->languages as $language)
                                 <td>
-                                    @include('projects.message-inputs', [
+                                    @include('messages.message-inputs', [
                                         'language' => $language,
                                         'message' => $message,
                                     ])

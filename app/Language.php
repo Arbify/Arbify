@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 
 class Language extends Model
 {
@@ -24,4 +25,24 @@ class Language extends Model
     {
         return $this->plural_forms;
     }
+
+    public static function allExceptAlreadyInProject(Project $project)
+    {
+        return self::query()
+            ->whereNotIn('id', function (Builder $query) use ($project) {
+                $query
+                    ->select('l2.id')
+                    ->from('languages AS l2')
+                    ->join('language_project AS lp','l2.id', '=', 'lp.language_id')
+                    ->where('lp.project_id', '=', $project->id);
+            })->get();
+    }
 }
+
+//SELECT l.name language
+//FROM languages l
+//WHERE l.id NOT IN (
+//    SELECT languages.id FROM languages
+//      INNER JOIN language_project lp ON languages.id = lp.language_id
+//  WHERE lp.project_id = 2
+//)
