@@ -3,8 +3,8 @@
 @endphp
 
 @if($message->isMessage())
-    <label for="{{ $label }}.message" class="sr-only"></label>
-    <input type="text" class="form-control" id="{{ $label }}.message">
+    <label for="{{ $label }}" class="sr-only">Message</label>
+    <input type="text" class="form-control" id="{{ $label }}" value="{{ $message->valueForLanguage($language) }}">
 @elseif($message->isPlural())
     @if($language->getPluralForms() & \App\Language::PLURAL_FORM_ZERO)
         <div class="form-group row">
@@ -12,7 +12,7 @@
                 <span class="badge badge-light">ZERO</span>
             </label>
             <div class="col">
-                <input type="text" id="{{ $label }}.zero" name="{{ $label }}.zero" class="form-control">
+                <input type="text" id="{{ $label }}.zero" name="{{ $label }}.zero" class="form-control" value="{{ $message->valueForLanguage($language, 'zero') }}">
             </div>
         </div>
     @endif
@@ -22,7 +22,7 @@
                 <span class="badge badge-light">ONE</span>
             </label>
             <div class="col">
-                <input type="text" id="{{ $label }}.one" name="{{ $label }}.one" class="form-control">
+                <input type="text" id="{{ $label }}.one" name="{{ $label }}.one" class="form-control" value="{{ $message->valueForLanguage($language, 'one') }}">
             </div>
         </div>
     @endif
@@ -32,7 +32,7 @@
                 <span class="badge badge-light">TWO</span>
             </label>
             <div class="col">
-                <input type="text" id="{{ $label }}.two" name="{{ $label }}.two" class="form-control">
+                <input type="text" id="{{ $label }}.two" name="{{ $label }}.two" class="form-control" value="{{ $message->valueForLanguage($language, 'two') }}">
             </div>
         </div>
     @endif
@@ -42,7 +42,7 @@
                 <span class="badge badge-light">FEW</span>
             </label>
             <div class="col">
-                <input type="text" id="{{ $label }}.few" name="{{ $label }}.few" class="form-control">
+                <input type="text" id="{{ $label }}.few" name="{{ $label }}.few" class="form-control" value="{{ $message->valueForLanguage($language, 'few') }}">
             </div>
         </div>
     @endif
@@ -52,7 +52,7 @@
                 <span class="badge badge-light">MANY</span>
             </label>
             <div class="col">
-                <input type="text" id="{{ $label }}.many" name="{{ $label }}.many" class="form-control">
+                <input type="text" id="{{ $label }}.many" name="{{ $label }}.many" class="form-control" value="{{ $message->valueForLanguage($language, 'many') }}">
             </div>
         </div>
     @endif
@@ -62,7 +62,7 @@
                 <span class="badge badge-light">OTHER</span>
             </label>
             <div class="col">
-                <input type="text" id="{{ $label }}.other" name="{{ $label }}.other" class="form-control">
+                <input type="text" id="{{ $label }}.other" name="{{ $label }}.other" class="form-control" value="{{ $message->valueForLanguage($language, 'other') }}">
             </div>
         </div>
     @endif
@@ -72,7 +72,7 @@
             <span class="badge badge-light">MALE</span>
         </label>
         <div class="col">
-            <input type="text" id="{{ $label }}.male" name="{{ $label }}.male" class="form-control">
+            <input type="text" id="{{ $label }}.male" name="{{ $label }}.male" class="form-control" value="{{ $message->valueForLanguage($language, 'male') }}">
         </div>
     </div>
     <div class="form-group row">
@@ -80,7 +80,7 @@
             <span class="badge badge-light">FEMALE</span>
         </label>
         <div class="col">
-            <input type="text" id="{{ $label }}.female" name="{{ $label }}.female" class="form-control">
+            <input type="text" id="{{ $label }}.female" name="{{ $label }}.female" class="form-control" value="{{ $message->valueForLanguage($language, 'female') }}">
         </div>
     </div>
     <div class="form-group row">
@@ -88,7 +88,7 @@
             <span class="badge badge-light">OTHER</span>
         </label>
         <div class="col">
-            <input type="text" id="{{ $label }}.other" name="{{ $label }}.other" class="form-control">
+            <input type="text" id="{{ $label }}.other" name="{{ $label }}.other" class="form-control" value="{{ $message->valueForLanguage($language, 'other') }}">
         </div>
     </div>
 @endif

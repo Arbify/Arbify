@@ -17,6 +17,10 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('/projects', 'ProjectController');
+Route::resource('/projects', 'ProjectController')
+    ->except(['show']);
+Route::resource('/projects/{project}/messages', 'MessageController')
+    ->except(['show']);
+
 Route::resource('/languages', 'LanguageController')
     ->except(['show']);

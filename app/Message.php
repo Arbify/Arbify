@@ -50,11 +50,26 @@ class Message extends Model
 
     public function project()
     {
-        $this->belongsTo(Project::class);
+        return $this->belongsTo(Project::class);
     }
 
-    public function forLanguage(Language $language)
+    public function messageValues()
     {
-        return $language->code . ' message';
+        return $this->hasMany(MessageValue::class);
+    }
+
+    public function forLanguage(Language $language, $form = '')
+    {
+        return $this->messageValues()
+            ->where('language_id', '=', $language->id)
+            ->where('form', '=', $form)
+            ->first();
+    }
+
+    public function valueForLanguage(Language $language, $form = '')
+    {
+        $messageValue = $this->forLanguage($language, $form);
+
+        return is_null($messageValue) ? '' : $messageValue->value;
     }
 }

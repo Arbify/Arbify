@@ -35,7 +35,7 @@
                     <tr>
                         <td>{{ $project->id }}</td>
                         <td>
-                            <a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a>
+                            <a href="{{ route('messages.index', $project->id) }}">{{ $project->name }}</a>
                         </td>
                         <td>{{ $project->messages->count() }}</td>
                         <td>{{ $project->languages->count() }}</td>
