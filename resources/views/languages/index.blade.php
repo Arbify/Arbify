@@ -40,27 +40,12 @@
                     <td>
                         {{ $language->name }}<br>
 
-                        @if($language->getPluralForms() != 0)
+                        @if(count($language->getPluralForms()) > 0)
                             <small>
                                 <b>Plural forms:</b>
-                                @if($language->getPluralForms() & \App\Language::PLURAL_FORM_ZERO)
-                                    <span class="badge badge-light">ZERO</span>
-                                @endif
-                                @if($language->getPluralForms() & \App\Language::PLURAL_FORM_ONE)
-                                    <span class="badge badge-light">ONE</span>
-                                @endif
-                                @if($language->getPluralForms() & \App\Language::PLURAL_FORM_TWO)
-                                    <span class="badge badge-light">TWO</span>
-                                @endif
-                                @if($language->getPluralForms() & \App\Language::PLURAL_FORM_FEW)
-                                    <span class="badge badge-light">FEW</span>
-                                @endif
-                                @if($language->getPluralForms() & \App\Language::PLURAL_FORM_MANY)
-                                    <span class="badge badge-light">MANY</span>
-                                @endif
-                                @if($language->getPluralForms() & \App\Language::PLURAL_FORM_OTHER)
-                                    <span class="badge badge-light">OTHER</span>
-                                @endif
+                                @foreach($language->getPluralForms() as $form)
+                                    <span class="badge badge-light">{{ strtoupper($form) }}</span>
+                                @endforeach
                             </small>
                         @endif
                     </td>

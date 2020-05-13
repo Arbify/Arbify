@@ -15,8 +15,8 @@ class Message extends Model
 
     private const TYPES = [
         self::TYPE_MESSAGE => 0,
-        self::TYPE_PLURAL => 1,
-        self::TYPE_GENDER => 2,
+        self::TYPE_PLURAL  => 1,
+        self::TYPE_GENDER  => 2,
     ];
 
     protected $fillable = [
