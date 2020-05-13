@@ -8,3 +8,9 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import '~flag-icon-css/sass/flag-icon';
+
+.message-type-col {
+  @extend .col-1;
+  flex: 0 0 52px;
+  max-width: 52px;
+}

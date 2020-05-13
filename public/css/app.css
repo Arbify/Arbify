@@ -737,7 +737,8 @@ pre code {
 .col-4,
 .col-3,
 .col-2,
-.col-1 {
+.col-1,
+.message-type-col {
   position: relative;
   width: 100%;
   padding-right: 15px;
@@ -787,7 +788,8 @@ pre code {
   max-width: 100%;
 }
 
-.col-1 {
+.col-1,
+.message-type-col {
   flex: 0 0 8.3333333333%;
   max-width: 8.3333333333%;
 }
@@ -13009,5 +13011,10 @@ a.text-dark:focus {
 
 .flag-icon-xk.flag-icon-squared {
   background-image: url(/images/vendor/flag-icon-css/flags/1x1/xk.svg?bd62029ec779b30b2ac80989dc285ae9);
+}
+
+.message-type-col {
+  flex: 0 0 52px;
+  max-width: 52px;
 }
 
