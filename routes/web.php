@@ -19,6 +19,8 @@ Route::bind('languageCode', function ($value) {
 
 Auth::routes();
 
+Route::get('/', 'DashboardController')->name('dashboard');
+
 Route::resource('/projects', 'ProjectController')
     ->except(['show']);
 
