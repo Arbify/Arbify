@@ -13033,12 +13033,12 @@ a.text-dark:focus {
 }
 
 .message-field.is-modified {
-  border-color: #ffed4a;
+  border-color: #343a40;
 }
 
 .message-field.is-modified:focus {
-  border-color: #ffed4a;
-  box-shadow: 0 0 0 0.2rem rgba(255, 237, 74, 0.25);
+  border-color: #343a40;
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
 }
 
 .message-field.is-modified + .message-submit {

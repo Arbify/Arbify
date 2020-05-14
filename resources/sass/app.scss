@@ -24,11 +24,11 @@
   }
 
   &.is-modified {
-    border-color: $warning;
+    border-color: $dark;
 
     &:focus {
-      border-color: $warning;
-      box-shadow: 0 0 0 $input-focus-width rgba($warning, .25);
+      border-color: $dark;
+      box-shadow: 0 0 0 $input-focus-width rgba($dark, .25);
     }
   }
 

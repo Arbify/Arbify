@@ -65,7 +65,7 @@ class MessageController extends Controller
             ->with('success', "Deleted <b>$message->name</b> successfully.");
     }
 
-    public function putValue(
+    public function putMessageValue(
         PutMessageValue $request,
         Project $project,
         Message $message,

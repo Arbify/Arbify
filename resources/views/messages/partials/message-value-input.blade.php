@@ -20,7 +20,7 @@
             @endif
             <div class="input-group">
                 <input type="text" id="{{ $label }}" name="value" class="form-control message-field @if(!is_null($value)) is-accepted @endif"
-                       value="{{ $value ?? '' }}" data-initial-value="{{ $value ?? '' }}">
+                       value="{{ $value ?? '' }}" data-initial-value="{{ $value ?? '$$null$$' }}">
                 <div class="input-group-append message-submit">
                     <input class="btn btn-outline-success" type="submit" value="✓" tabindex="-1">
                 </div>

@@ -27,7 +27,9 @@
                     @foreach($project->languages as $language)
                         <th class="align-middle">
                             {{ $language->code }} - {{ $language->name }}
-                            <form method="POST" action="{{ route('projects.languages.destroy', [$project, $language]) }}" class="d-inline float-right">
+                            <form method="POST"
+                                  action="{{ route('projects.languages.destroy', [$project, $language]) }}"
+                                  class="d-inline float-right">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
@@ -98,34 +100,43 @@
 
 @push('scripts')
     <script>
-        const $forms = $('.message-value-form');
+        (function () {
+            const NULL_VALUE_SYMBOL = '$$null$$';
+            const $forms = $('.message-value-form');
 
-        $forms.find('.message-field').on('input', (e) => {
-            const $input = $(e.target);
-            if (isModified($input)) {
-                $input.addClass('is-modified').removeClass('is-accepted');
-            } else {
-                $input.addClass('is-accepted').removeClass('is-modified');
-            }
-        });
+            $forms.find('.message-field').on('input', (e) => {
+                const $input = $(e.target);
+                if (isModified($input)) {
+                    $input.addClass('is-modified').removeClass('is-accepted');
+                } else {
+                    $input.removeClass('is-modified');
+                    if ($input.data('initialValue') != NULL_VALUE_SYMBOL) {
+                        $input.addClass('is-accepted');
+                    }
+                }
+            });
 
-        $forms.on('submit', e => {
-            e.preventDefault();
+            $forms.on('submit', e => {
+                e.preventDefault();
 
-            const $form = $(e.target);
-            const $input = $form.find('.message-field');
-            const newValue = $input.val();
-            if (isModified($input)) {
-                $.post($form.attr('action'), $form.serialize())
-                    .done(() => {
-                        $input
-                            .addClass('is-accepted')
-                            .removeClass('is-modified')
-                            .data('initialValue', newValue);
-                    });
-            }
-        });
+                const $form = $(e.target);
+                const $input = $form.find('.message-field');
+                const newValue = $input.val();
+                if (isModified($input)) {
+                    $.post($form.attr('action'), $form.serialize())
+                        .done(() => {
+                            $input
+                                .addClass('is-accepted')
+                                .removeClass('is-modified')
+                                .data('initialValue', newValue);
+                        });
+                }
+            });
 
-        const isModified = $field => $field.val() != $field.data('initialValue');
+            const isModified = $field => {
+                return $field.val() != $field.data('initialValue')
+                    && !($field.val() == '' && $field.data('initialValue') == NULL_VALUE_SYMBOL);
+            };
+        })();
     </script>
 @endpush
