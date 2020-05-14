@@ -19,7 +19,10 @@ class PutMessageValue extends FormRequest
             'value' => 'required',
             'form' => [
                 'sometimes',
-                Rule::in(array_keys(Language::PLURAL_FORMS) + Language::GENDER_FORMS),
+                Rule::in(array_merge(
+                    array_keys(Language::PLURAL_FORMS),
+                    Language::GENDER_FORMS)
+                ),
             ]
         ];
     }
