@@ -21,8 +21,7 @@ Auth::routes();
 
 Route::get('/', 'DashboardController')->name('dashboard');
 
-Route::resource('/projects', 'ProjectController')
-    ->except(['show']);
+Route::resource('/projects', 'ProjectController');
 
 Route::get('/projects/{project}/languages/create', 'ProjectController@createProjectLanguage')
     ->name('projects.languages.create');

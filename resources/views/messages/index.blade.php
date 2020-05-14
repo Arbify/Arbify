@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="mb-4">Messages - Project: {{ $project->name }}</h2>
+        <h2 class="mb-4">Messages - {{ $project->name }}</h2>
 
         @if (session('success'))
             <div class="alert alert-success mb-4">

@@ -44,6 +44,13 @@ class ProjectController extends Controller
             ->with('success', "Added <b>$project->name</b> successfully.");
     }
 
+    public function show(Project $project): View
+    {
+        return view('projects.show', [
+            'project' => $project,
+        ]);
+    }
+
     public function edit(Project $project): View
     {
         return view('projects.form', [
