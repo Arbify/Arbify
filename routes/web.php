@@ -36,3 +36,6 @@ Route::resource('/projects/{project}/messages', 'MessageController')
 
 Route::resource('/languages', 'LanguageController')
     ->except(['show']);
+
+Route::resource('/users', 'UserController')
+    ->except(['show']);
