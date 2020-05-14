@@ -72,6 +72,27 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <span class="col-md-4 col-form-label text-md-right">Plural forms</span>
+
+                                <div class="col-md-6 pt-2">
+                                    @foreach(array_keys(App\Language::PLURAL_FORMS) as $form)
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" class="custom-control-input" id="plural_forms.{{ $form }}" name="plural_forms[]" value="{{ $form }}">
+                                            <label class="custom-control-label" for="plural_forms.{{ $form }}">
+                                                <span class="badge badge-light">{{ strtoupper($form) }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
+
+                                    @error('plural_forms')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

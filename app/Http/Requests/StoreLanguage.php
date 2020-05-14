@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreLanguage extends FormRequest
 {
@@ -23,6 +24,11 @@ class StoreLanguage extends FormRequest
             ],
             'name' => '',
             'flag' => '',
+            'plural_forms' => 'required|array',
+            'plural_forms.*' => [
+                'required',
+                Rule::in(array_keys(Language::PLURAL_FORMS)),
+            ],
         ];
     }
 }

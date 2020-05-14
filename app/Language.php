@@ -41,17 +41,35 @@ class Language extends Model
         'plural_forms',
     ];
 
-    public function getPluralForms(): array
+    public function getPluralFormsAttribute($pluralForms): array
     {
         $forms = [];
 
         foreach (self::PLURAL_FORMS as $form => $mask) {
-            if ($this->plural_forms & $mask) {
+            if ($pluralForms & $mask) {
                 $forms[] = $form;
             }
         }
 
         return $forms;
+    }
+
+    public function setPluralFormsAttribute($value): void
+    {
+        if (!is_array($value)) {
+            throw new \InvalidArgumentException('Plural forms must be an array.');
+        }
+
+        $pluralForms = 0;
+        foreach ($value as $form) {
+            if (!in_array($form, array_keys(self::PLURAL_FORMS))) {
+                throw new \InvalidArgumentException("There's no $form plural form.");
+            }
+
+            $pluralForms |= self::PLURAL_FORMS[$form];
+        }
+
+        $this->attributes['plural_forms'] = $pluralForms;
     }
 
     public function getGenderForms(): array

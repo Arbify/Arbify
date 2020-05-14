@@ -25,10 +25,19 @@
                 <tr>
                     <th>Message</th>
                     @foreach($project->languages as $language)
-                        <th>{{ $language->code }} - {{ $language->name }}</th>
+                        <th class="align-middle">
+                            {{ $language->code }} - {{ $language->name }}
+                            <form method="POST" action="{{ route('projects.languages.destroy', [$project, $language]) }}" class="d-inline float-right">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
+                                    delete
+                                </button>
+                            </form>
+                        </th>
                     @endforeach
                     <th>
-                        <a href="{{ route('projects.add-language', $project) }}" class="btn btn-primary">Add
+                        <a href="{{ route('projects.languages.create', $project) }}" class="btn btn-primary">Add
                             language</a>
                     </th>
                 </tr>

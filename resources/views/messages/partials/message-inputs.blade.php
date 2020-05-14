@@ -5,7 +5,7 @@
         'form' => null,
     ])
 @elseif($message->isPlural())
-    @foreach($language->getPluralForms() as $form)
+    @foreach($language->plural_forms as $form)
         @include('messages.partials.message-value-input', [
             'language' => $language,
             'message' => $message,

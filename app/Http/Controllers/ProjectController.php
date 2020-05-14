@@ -68,7 +68,7 @@ class ProjectController extends Controller
             ->with('success', "Deleted <b>$project->name</b> successfully.");
     }
 
-    public function addLanguage(Project $project): View
+    public function createProjectLanguage(Project $project): View
     {
         $languages = Language::allExceptAlreadyInProject($project);
 
@@ -78,7 +78,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function postAddLanguage(AddLanguageToProject $request, Project $project): Response
+    public function storeProjectLanguage(AddLanguageToProject $request, Project $project): Response
     {
         $language = Language::find($request->language);
 
@@ -86,5 +86,13 @@ class ProjectController extends Controller
 
         return redirect()->route('messages.index', $project)
             ->with('success', "Added <b>$language->code</b> to <b>$project->name</b> successfully.");
+    }
+
+    public function destroyProjectLanguage(Project $project, Language $language): Response
+    {
+        $project->languages()->detach($language);
+
+        return redirect()->route('messages.index', $project)
+            ->with('success', "Deleted <b>$language->code</b> from <b>$project->name</b> successfully.");
     }
 }

@@ -9,7 +9,7 @@
                     <div class="card-header">Add language to {{ $project->name }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('projects.post-add-language', $project) }}">
+                        <form method="POST" action="{{ route('projects.languages.store', $project) }}">
                             @csrf
                             <div class="form-group row">
                                 <label for="language" class="col-md-4 col-form-label text-md-right">Language</label>

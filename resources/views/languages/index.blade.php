@@ -40,10 +40,10 @@
                     <td>
                         {{ $language->name }}<br>
 
-                        @if(count($language->getPluralForms()) > 0)
+                        @if(count($language->plural_forms) > 0)
                             <small>
                                 <b>Plural forms:</b>
-                                @foreach($language->getPluralForms() as $form)
+                                @foreach($language->plural_forms as $form)
                                     <span class="badge badge-light">{{ strtoupper($form) }}</span>
                                 @endforeach
                             </small>

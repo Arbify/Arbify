@@ -12,7 +12,7 @@
         </label>
     @endif
     <div class="col">
-        <form method="POST" action="{{ route('messages.put-value', [$project, $message, $language->code]) }}" class="message-value-form">
+        <form method="POST" action="{{ route('messages.values.put', [$project, $message, $language->code]) }}" class="message-value-form">
             @method('PUT')
             @csrf
             @if(!is_null($form))

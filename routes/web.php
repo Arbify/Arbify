@@ -24,14 +24,17 @@ Route::get('/', 'DashboardController')->name('dashboard');
 Route::resource('/projects', 'ProjectController')
     ->except(['show']);
 
-Route::get('/projects/{project}/add-language', 'ProjectController@addLanguage')
-    ->name('projects.add-language');
+Route::get('/projects/{project}/languages/create', 'ProjectController@createProjectLanguage')
+    ->name('projects.languages.create');
 
-Route::post('/projects/{project}/add-language', 'ProjectController@postAddLanguage')
-    ->name('projects.post-add-language');
+Route::post('/projects/{project}/languages', 'ProjectController@storeProjectLanguage')
+    ->name('projects.languages.store');
 
-Route::put('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@putValue')
-    ->name('messages.put-value');
+Route::delete('/projects/{project}/languages/{language}', 'ProjectController@destroyProjectLanguage')
+    ->name('projects.languages.destroy');
+
+Route::put('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@putMessageValue')
+    ->name('messages.values.put');
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);
