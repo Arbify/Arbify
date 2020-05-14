@@ -73,6 +73,13 @@
         </nav>
 
         <main class="py-4">
+            @section('breadcrumbs')
+                <nav class="container mb-4">
+                    {{ Breadcrumbs::render() }}
+                </nav>
+            @endsection
+            @yield('breadcrumbs')
+
             @yield('content')
         </main>
 
