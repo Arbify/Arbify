@@ -6,7 +6,6 @@ use App\Http\Requests\StoreMessage;
 use App\Http\Requests\PutMessageValue;
 use App\Language;
 use App\Message;
-use App\MessageValue;
 use App\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,12 +33,9 @@ class MessageController extends Controller
 
     public function store(StoreMessage $request, Project $project): Response
     {
-        $message = new Message();
-        $message->name = $request->name;
-        $message->description = $request->description;
-        $message->type = $request->type;
-        $message->project_id = $project->id;
-        $message->save();
+        $message = Message::create([
+                'project_id' => $project->id,
+            ] + $request->input());
 
         return redirect()->route('messages.index', $project)
             ->with('success', "Added <b>$message->name</b> successfully.");
@@ -55,9 +51,7 @@ class MessageController extends Controller
 
     public function update(StoreMessage $request, Project $project, Message $message): Response
     {
-        $message->name = $request->name;
-        $message->description = $request->description;
-        $message->save();
+        $message->update($request->input());
 
         return redirect()->route('messages.index', $project)
             ->with('success', "Updated <b>$message->name</b> successfully.");
@@ -77,10 +71,11 @@ class MessageController extends Controller
         Message $message,
         Language $language
     ): Response {
-        $value = $message->forLanguage($language, $request->form);
-        $value->value = $request->value;
-        $value->language_id = $language->id;
-        $value->save();
+        $value = $message->forLanguage($language, $request->input('form'));
+        $value->fill([
+            'value' => $request->input('value'),
+            'language_id' => $language->id,
+        ])->save();
 
         return redirect()->route('messages.index', $project);
     }

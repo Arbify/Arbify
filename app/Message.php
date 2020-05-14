@@ -10,17 +10,20 @@ use InvalidArgumentException;
 class Message extends Model
 {
     public const TYPE_MESSAGE = 'message';
-    public const TYPE_PLURAL  = 'plural';
-    public const TYPE_GENDER  = 'gender';
+    public const TYPE_PLURAL = 'plural';
+    public const TYPE_GENDER = 'gender';
 
     private const TYPES = [
         self::TYPE_MESSAGE => 0,
-        self::TYPE_PLURAL  => 1,
-        self::TYPE_GENDER  => 2,
+        self::TYPE_PLURAL => 1,
+        self::TYPE_GENDER => 2,
     ];
 
     protected $fillable = [
-        'name', 'description', 'type'
+        'name',
+        'description',
+        'type',
+        'project_id',
     ];
 
     public function isMessage(): bool
