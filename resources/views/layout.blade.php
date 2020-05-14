@@ -7,10 +7,10 @@
 
         <title>{{ config('app.name', 'Arbify') }}</title>
 
-        <script src="{{ asset('js/app.js') }}" defer></script>
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        @stack('head')
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -69,5 +69,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <script src="{{ asset('js/app.js') }}"></script>
+        @stack('scripts')
     </body>
 </html>

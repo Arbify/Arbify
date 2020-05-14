@@ -15,7 +15,7 @@ class Language extends Model
     public const PLURAL_FORM_MANY  = 'many';
     public const PLURAL_FORM_OTHER = 'other';
 
-    private const PLURAL_FORMS = [
+    public const PLURAL_FORMS = [
         self::PLURAL_FORM_ZERO  => 0b000001,
         self::PLURAL_FORM_ONE   => 0b000010,
         self::PLURAL_FORM_TWO   => 0b000100,
@@ -28,7 +28,7 @@ class Language extends Model
     public const GENDER_FORM_FEMALE = 'female';
     public const GENDER_FORM_OTHER  = 'other';
 
-    private const GENDER_FORMS = [
+    public const GENDER_FORMS = [
         self::GENDER_FORM_MALE,
         self::GENDER_FORM_FEMALE,
         self::GENDER_FORM_OTHER,

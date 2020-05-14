@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMessage;
+use App\Http\Requests\StoreMessageValue;
+use App\Language;
 use App\Message;
+use App\MessageValue;
 use App\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Project $project): View
     {
         return view('messages.index', [
@@ -61,5 +69,21 @@ class MessageController extends Controller
 
         return redirect()->route('messages.index', $project)
             ->with('success', "Deleted <b>$message->name</b> successfully.");
+    }
+
+    public function storeValue(
+        StoreMessageValue $request,
+        Project $project,
+        Message $message,
+        Language $language
+    ): Response {
+        $value = new MessageValue();
+        $value->message_id = $message->id;
+        $value->language_id = $language->id;
+        $value->value = $request->value;
+        $value->form = $request->form;
+        $value->save();
+
+        return redirect()->route('messages.index', $project);
     }
 }

@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::bind('languageCode', function ($value) {
+    return \App\Language::where('code', $value)->first();
+});
+
 Auth::routes();
 
 Route::resource('/projects', 'ProjectController')
@@ -23,6 +27,9 @@ Route::get('/projects/{project}/add-language', 'ProjectController@addLanguage')
 
 Route::post('/projects/{project}/add-language', 'ProjectController@postAddLanguage')
     ->name('projects.post-add-language');
+
+Route::post('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@storeValue')
+    ->name('messages.store-value');
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);

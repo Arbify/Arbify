@@ -62,7 +62,7 @@ class Message extends Model
         return $this->hasMany(MessageValue::class);
     }
 
-    public function forLanguage(Language $language, string $form = ''): ?MessageValue
+    public function forLanguage(Language $language, ?string $form = null): ?MessageValue
     {
         /** @var MessageValue|null $messageValue */
         $messageValue = $this->messageValues()
@@ -73,7 +73,7 @@ class Message extends Model
         return $messageValue;
     }
 
-    public function valueForLanguage(Language $language, string $form = ''): string
+    public function valueForLanguage(Language $language, ?string $form = null): string
     {
         $messageValue = $this->forLanguage($language, $form);
 

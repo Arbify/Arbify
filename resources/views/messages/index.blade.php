@@ -81,3 +81,23 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        const $submitBtn = $('<div class="input-group-append"><button class="btn btn-outline-success" type="submit">✓</button></div>');
+        const $forms = $('.message-value-form');
+
+        $forms.find('.form-control').on('input', (e) => {
+            const $input = $(e.target);
+            if ($input.val() != $input.data('initialValue')) {
+                $submitBtn.insertAfter($input);
+            } else {
+                $input.next().remove();
+            }
+        });
+
+        // $('.message-value-form').on('submit', e => {
+        //
+        // });
+    </script>
+@endpush
