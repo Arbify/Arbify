@@ -28,8 +28,8 @@ Route::get('/projects/{project}/add-language', 'ProjectController@addLanguage')
 Route::post('/projects/{project}/add-language', 'ProjectController@postAddLanguage')
     ->name('projects.post-add-language');
 
-Route::post('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@storeValue')
-    ->name('messages.store-value');
+Route::put('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@putValue')
+    ->name('messages.put-value');
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);

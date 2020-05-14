@@ -6,7 +6,7 @@ use App\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreMessageValue extends FormRequest
+class PutMessageValue extends FormRequest
 {
     public function authorize(): bool
     {

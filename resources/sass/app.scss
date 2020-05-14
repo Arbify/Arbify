@@ -7,3 +7,37 @@
   flex: 0 0 52px;
   max-width: 52px;
 }
+
+.message-field {
+  &:not(.is-modified) {
+    border-top-right-radius: $input-border-radius !important;
+    border-bottom-right-radius: $input-border-radius !important;
+  }
+
+  &.is-accepted {
+    border-color: $success;
+
+    &:focus {
+      border-color: $success;
+      box-shadow: 0 0 0 $input-focus-width rgba($success, .25);
+    }
+  }
+
+  &.is-modified {
+    border-color: $warning;
+
+    &:focus {
+      border-color: $warning;
+      box-shadow: 0 0 0 $input-focus-width rgba($warning, .25);
+    }
+  }
+
+  &.is-modified + .message-submit {
+    display: flex;
+  }
+}
+
+.message-submit {
+  display: none;
+}
+

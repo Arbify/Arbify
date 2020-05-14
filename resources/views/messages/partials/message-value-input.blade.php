@@ -12,14 +12,18 @@
         </label>
     @endif
     <div class="col">
-        <form method="POST" action="{{ route('messages.store-value', [$project, $message, $language->code]) }}" class="message-value-form">
+        <form method="POST" action="{{ route('messages.put-value', [$project, $message, $language->code]) }}" class="message-value-form">
+            @method('PUT')
             @csrf
             @if(!is_null($form))
                 <input type="hidden" name="form" value="{{ $form }}">
             @endif
             <div class="input-group">
-                <input type="text" id="{{ $label }}" name="value" class="form-control"
-                       value="{{ $value }}" data-initial-value="{{ $value }}">
+                <input type="text" id="{{ $label }}" name="value" class="form-control message-field @if(!is_null($value)) is-accepted @endif"
+                       value="{{ $value ?? '' }}" data-initial-value="{{ $value ?? '' }}">
+                <div class="input-group-append message-submit">
+                    <input class="btn btn-outline-success" type="submit" value="✓" tabindex="-1">
+                </div>
             </div>
         </form>
     </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMessage;
-use App\Http\Requests\StoreMessageValue;
+use App\Http\Requests\PutMessageValue;
 use App\Language;
 use App\Message;
 use App\MessageValue;
@@ -71,17 +71,15 @@ class MessageController extends Controller
             ->with('success', "Deleted <b>$message->name</b> successfully.");
     }
 
-    public function storeValue(
-        StoreMessageValue $request,
+    public function putValue(
+        PutMessageValue $request,
         Project $project,
         Message $message,
         Language $language
     ): Response {
-        $value = new MessageValue();
-        $value->message_id = $message->id;
-        $value->language_id = $language->id;
+        $value = $message->forLanguage($language, $request->form);
         $value->value = $request->value;
-        $value->form = $request->form;
+        $value->language_id = $language->id;
         $value->save();
 
         return redirect()->route('messages.index', $project);

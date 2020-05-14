@@ -65,18 +65,18 @@ class Message extends Model
     public function forLanguage(Language $language, ?string $form = null): ?MessageValue
     {
         /** @var MessageValue|null $messageValue */
-        $messageValue = $this->messageValues()
-            ->where('language_id', '=', $language->id)
-            ->where('form', '=', $form)
-            ->first();
+        $messageValue = $this->messageValues()->firstOrNew([
+            'language_id' => $language->id,
+            'form' => $form,
+        ]);
 
         return $messageValue;
     }
 
-    public function valueForLanguage(Language $language, ?string $form = null): string
+    public function valueForLanguage(Language $language, ?string $form = null): ?string
     {
         $messageValue = $this->forLanguage($language, $form);
 
-        return is_null($messageValue) ? '' : $messageValue->value;
+        return is_null($messageValue) ? null : $messageValue->value;
     }
 }
