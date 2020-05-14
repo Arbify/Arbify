@@ -102,9 +102,10 @@
     <script>
         (function () {
             const NULL_VALUE_SYMBOL = '$$null$$';
+            const MESSAGE_FIELD_SELECTOR = '.message-field';
             const $forms = $('.message-value-form');
 
-            $forms.find('.message-field').on('input', (e) => {
+            $forms.find(MESSAGE_FIELD_SELECTOR).on('input', (e) => {
                 const $input = $(e.target);
                 if (isModified($input)) {
                     $input.addClass('is-modified').removeClass('is-accepted');
@@ -120,7 +121,7 @@
                 e.preventDefault();
 
                 const $form = $(e.target);
-                const $input = $form.find('.message-field');
+                const $input = $form.find(MESSAGE_FIELD_SELECTOR);
                 const newValue = $input.val();
                 if (isModified($input)) {
                     $.post($form.attr('action'), $form.serialize())
@@ -137,6 +138,24 @@
                 return $field.val() != $field.data('initialValue')
                     && !($field.val() == '' && $field.data('initialValue') == NULL_VALUE_SYMBOL);
             };
+
+            $(window).on('beforeunload', () => {
+                let showWarning = false;
+
+                $(MESSAGE_FIELD_SELECTOR).each((_, field) => {
+                   if (field.classList.contains('is-modified')) {
+                       // Focus only once, on the first field.
+                       if (!showWarning) {
+                           field.focus();
+                       }
+
+                       showWarning = true;
+                   }
+                });
+
+                return showWarning ?
+                    "You have some modified messages that weren't saved. Do you really want to leave the page?" : null;
+            });
         })();
     </script>
 @endpush
