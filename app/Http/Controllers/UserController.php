@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUser;
 use App\User;
 use App\Utils\RandomPassword;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,7 +34,9 @@ class UserController extends Controller
 
     public function store(StoreUser $request): Response
     {
-        $user = User::create($request->input());
+        $user = User::create([
+                'password' => Hash::make($request->input('password')),
+            ] + $request->input());
 
         return redirect()->route('users.index')
             ->with('success', "User <b>$user->name</b> created successfully.");
@@ -51,7 +54,9 @@ class UserController extends Controller
         if (empty($request->password)) {
             $request->offsetUnset('password');
         }
-        $user->update($request->input());
+        $user->update([
+                'password' => Hash::make($request->input('password')),
+            ] + $request->input());
 
         return redirect()->route('users.index')
             ->with('success', "User <b>$user->name</b> updated successfully.");
