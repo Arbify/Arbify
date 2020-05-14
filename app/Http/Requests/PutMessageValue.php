@@ -16,7 +16,7 @@ class PutMessageValue extends FormRequest
     public function rules(): array
     {
         return [
-            'value' => 'required',
+            'value' => 'nullable',
             'form' => [
                 'sometimes',
                 Rule::in(array_merge(
