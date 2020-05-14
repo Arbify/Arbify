@@ -127,9 +127,12 @@
                     $.post($form.attr('action'), $form.serialize())
                         .done(() => {
                             $input
-                                .addClass('is-accepted')
                                 .removeClass('is-modified')
                                 .data('initialValue', newValue);
+
+                            if ($input.val() != '') {
+                                $input.addClass('is-accepted')
+                            }
                         });
                 }
             });
@@ -143,18 +146,19 @@
                 let showWarning = false;
 
                 $(MESSAGE_FIELD_SELECTOR).each((_, field) => {
-                   if (field.classList.contains('is-modified')) {
-                       // Focus only once, on the first field.
-                       if (!showWarning) {
-                           field.focus();
-                       }
+                    if (field.classList.contains('is-modified')) {
+                        // Focus only once, on the first field.
+                        if (!showWarning) {
+                            field.focus();
+                        }
 
-                       showWarning = true;
-                   }
+                        showWarning = true;
+                    }
                 });
 
-                return showWarning ?
-                    "You have some modified messages that weren't saved. Do you really want to leave the page?" : null;
+                if (showWarning) {
+                    return "You have some modified messages that weren't saved. Do you really want to leave the page?";
+                }
             });
         })();
     </script>
