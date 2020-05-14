@@ -36,9 +36,7 @@ class ProjectController extends Controller
 
     public function store(StoreProject $request): Response
     {
-        $project = new Project();
-        $project->name = $request->name;
-        $project->save();
+        $project = Project::create($request->input());
 
         return redirect()->route('projects.index')
             ->with('success', "Added <b>$project->name</b> successfully.");
@@ -60,8 +58,7 @@ class ProjectController extends Controller
 
     public function update(StoreProject $request, Project $project): Response
     {
-        $project->name = $request->name;
-        $project->save();
+        $project->update($request->input());
 
         return redirect()->route('projects.index')
             ->with('success', "Updated <b>$project->name</b> successfully.");
@@ -87,7 +84,7 @@ class ProjectController extends Controller
 
     public function storeProjectLanguage(AddLanguageToProject $request, Project $project): Response
     {
-        $language = Language::find($request->language);
+        $language = Language::find($request->input('language'));
 
         $project->languages()->syncWithoutDetaching($language);
 
