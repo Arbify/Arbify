@@ -17,7 +17,7 @@ Route::bind('languageCode', function ($value) {
     return \App\Language::where('code', $value)->first();
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'DashboardController')->name('dashboard');
 

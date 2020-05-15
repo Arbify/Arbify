@@ -78,6 +78,30 @@
                                 </div>
                             </div>
 
+                            @if(!isset($user))
+                                <div class="form-group row">
+                                    <div class="offset-4 col-md-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="email_verification" name="email_verification" value="1">
+                                            <label class="custom-control-label" for="email_verification">
+                                                Mark the email as verified
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="offset-4 col-md-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="send_credentials" name="send_credentials" value="1" checked>
+                                            <label class="custom-control-label" for="send_credentials">
+                                                Send an email with credentials
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

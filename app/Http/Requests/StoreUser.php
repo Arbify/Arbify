@@ -14,7 +14,7 @@ class StoreUser extends FormRequest
 
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required',
             'email' => [
                 'required',
@@ -28,5 +28,12 @@ class StoreUser extends FormRequest
                 'min:8',
             ],
         ];
+
+        if ($this->isMethod('POST')) {
+            $rules['email_verification'] = 'boolean';
+            $rules['send_credentials'] = 'boolean';
+        }
+
+        return $rules;
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUser;
+use App\Notifications\UserArtificiallyCreated;
 use App\User;
 use App\Utils\RandomPassword;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +39,18 @@ class UserController extends Controller
         $user = User::create([
                 'password' => Hash::make($request->input('password')),
             ] + $request->input());
+
+        if ($request->input('email_verification')) {
+            $user->markEmailAsVerified();
+        }
+
+        if ($request->input('send_credentials')) {
+            $user->notify(
+                new UserArtificiallyCreated($user->email, $request->input('password'))
+            );
+        }
+
+        event(new Registered($user));
 
         return redirect()->route('users.index')
             ->with('success', "User <b>$user->name</b> created successfully.");
