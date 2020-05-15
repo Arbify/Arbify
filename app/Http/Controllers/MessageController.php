@@ -77,6 +77,8 @@ class MessageController extends Controller
             'language_id' => $language->id,
         ])->save();
 
-        return redirect()->route('messages.index', $project);
+        return $request->expectsJson() ?
+            status( Response::HTTP_CREATED)
+            : redirect()->route('messages.index', $project);
     }
 }
