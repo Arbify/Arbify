@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body" id="global-modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="global-modal-close">Close</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="global-modal-close">Cancel</button>
                 <button type="button" class="btn btn-primary" id="global-modal-action"></button>
             </div>
         </div>
