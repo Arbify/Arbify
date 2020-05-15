@@ -22,16 +22,12 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'DashboardController')->name('dashboard');
 
 Route::resource('/projects', 'ProjectController');
-
 Route::get('/projects/{project}/languages/create', 'ProjectController@createProjectLanguage')
     ->name('projects.languages.create');
-
 Route::post('/projects/{project}/languages', 'ProjectController@storeProjectLanguage')
     ->name('projects.languages.store');
-
 Route::delete('/projects/{project}/languages/{language}', 'ProjectController@destroyProjectLanguage')
     ->name('projects.languages.destroy');
-
 Route::put('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@putMessageValue')
     ->name('messages.values.put');
 
@@ -43,3 +39,8 @@ Route::resource('/languages', 'LanguageController')
 
 Route::resource('/users', 'UserController')
     ->except(['show']);
+
+Route::get('/account/preferences', 'AccountController@preferences')->name('account.preferences');
+Route::post('/account/preferences', 'AccountController@updatePreferences')->name('account.update-preferences');
+Route::get('/account/change-password', 'AccountController@changePassword')->name('account.change-password');
+Route::post('/account/change-password', 'AccountController@updatePassword')->name('account.update-password');

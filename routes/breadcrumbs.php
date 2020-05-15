@@ -79,3 +79,17 @@ Breadcrumbs::for('users.edit', function (Trail $trail, User $user) {
     $trail->push($user->name);
     $trail->push('New user', route('users.edit', $user));
 });
+
+Breadcrumbs::for('account.index', function (Trail $trail) {
+    $trail->push('Account');
+});
+
+Breadcrumbs::for('account.preferences', function (Trail $trail) {
+    $trail->parent('account.index');
+    $trail->push('Preferences', route('account.preferences'));
+});
+
+Breadcrumbs::for('account.change-password', function (Trail $trail) {
+    $trail->parent('account.index');
+    $trail->push('Change password', route('account.change-password'));
+});
