@@ -13,7 +13,7 @@ class Message extends Model
     public const TYPE_PLURAL = 'plural';
     public const TYPE_GENDER = 'gender';
 
-    private const TYPES = [
+    public const TYPES = [
         self::TYPE_MESSAGE => 0,
         self::TYPE_PLURAL => 1,
         self::TYPE_GENDER => 2,

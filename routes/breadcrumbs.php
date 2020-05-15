@@ -29,9 +29,9 @@ Breadcrumbs::for('projects.edit', function (Trail $trail, Project $project) {
     $trail->push($project->name, route('projects.edit', $project));
 });
 
-Breadcrumbs::for('projects.languages.create', function (Trail $trail, Project $project) {
+Breadcrumbs::for('projects.createLanguage', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
-    $trail->push('Add language', route('projects.languages.create', $project));
+    $trail->push('Add language', route('projects.createLanguage', $project));
 });
 
 Breadcrumbs::for('messages.index', function (Trail $trail, Project $project) {
