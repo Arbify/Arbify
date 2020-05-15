@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUser;
 use App\Notifications\UserArtificiallyCreated;
 use App\User;
-use App\Utils\RandomPassword;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -30,7 +30,7 @@ class UserController extends Controller
     public function create(): View
     {
         return view('users.form', [
-            'generatedPassword' => RandomPassword::generate(12),
+            'generatedPassword' => Str::random(12),
         ]);
     }
 
