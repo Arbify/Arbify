@@ -78,7 +78,8 @@
                                 <div class="col-md-6 pt-2">
                                     @foreach(array_keys(App\Language::PLURAL_FORMS) as $form)
                                         <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input type="checkbox" class="custom-control-input" id="plural_forms.{{ $form }}" name="plural_forms[]" value="{{ $form }}">
+                                            <input type="checkbox" class="custom-control-input" id="plural_forms.{{ $form }}"
+                                                   name="plural_forms[]" value="{{ $form }}" @if(in_array($form, $language->plural_forms)) checked @endif>
                                             <label class="custom-control-label" for="plural_forms.{{ $form }}">
                                                 <span class="badge badge-light">{{ strtoupper($form) }}</span>
                                             </label>
