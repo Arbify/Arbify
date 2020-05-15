@@ -38,6 +38,4 @@ jobs:
           php artisan key:generate
 
       - name: Run tests
-        uses: php-actions/phpunit@v1
-        with:
-          config: phpunit.xml
+        run: vendor/bin/phpunit
