@@ -17,7 +17,8 @@ class CreateLanguagesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('code')->unique();
-            $table->softDeletes();
+            $table->string('flag')->nullable();
+            $table->integer('plural_forms');
             $table->timestamps();
         });
     }
