@@ -32,6 +32,11 @@ jobs:
       - name: Get dependencies
         uses: php-actions/composer@v1
 
+      - name: Setup application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
       - name: Run tests
         uses: php-actions/phpunit@v1
         with:
