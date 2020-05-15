@@ -29,7 +29,8 @@
                             {{ $language->code }} - {{ $language->name }}
                             <form method="POST"
                                   action="{{ route('projects.languages.destroy', [$project, $language]) }}"
-                                  class="d-inline float-right">
+                                  class="d-inline float-right delete-modal-show" data-delete-modal-title="Deleting language from project"
+                                  data-delete-modal-body="<b>{{ $language->code }}</b> from <b>{{ $project->name }}</b>">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
@@ -59,7 +60,8 @@
                                     @endif
                                     <a href="{{ route('messages.edit', [$project, $message]) }}" class="small">edit</a>
                                     <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}"
-                                          class="d-inline ml-2">
+                                          class="d-inline ml-2 delete-modal-show"
+                                          data-delete-modal-title="Deleting message" data-delete-modal-body="<code>{{ $message->name }}</code> message">
                                         @csrf
                                         @method('DELETE')
 
@@ -97,69 +99,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        (function () {
-            const NULL_VALUE_SYMBOL = '$$null$$';
-            const MESSAGE_FIELD_SELECTOR = '.message-field';
-            const $forms = $('.message-value-form');
-
-            $forms.find(MESSAGE_FIELD_SELECTOR).on('input', (e) => {
-                const $input = $(e.target);
-                if (isModified($input)) {
-                    $input.addClass('is-modified').removeClass('is-accepted');
-                } else {
-                    $input.removeClass('is-modified');
-                    if ($input.data('initialValue') != NULL_VALUE_SYMBOL) {
-                        $input.addClass('is-accepted');
-                    }
-                }
-            });
-
-            $forms.on('submit', e => {
-                e.preventDefault();
-
-                const $form = $(e.target);
-                const $input = $form.find(MESSAGE_FIELD_SELECTOR);
-                const newValue = $input.val();
-                if (isModified($input)) {
-                    $.post($form.attr('action'), $form.serialize())
-                        .done(() => {
-                            $input
-                                .removeClass('is-modified')
-                                .data('initialValue', newValue);
-
-                            if ($input.val() != '') {
-                                $input.addClass('is-accepted')
-                            }
-                        });
-                }
-            });
-
-            const isModified = $field => {
-                return $field.val() != $field.data('initialValue')
-                    && !($field.val() == '' && $field.data('initialValue') == NULL_VALUE_SYMBOL);
-            };
-
-            $(window).on('beforeunload', () => {
-                let showWarning = false;
-
-                $(MESSAGE_FIELD_SELECTOR).each((_, field) => {
-                    if (field.classList.contains('is-modified')) {
-                        // Focus only once, on the first field.
-                        if (!showWarning) {
-                            field.focus();
-                        }
-
-                        showWarning = true;
-                    }
-                });
-
-                if (showWarning) {
-                    return "You have some modified messages that weren't saved. Do you really want to leave the page?";
-                }
-            });
-        })();
-    </script>
-@endpush

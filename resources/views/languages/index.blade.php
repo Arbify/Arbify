@@ -51,7 +51,8 @@
                     </td>
                     <td class="py-0 align-middle">
                         <a href="{{ route('languages.edit', $language) }}">Edit</a>
-                        <form method="post" action="{{ route('languages.destroy', $language) }}" class="d-inline ml-2">
+                        <form method="post" action="{{ route('languages.destroy', $language) }}" class="d-inline ml-2 delete-modal-show"
+                              data-delete-modal-title="Deleting language" data-delete-modal-body="<b>{{ $language->code }}</b>">
                             @csrf
                             @method('DELETE')
 

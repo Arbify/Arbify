@@ -30,3 +30,6 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app',
 // });
+
+require('./global-modal');
+require('./message_values_inputs');

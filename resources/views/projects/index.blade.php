@@ -41,7 +41,8 @@
                         <td>{{ $project->languages->count() }}</td>
                         <td class="py-0 align-middle">
                             <a href="{{ route('projects.edit', $project) }}">Edit</a>
-                            <form method="post" action="{{ route('projects.destroy', $project) }}" class="d-inline ml-2">
+                            <form method="post" action="{{ route('projects.destroy', $project) }}" class="d-inline ml-2 delete delete-modal-show"
+                                  data-delete-modal-title="Deleting project" data-delete-modal-body="<b>{{ $project->name }}</b>">
                                 @csrf
                                 @method('DELETE')
 

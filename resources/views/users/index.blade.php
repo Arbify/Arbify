@@ -39,7 +39,9 @@
                     <td>Administrator</td>
                     <td class="py-0 align-middle">
                         <a href="{{ route('users.edit', $user) }}">Edit</a>
-                        <form method="post" action="{{ route('users.destroy', $user) }}" class="d-inline ml-2">
+                        <form method="post" action="{{ route('users.destroy', $user) }}"
+                              class="d-inline ml-2 delete-modal-show" data-delete-modal-title="Deleting user"
+                              data-delete-modal-body="<b>{{ $user->name }}</b>">
                             @csrf
                             @method('DELETE')
 
