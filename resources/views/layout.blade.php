@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Arbify') }}</title>
+        <title>
+            {{ Breadcrumbs::current() ? Breadcrumbs::current()->title . ' ‹ ' : '' }}{{ config('app.name', 'Arbify') }}
+        </title>
 
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -55,6 +57,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('account.preferences') }}" class="dropdown-item">
+                                        Preferences
+                                    </a>
+                                    <a href="{{ route('account.change-password') }}" class="dropdown-item">
+                                        Change password
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
