@@ -99,4 +99,11 @@ class ProjectController extends Controller
         return redirect()->route('messages.index', $project)
             ->with('success', "Deleted <b>$language->code</b> from <b>$project->name</b> successfully.");
     }
+
+    public function export(Project $project): View
+    {
+        return view('projects.export', [
+            'project' => $project,
+        ]);
+    }
 }

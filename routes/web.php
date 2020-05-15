@@ -28,6 +28,7 @@ Route::post('/projects/{project}/languages', 'ProjectController@storeProjectLang
     ->name('projects.storeLanguage');
 Route::delete('/projects/{project}/languages/{languageCode}', 'ProjectController@destroyProjectLanguage')
     ->name('projects.destroyLanguage');
+Route::get('/projects/{project}/export', 'ProjectController@export')->name('projects.export');
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);
