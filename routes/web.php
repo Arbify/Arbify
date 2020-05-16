@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::bind('languageCode', function ($value) {
-    return \App\Language::where('code', $value)->first();
+    return \App\Models\Language::where('code', $value)->first();
 });
 
 Auth::routes(['verify' => true]);

@@ -1,9 +1,9 @@
 <?php
 
-use App\Language;
-use App\Message;
-use App\Project;
-use App\User;
+use App\Models\Language;
+use App\Models\Message;
+use App\Models\Project;
+use App\Models\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Trail;
 
 Breadcrumbs::for('dashboard', function (Trail $trail) {

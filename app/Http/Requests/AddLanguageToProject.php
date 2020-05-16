@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Language;
+use App\Models\Language;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddLanguageToProject extends FormRequest

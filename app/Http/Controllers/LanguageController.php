@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLanguage;
-use App\Language;
+use App\Models\Language;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 

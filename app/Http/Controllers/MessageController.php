@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMessage;
 use App\Http\Requests\PutMessageValue;
-use App\Language;
-use App\Message;
-use App\Project;
+use App\Models\Language;
+use App\Models\Message;
+use App\Models\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 

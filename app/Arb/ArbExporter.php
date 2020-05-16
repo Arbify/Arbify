@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Arb;
 
-use App\MessageValue;
+use App\Models\MessageValue;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 

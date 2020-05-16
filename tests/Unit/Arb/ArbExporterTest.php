@@ -3,10 +3,10 @@
 namespace Tests\Unit\Arb;
 
 use App\Arb\ArbExporter;
-use App\Language;
-use App\Message;
-use App\MessageValue;
-use App\Project;
+use App\Models\Language;
+use App\Models\Message;
+use App\Models\MessageValue;
+use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 use Tests\TestCase;

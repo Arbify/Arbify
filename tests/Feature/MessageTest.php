@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Language;
-use App\Message;
-use App\MessageValue;
-use App\Project;
+use App\Models\Language;
+use App\Models\Message;
+use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddLanguageToProject;
 use App\Http\Requests\StoreProject;
-use App\Language;
-use App\Project;
+use App\Models\Language;
+use App\Models\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
