@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::bind('languageCode', function ($value) {
-    return \App\Models\Language::where('code', $value)->first();
-});
-
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'DashboardController')->name('dashboard');
@@ -26,13 +22,13 @@ Route::get('/projects/{project}/languages/create', 'ProjectController@createProj
     ->name('projects.createLanguage');
 Route::post('/projects/{project}/languages', 'ProjectController@storeProjectLanguage')
     ->name('projects.storeLanguage');
-Route::delete('/projects/{project}/languages/{languageCode}', 'ProjectController@destroyProjectLanguage')
+Route::delete('/projects/{project}/languages/{language_code}', 'ProjectController@destroyProjectLanguage')
     ->name('projects.destroyLanguage');
 Route::get('/projects/{project}/export', 'ProjectController@export')->name('projects.export');
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);
-Route::put('/projects/{project}/messages/{message}/{languageCode}', 'MessageController@putMessageValue')
+Route::put('/projects/{project}/messages/{message}/{language_code}', 'MessageController@putMessageValue')
     ->name('messages.putMessageValue');
 
 Route::resource('/languages', 'LanguageController')
