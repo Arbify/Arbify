@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Arb;
 
+use App\Models\Message;
 use App\Models\MessageValue;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Collection;
 
 /**
@@ -13,15 +15,20 @@ use Illuminate\Support\Collection;
  */
 class ArbExporter
 {
-    public function exportToArb(string $locale, Collection $messages): string
+    public function exportToArb(string $locale, Collection $values): string
     {
         $result = [];
 
         $result = array_merge($result, $this->formatLocale($locale));
-        $result = array_merge($result, $this->formatLastModified($messages));
+        $result = array_merge($result, $this->formatLastModified($values));
 
-        foreach ($messages as $value) {
-            $formattedValue = $this->formatValue($value);
+        // We group all values by message id, so that all forms of the same message stay together.
+        $messageGroupped = $values->groupBy(function (MessageValue $item, $key) {
+            return $item->message_id;
+        });
+
+        foreach ($messageGroupped as $messageGroup) {
+            $formattedValue = $this->formatValue($messageGroup);
             $result = array_merge($result, $formattedValue);
         }
 
@@ -43,18 +50,53 @@ class ArbExporter
         return ['@@last_modified' => $lastModified->toIso8601String()];
     }
 
-    private function formatValue(MessageValue $value): array
+    private function formatValue(Collection $values): array
     {
-        $message = $value->message()->getResults();
+        /** @var MessageValue $firstValue */
+        $firstValue = $values->first();
+        /** @var Message $message */
+        $message = $firstValue->message()->getResults();
 
-        // TODO: Format correctly according to the type
+        switch ($message->type) {
+            case Message::TYPE_MESSAGE:
+                $value = $firstValue->value;
+                break;
+            case Message::TYPE_PLURAL:
+                $value = $this->formatPluralValue($values);
+                break;
+            case Message::TYPE_GENDER:
+                $value = $this->formatGenderValue($values);
+                break;
+            default:
+                throw new Exception("Message type \"$message->type\" is not a type supported by exporter.");
+        }
 
         return [
-            $message->name => $value->value,
+            $message->name => $value,
             "@$message->name" => [
                 'type' => 'text',
                 'description' => $message->description ?? '',
             ],
         ];
+    }
+
+    private function formatPluralValue(Collection $values): string
+    {
+        $forms = [];
+        foreach ($values as $value) {
+            $forms[] = sprintf('%s {%s}', $value->form, $value->value);
+        }
+
+        return sprintf('{count, plural, %s}', implode(' ', $forms));
+    }
+
+    private function formatGenderValue(Collection $values): string
+    {
+        $forms = [];
+        foreach ($values as $value) {
+            $forms[] = sprintf('%s {%s}', $value->form, $value->value);
+        }
+
+        return sprintf('{gender, gender, %s}', implode(' ', $forms));
     }
 }

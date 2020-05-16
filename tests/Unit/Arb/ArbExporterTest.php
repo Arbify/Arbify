@@ -45,4 +45,48 @@ class ArbExporterTest extends TestCase
         $this->assertArrayHasKey('test_message', $json);
         $this->assertArrayHasKey('@test_message', $json);
     }
+
+    public function testExportingWithPluralMessage(): void
+    {
+        $message = Message::create([
+            'name' => 'apple_number',
+            'description' => 'Message with number of apples.',
+            'type' => Message::TYPE_PLURAL,
+            'project_id' => factory(Project::class)->create()->id,
+        ]);
+        $language = factory(Language::class)->create(['code' => 'en']);
+
+        $values = collect();
+        $values->push(MessageValue::create([
+            'value' => 'There is one apple.',
+            'message_id' => $message->id,
+            'language_id' => $language->id,
+            'form' => 'one'
+        ]));
+        $values->push(MessageValue::create([
+            'value' => 'There is {count} apples.',
+            'message_id' => $message->id,
+            'language_id' => $language->id,
+            'form' => 'other'
+        ]));
+
+        $arbExporter = new ArbExporter();
+        $result = $arbExporter->exportToArb('en', $values);
+
+        $this->assertJson($result);
+
+        $json = json_decode($result, true);
+
+        $this->assertEquals('en', $json['@@locale']);
+        $this->assertArrayHasKey('apple_number', $json);
+        $this->assertEquals(
+            '{count, plural, one {There is one apple.} other {There is {count} apples.}}',
+            $json['apple_number']
+        );
+        $this->assertArrayHasKey('@apple_number', $json);
+        $this->assertEquals(
+            'Message with number of apples.',
+            $json['@apple_number']['description']
+        );
+    }
 }
