@@ -28,8 +28,11 @@ class MessageController extends Controller
 
     public function index(Project $project): View
     {
+        $messageValues = $this->messageValueRepository->allByProject($project);
+
         return view('messages.index', [
             'project' => $project,
+            'messageValues' => $messageValues,
         ]);
     }
 

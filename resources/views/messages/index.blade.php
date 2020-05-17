@@ -26,7 +26,7 @@
                     <th>Message</th>
                     @foreach($project->languages as $language)
                         <th class="align-middle">
-                            {{ $language->code }} - {{ $language->name }}
+                            {{ $language->getDisplayName() }}
                             <form method="POST"
                                   action="{{ route('projects.destroy-language', [$project, $language->code]) }}"
                                   class="d-inline float-right delete-modal-show" data-delete-modal-title="Deleting language from project"
