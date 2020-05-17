@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
  */
 class ArbExporter
 {
-    public function exportToArb(string $locale, Collection $values): string
+    public function exportToArb(string $locale, Collection $messages, Collection $values): string
     {
         $result = [];
 
@@ -23,12 +23,15 @@ class ArbExporter
         $result = array_merge($result, $this->formatLastModified($values));
 
         // We group all values by message id, so that all forms of the same message stay together.
-        $messageGroupped = $values->groupBy(function (MessageValue $item, $key) {
+        $valuesGrouped = $values->groupBy(function (MessageValue $item, $key) {
             return $item->message_id;
         });
 
-        foreach ($messageGroupped as $messageGroup) {
-            $formattedValue = $this->formatValue($messageGroup);
+        foreach ($valuesGrouped as $messageId => $valuesGroup) {
+            /** @var Message $message */
+            $message = $messages->firstWhere('id', $messageId);
+
+            $formattedValue = $this->formatValue($message, $valuesGroup);
             $result = array_merge($result, $formattedValue);
         }
 
@@ -50,16 +53,11 @@ class ArbExporter
         return ['@@last_modified' => $lastModified->toIso8601String()];
     }
 
-    private function formatValue(Collection $values): array
+    private function formatValue(Message $message, Collection $values): array
     {
-        /** @var MessageValue $firstValue */
-        $firstValue = $values->first();
-        /** @var Message $message */
-        $message = $firstValue->message()->getResults();
-
         switch ($message->type) {
             case Message::TYPE_MESSAGE:
-                $value = $firstValue->value;
+                $value = $values->first()->value;
                 break;
             case Message::TYPE_PLURAL:
                 $value = $this->formatPluralValue($values);

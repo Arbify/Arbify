@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Arb\ArbExporter;
 use App\Contracts\Repositories\LanguageRepository;
+use App\Contracts\Repositories\MessageRepository;
 use App\Contracts\Repositories\MessageValueRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\AddLanguageToProject;
@@ -117,13 +118,15 @@ class ProjectController extends Controller
     public function exportLanguage(
         ExportLanguage $request,
         Project $project,
+        MessageRepository $messageRepository,
         MessageValueRepository $messageValueRepository
     ): Response {
         $language = $this->languageRepository->byId($request->input('language'));
+        $messages = $messageRepository->byProject($project);
         $values = $messageValueRepository->allByProjectAndLanguage($project, $language);
 
         $exporter = new ArbExporter();
-        $result = $exporter->exportToArb($language->code, $values);
+        $result = $exporter->exportToArb($language->code, $messages, $values);
 
         $filename = "$language->code.arb";
 

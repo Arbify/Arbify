@@ -3,39 +3,30 @@
 namespace Tests\Unit\Arb;
 
 use App\Arb\ArbExporter;
-use App\Models\Language;
 use App\Models\Message;
 use App\Models\MessageValue;
-use App\Models\Project;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class ArbExporterTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testExportingWithOneMessage(): void
     {
-        // TODO: When we implement repositories, mock one instead of using DB here :(
-
-        $message = Message::create([
+        $message = Message::make([
             'name' => 'test_message',
             'description' => 'This is a message description.',
             'type' => Message::TYPE_MESSAGE,
-            'project_id' => factory(Project::class)->create()->id,
         ]);
-        $language = factory(Language::class)->create(['code' => 'en']);
-        $value = MessageValue::create([
+        $value = MessageValue::make([
             'value' => 'Test message value',
             'message_id' => $message->id,
-            'language_id' => $language->id,
+            'updated_at' => now(),
         ]);
 
-        $values = new Collection([$value]);
+        $messages = collect([$message]);
+        $values = collect([$value]);
 
         $arbExporter = new ArbExporter();
-        $result = $arbExporter->exportToArb('en', $values);
+        $result = $arbExporter->exportToArb('en', $messages, $values);
 
         $this->assertJson($result);
 
@@ -48,30 +39,29 @@ class ArbExporterTest extends TestCase
 
     public function testExportingWithPluralMessage(): void
     {
-        $message = Message::create([
+        $message = Message::make([
             'name' => 'apple_number',
             'description' => 'Message with number of apples.',
             'type' => Message::TYPE_PLURAL,
-            'project_id' => factory(Project::class)->create()->id,
         ]);
-        $language = factory(Language::class)->create(['code' => 'en']);
+        $messages = collect([$message]);
 
         $values = collect();
-        $values->push(MessageValue::create([
+        $values->push(MessageValue::make([
             'value' => 'There is one apple.',
             'message_id' => $message->id,
-            'language_id' => $language->id,
-            'form' => 'one'
+            'form' => 'one',
+            'updated_at' => now(),
         ]));
-        $values->push(MessageValue::create([
+        $values->push(MessageValue::make([
             'value' => 'There is {count} apples.',
             'message_id' => $message->id,
-            'language_id' => $language->id,
-            'form' => 'other'
+            'form' => 'other',
+            'updated_at' => now(),
         ]));
 
         $arbExporter = new ArbExporter();
-        $result = $arbExporter->exportToArb('en', $values);
+        $result = $arbExporter->exportToArb('en', $messages, $values);
 
         $this->assertJson($result);
 

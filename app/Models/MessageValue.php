@@ -12,6 +12,7 @@ class MessageValue extends Model
         'form',
         'message_id',
         'language_id',
+        'updated_at', // Mainly for tests
     ];
 
     public function message(): BelongsTo
