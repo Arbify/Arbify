@@ -22,13 +22,14 @@
                     Specific language ARB
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('projects.export-language', $project) }}">
+                        @csrf
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci assumenda commodi cum, eligendi et id iste maiores minima molestias neque nulla obcaecati praesentium quasi quia sint sit vero voluptates!</p>
                         <div class="form-group">
                             <label for="language">Language</label>
                             <select id="language" class="custom-select" name="language" required>
                                 @foreach($project->languages()->getResults() as $language)
-                                    <option value="{{ $language->id }}">{{ $language->code }} - {{ $language->name }}</option>
+                                    <option value="{{ $language->id }}">{{ $language->getDisplayName() }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,9 +38,5 @@
                 </div>
             </div>
         </div>
-        {{--<div class="alert alert-info mt-5">--}}
-            {{--<h3 class="alert-heading mt-2">IDE integration</h3>--}}
-            {{--<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid consectetur consequatur debitis ea exercitationem explicabo facilis ipsa labore maiores minus mollitia nihil odio pariatur, quam reiciendis repellat ullam vero!</p>--}}
-        {{--</div>--}}
     </div>
 @endsection

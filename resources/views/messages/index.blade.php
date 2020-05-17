@@ -28,7 +28,7 @@
                         <th class="align-middle">
                             {{ $language->code }} - {{ $language->name }}
                             <form method="POST"
-                                  action="{{ route('projects.destroyLanguage', [$project, $language->code]) }}"
+                                  action="{{ route('projects.destroy-language', [$project, $language->code]) }}"
                                   class="d-inline float-right delete-modal-show" data-delete-modal-title="Deleting language from project"
                                   data-delete-modal-body="<b>{{ $language->code }}</b> from <b>{{ $project->name }}</b>">
                                 @csrf
@@ -40,7 +40,7 @@
                         </th>
                     @endforeach
                     <th>
-                        <a href="{{ route('projects.createLanguage', $project) }}" class="btn btn-primary">Add
+                        <a href="{{ route('projects.create-language', $project) }}" class="btn btn-primary">Add
                             language</a>
                     </th>
                 </tr>

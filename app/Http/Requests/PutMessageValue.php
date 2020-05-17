@@ -21,8 +21,8 @@ class PutMessageValue extends FormRequest
                 'sometimes',
                 Rule::in(array_merge(
                     array_keys(Language::PLURAL_FORMS),
-                    Language::GENDER_FORMS)
-                ),
+                    Language::GENDER_FORMS
+                )),
             ]
         ];
     }

@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Language;
+use App\Models\Message;
+use App\Models\MessageValue;
 use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -126,5 +128,41 @@ class ProjectTest extends TestCase
             'language_project',
             ['language_id' => $language->id, 'project_id' => $project->id]
         );
+    }
+
+    public function testExportShows(): void
+    {
+        $project = factory(Project::class)->create();
+
+        $this->actingAsUser()->get("/projects/$project->id/export")
+            ->assertOk()
+            ->assertSeeText('Export');
+    }
+
+    public function testExportLanguage(): void
+    {
+        $language = factory(Language::class)->create();
+        $project = factory(Project::class)->create();
+        $project->languages()->attach($language);
+
+        $message = factory(Message::class)->create([
+            'type' => Message::TYPE_MESSAGE,
+        ]);
+        $project->messages()->save($message);
+
+        $messageValue = factory(MessageValue::class)->create([
+            'message_id' => $message->id,
+            'language_id' => $language->id,
+        ]);
+
+        $response = $this->actingAsUser()->post("/projects/$project->id/export", [
+            'language' => $language->id,
+        ])
+            ->assertOk();
+
+        $json = $response->json();
+
+        $this->assertEquals($language->code, $json['@@locale']);
+        $this->assertEquals($messageValue->value, $json[$message->name]);
     }
 }

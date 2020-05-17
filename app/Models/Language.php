@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +43,25 @@ class Language extends Model
         'plural_forms',
     ];
 
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+    public function getDisplayName(): string
+    {
+        if ($this->name === null) {
+            return $this->code;
+        }
+
+        return "$this->code - $this->name";
+    }
+
     public function getPluralFormsAttribute($pluralForms): array
     {
         $forms = [];
@@ -76,17 +97,5 @@ class Language extends Model
     {
         // AFAIK all languages support three gender forms.
         return self::GENDER_FORMS;
-    }
-
-    public static function allExceptAlreadyInProject(Project $project): Collection
-    {
-        return self::query()
-            ->whereNotIn('id', function (Builder $query) use ($project) {
-                $query
-                    ->select('l2.id')
-                    ->from('languages AS l2')
-                    ->join('language_project AS lp', 'l2.id', '=', 'lp.language_id')
-                    ->where('lp.project_id', '=', $project->id);
-            })->get();
     }
 }

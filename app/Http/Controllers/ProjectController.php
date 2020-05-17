@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Arb\ArbExporter;
+use App\Contracts\Repositories\LanguageRepository;
+use App\Contracts\Repositories\MessageValueRepository;
 use App\Http\Requests\AddLanguageToProject;
+use App\Http\Requests\ExportLanguage;
 use App\Http\Requests\StoreProject;
 use App\Models\Language;
 use App\Models\Project;
 use Illuminate\View\View;
+use Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
@@ -72,9 +77,9 @@ class ProjectController extends Controller
             ->with('success', "Deleted <b>$project->name</b> successfully.");
     }
 
-    public function createProjectLanguage(Project $project): View
+    public function createProjectLanguage(Project $project, LanguageRepository $languageRepository): View
     {
-        $languages = Language::allExceptAlreadyInProject($project);
+        $languages = $languageRepository->allExceptAlreadyInProject($project);
 
         return view('projects.add-language', [
             'project' => $project,
@@ -104,6 +109,28 @@ class ProjectController extends Controller
     {
         return view('projects.export', [
             'project' => $project,
+        ]);
+    }
+
+    public function exportLanguage(
+        ExportLanguage $request,
+        Project $project,
+        LanguageRepository $languageRepository,
+        MessageValueRepository $messageValueRepository
+    ): Response {
+        $language = $languageRepository->byId($request->input('language'));
+        $values = $messageValueRepository->byProjectAndLanguage($project, $language);
+
+        $exporter = new ArbExporter();
+        $result = $exporter->exportToArb($language->code, $values);
+
+        $filename = "$language->code.arb";
+
+        // Disable Debug bar so it doesn't add its HTML to our ARB file response...
+        app('debugbar')->disable();
+
+        return response($result, 200, [
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
         ]);
     }
 }

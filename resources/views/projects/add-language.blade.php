@@ -9,7 +9,7 @@
                     <div class="card-header">Add language to {{ $project->name }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('projects.storeLanguage', $project) }}">
+                        <form method="POST" action="{{ route('projects.store-language', $project) }}">
                             @csrf
                             <div class="form-group row">
                                 <label for="language" class="col-md-4 col-form-label text-md-right">Language</label>
@@ -18,7 +18,7 @@
                                     <select id="language" class="form-control @error('language') is-invalid @enderror" name="language" required autofocus>
                                         @foreach($languages as $language)
                                             <option value="{{ $language->id }}" @if(old('language') == $language->id) selected @endif>
-                                                {{ $language->code }} - {{ $language->name }}
+                                                {{ $language->getDisplayName() }}
                                             </option>
                                         @endforeach
                                     </select>
