@@ -28,7 +28,7 @@ class LanguageRepository implements LanguageRepositoryContract
         return Language::paginate(30);
     }
 
-    public function inProject(Project $project): Collection
+    public function allInProject(Project $project): Collection
     {
         return $project->languages()->get();
     }

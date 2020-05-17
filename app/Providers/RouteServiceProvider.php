@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Repositories\LanguageRepository;
+use App\Contracts\Repositories\MessageRepository;
+use App\Contracts\Repositories\ProjectRepository;
+use App\Contracts\Repositories\UserRepository;
 use App\Models\Language;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +35,24 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::bind('project', function ($value) {
+            return app(ProjectRepository::class)->byId((int) $value);
+        });
+
+        Route::bind('message', function ($value) {
+            return app(MessageRepository::class)->byId((int) $value);
+        });
+
         Route::bind('language_code', function ($value) {
-            return Language::where('code', $value)->firstOrFail();
+            return app(LanguageRepository::class)->byCode($value);
+        });
+
+        Route::bind('language', function ($value) {
+            return app(LanguageRepository::class)->byId((int) $value);
+        });
+
+        Route::bind('user', function ($value) {
+            return app(UserRepository::class)->byId((int) $value);
         });
 
         parent::boot();

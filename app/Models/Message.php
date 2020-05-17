@@ -64,22 +64,4 @@ class Message extends Model
     {
         return $this->hasMany(MessageValue::class);
     }
-
-    public function forLanguage(Language $language, ?string $form = null): ?MessageValue
-    {
-        /** @var MessageValue|null $messageValue */
-        $messageValue = $this->messageValues()->firstOrNew([
-            'language_id' => $language->id,
-            'form' => $form,
-        ]);
-
-        return $messageValue;
-    }
-
-    public function valueForLanguage(Language $language, ?string $form = null): ?string
-    {
-        $messageValue = $this->forLanguage($language, $form);
-
-        return is_null($messageValue) ? null : $messageValue->value;
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\LanguageRepository;
 use App\Http\Requests\StoreLanguage;
 use App\Models\Language;
 use Illuminate\View\View;
@@ -9,14 +10,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LanguageController extends Controller
 {
-    public function __construct()
+    private LanguageRepository $languageRepository;
+
+    public function __construct(LanguageRepository $languageRepository)
     {
+        $this->languageRepository = $languageRepository;
         $this->middleware('verified');
     }
 
     public function index(): View
     {
-        $languages = Language::paginate(30);
+        $languages = $this->languageRepository->paginated();
 
         return view('languages.index', [
             'languages' => $languages,

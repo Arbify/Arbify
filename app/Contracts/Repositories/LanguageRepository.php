@@ -17,7 +17,7 @@ interface LanguageRepository
 
     public function paginated(): LengthAwarePaginator;
 
-    public function inProject(Project $project): Collection;
+    public function allInProject(Project $project): Collection;
 
     public function allExceptAlreadyInProject(Project $project): Collection;
 }

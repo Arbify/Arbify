@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\UserRepository;
 use App\Http\Requests\StoreUser;
 use App\Notifications\UserArtificiallyCreated;
 use App\Models\User;
@@ -13,14 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function __construct()
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
         $this->middleware('verified');
     }
 
     public function index(): View
     {
-        $users = User::paginate(30);
+        $users = $this->userRepository->paginated();
 
         return view('users.index', [
             'users' => $users,

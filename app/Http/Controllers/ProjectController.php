@@ -5,25 +5,32 @@ namespace App\Http\Controllers;
 use App\Arb\ArbExporter;
 use App\Contracts\Repositories\LanguageRepository;
 use App\Contracts\Repositories\MessageValueRepository;
+use App\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\AddLanguageToProject;
 use App\Http\Requests\ExportLanguage;
 use App\Http\Requests\StoreProject;
 use App\Models\Language;
 use App\Models\Project;
 use Illuminate\View\View;
-use Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
 {
-    public function __construct()
-    {
+    private ProjectRepository $projectRepository;
+    private LanguageRepository $languageRepository;
+
+    public function __construct(
+        ProjectRepository $projectRepository,
+        LanguageRepository $languageRepository
+    ) {
+        $this->projectRepository = $projectRepository;
+        $this->languageRepository = $languageRepository;
         $this->middleware('verified');
     }
 
     public function index(): View
     {
-        $projects = Project::paginate(15);
+        $projects = $this->projectRepository->paginated();
 
         return view('projects.index', [
             'projects' => $projects,
@@ -32,11 +39,7 @@ class ProjectController extends Controller
 
     public function create(): View
     {
-        $languages = Language::all();
-
-        return view('projects.form', [
-            'languages' => $languages,
-        ]);
+        return view('projects.form');
     }
 
     public function store(StoreProject $request): Response
@@ -77,9 +80,9 @@ class ProjectController extends Controller
             ->with('success', "Deleted <b>$project->name</b> successfully.");
     }
 
-    public function createProjectLanguage(Project $project, LanguageRepository $languageRepository): View
+    public function createProjectLanguage(Project $project): View
     {
-        $languages = $languageRepository->allExceptAlreadyInProject($project);
+        $languages = $this->languageRepository->allExceptAlreadyInProject($project);
 
         return view('projects.add-language', [
             'project' => $project,
@@ -89,8 +92,7 @@ class ProjectController extends Controller
 
     public function storeProjectLanguage(AddLanguageToProject $request, Project $project): Response
     {
-        $language = Language::find($request->input('language'));
-
+        $language = $this->languageRepository->byId($request->input('language'));
         $project->languages()->syncWithoutDetaching($language);
 
         return redirect()->route('messages.index', $project)
@@ -115,11 +117,10 @@ class ProjectController extends Controller
     public function exportLanguage(
         ExportLanguage $request,
         Project $project,
-        LanguageRepository $languageRepository,
         MessageValueRepository $messageValueRepository
     ): Response {
-        $language = $languageRepository->byId($request->input('language'));
-        $values = $messageValueRepository->byProjectAndLanguage($project, $language);
+        $language = $this->languageRepository->byId($request->input('language'));
+        $values = $messageValueRepository->allByProjectAndLanguage($project, $language);
 
         $exporter = new ArbExporter();
         $result = $exporter->exportToArb($language->code, $values);

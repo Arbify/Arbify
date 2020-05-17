@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\MessageRepository;
+use App\Contracts\Repositories\MessageValueRepository;
 use App\Http\Requests\StoreMessage;
 use App\Http\Requests\PutMessageValue;
 use App\Models\Language;
@@ -12,9 +14,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends Controller
 {
-    public function __construct()
-    {
+    private MessageRepository $messageRepository;
+    private MessageValueRepository $messageValueRepository;
+
+    public function __construct(
+        MessageRepository $messageRepository,
+        MessageValueRepository $messageValueRepository
+    ) {
+        $this->messageRepository = $messageRepository;
         $this->middleware('verified');
+        $this->messageValueRepository = $messageValueRepository;
     }
 
     public function index(Project $project): View
@@ -71,14 +80,13 @@ class MessageController extends Controller
         Message $message,
         Language $language
     ): Response {
-        $value = $message->forLanguage($language, $request->input('form'));
-        $value->fill([
-            'value' => $request->input('value'),
-            'language_id' => $language->id,
-        ])->save();
+        $this->messageValueRepository->byMessageLanguageAndForm(
+            $message, $language, $request->input('form')
+        )
+            ->update(['value' => $request->input('value')]);
 
         return $request->expectsJson() ?
-            status( Response::HTTP_CREATED)
+            status(Response::HTTP_CREATED)
             : redirect()->route('messages.index', $project);
     }
 }
