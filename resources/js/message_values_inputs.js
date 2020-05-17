@@ -1,6 +1,6 @@
 (function () {
     const NULL_VALUE_SYMBOL = '$$null$$';
-    const MESSAGE_FORM_SELECTOR = '.message-value-from';
+    const MESSAGE_FORM_SELECTOR = '.message-value-form';
     const MESSAGE_FIELD_SELECTOR = '.message-field';
 
     const CLASS_ACCEPTED = 'is-accepted';
