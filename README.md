@@ -31,6 +31,8 @@ docker-compose run arbify npm install
 docker-compose run arbify npm run prod
 ```
 
+After this you're ready to go to [http://localhost:8000](http://localhost:8000) and check out Arbify yourself! 
+
 The `php artisan db:seed` command seeded the database with a pre-verified admin account with email `admin@arbify.io` and password `password`.
 
 [php-workflow]: https://github.com/Arbify/Arbify/actions?query=workflow%3APHP
