@@ -13,4 +13,6 @@ interface MessageRepository
     public function byId(int $id): Message;
 
     public function byProject(Project $project): Collection;
+
+    public function isNameUniqueInProject(string $name, Project $project, ?Message $except = null): bool;
 }

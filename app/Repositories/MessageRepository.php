@@ -20,4 +20,15 @@ class MessageRepository implements MessageRepositoryContract
     {
         return $project->messages()->get();
     }
+
+    public function isNameUniqueInProject(string $name, Project $project, ?Message $except = null): bool
+    {
+        return $project->messages->every(function (Message $message, $key) use ($name, $except) {
+            if ($except && $message->id == $except->id) {
+                return true;
+            }
+
+            return $message->name != $name;
+        });
+    }
 }

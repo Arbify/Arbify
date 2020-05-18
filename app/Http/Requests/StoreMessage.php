@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Contracts\Repositories\MessageRepository;
 use App\Models\Message;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -13,14 +14,12 @@ class StoreMessage extends FormRequest
         return true;
     }
 
-    public function rules(): array
+    public function rules(MessageRepository $messageRepository): array
     {
         $rules = [
             'name' => [
                 'required',
-                $this->isMethod('PATCH')
-                    ? 'unique:' . Message::class . ',id,' . $this->route('message')->id
-                    : 'unique:' . Message::class,
+                $this->makeNameUniqueInProjectValidator($messageRepository),
             ],
             'description' => '',
         ];
@@ -38,5 +37,18 @@ class StoreMessage extends FormRequest
         }
 
         return $rules;
+    }
+
+    private function makeNameUniqueInProjectValidator(MessageRepository $messageRepository): callable
+    {
+        return function ($attribute, $value, $fail) use ($messageRepository) {
+            if (false === $messageRepository->isNameUniqueInProject(
+                    $value,
+                    $this->route('project'),
+                    $this->isMethod('PATCH') ? $this->route('message') : null,
+                )) {
+                $fail("This name is already used in this project.");
+            }
+        };
     }
 }
