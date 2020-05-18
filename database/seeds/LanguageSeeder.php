@@ -13,31 +13,38 @@ class LanguageSeeder extends Seeder
     public function run()
     {
         DB::table('languages')->insert([
-            'name' => 'English (US)',
-            'code' => 'en_US',
+            'name' => 'English',
+            'code' => 'en',
             'flag' => 'us',
-            'plural_forms' => Language::PLURAL_FORM_ONE | Language::PLURAL_FORM_OTHER,
+            'plural_forms' => $this->pluralFormsFormat(
+                Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_OTHER
+            ),
         ]);
-
-        DB::table('languages')->insert([
-            'name' => 'English (UK)',
-            'code' => 'en_UK',
-            'flag' => 'gb-eng',
-            'plural_forms' => Language::PLURAL_FORM_ONE | Language::PLURAL_FORM_OTHER,
-        ]);
-
         DB::table('languages')->insert([
             'name' => 'Polish',
-            'code' => 'pl_PL',
+            'code' => 'pl',
             'flag' => 'pl',
-            'plural_forms' => Language::PLURAL_FORM_ONE | Language::PLURAL_FORM_FEW | Language::PLURAL_FORM_MANY,
+            'plural_forms' => $this->pluralFormsFormat(
+                Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_FEW, Language::PLURAL_FORM_MANY
+            ),
         ]);
-
         DB::table('languages')->insert([
             'name' => 'Spanish',
-            'code' => 'es_ES',
+            'code' => 'es',
             'flag' => 'es',
-            'plural_forms' => Language::PLURAL_FORM_ONE | Language::PLURAL_FORM_OTHER,
+            'plural_forms' => $this->pluralFormsFormat(
+                Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_OTHER
+            ),
         ]);
+    }
+    
+    private function pluralFormsFormat(string ...$forms): int
+    {
+        $result = 0;
+        foreach ($forms as $form) {
+            $result |= Language::PLURAL_FORMS[$form];
+        }
+
+        return $result;
     }
 }
