@@ -18,7 +18,7 @@ class CreateMessagesTable extends Migration
             $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->integer('type');
-            $table->foreignId('project_id')->constrained();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

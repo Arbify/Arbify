@@ -16,7 +16,7 @@ class CreateMessageValuesTable extends Migration
         Schema::create('message_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('message_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('language_id')->constrained();
+            $table->foreignId('language_id')->constrained()->cascadeOnDelete();
             $table->string('form')->nullable();
             $table->string('value')->nullable();
             $table->timestamps();

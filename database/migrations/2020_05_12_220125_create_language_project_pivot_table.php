@@ -15,8 +15,8 @@ class CreateLanguageProjectPivotTable extends Migration
     {
         Schema::create('language_project', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('language_id')->constrained();
-            $table->foreignId('project_id')->constrained();
+            $table->foreignId('language_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
