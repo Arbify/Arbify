@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'jetbrains-mono';
 @import '~bootstrap/scss/bootstrap';
 @import '~flag-icon-css/sass/flag-icon';
 
@@ -41,3 +42,11 @@
   display: none;
 }
 
+.logo {
+    font: 500 18px 'JetBrains Mono', monospace;
+
+    u {
+        text-decoration: none;
+        border-bottom: 2px solid #000;
+    }
+}
