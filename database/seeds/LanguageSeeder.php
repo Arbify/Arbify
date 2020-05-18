@@ -10,34 +10,36 @@ class LanguageSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('languages')->insert([
-            'name' => 'English',
-            'code' => 'en',
-            'flag' => 'us',
-            'plural_forms' => $this->pluralFormsFormat(
-                Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_OTHER
-            ),
-        ]);
-        DB::table('languages')->insert([
-            'name' => 'Polish',
-            'code' => 'pl',
-            'flag' => 'pl',
-            'plural_forms' => $this->pluralFormsFormat(
-                Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_FEW, Language::PLURAL_FORM_MANY
-            ),
-        ]);
-        DB::table('languages')->insert([
-            'name' => 'Spanish',
-            'code' => 'es',
-            'flag' => 'es',
-            'plural_forms' => $this->pluralFormsFormat(
-                Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_OTHER
-            ),
+            [
+                'name' => 'English',
+                'code' => 'en',
+                'flag' => 'us',
+                'plural_forms' => $this->pluralFormsFormat(
+                    Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_OTHER
+                ),
+            ],
+            [
+                'name' => 'Polish',
+                'code' => 'pl',
+                'flag' => 'pl',
+                'plural_forms' => $this->pluralFormsFormat(
+                    Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_FEW, Language::PLURAL_FORM_MANY
+                ),
+            ],
+            [
+                'name' => 'Spanish',
+                'code' => 'es',
+                'flag' => 'es',
+                'plural_forms' => $this->pluralFormsFormat(
+                    Language::PLURAL_FORM_ONE, Language::PLURAL_FORM_OTHER
+                ),
+            ],
         ]);
     }
-    
+
     private function pluralFormsFormat(string ...$forms): int
     {
         $result = 0;

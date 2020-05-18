@@ -31,5 +31,7 @@ docker-compose run arbify npm install
 docker-compose run arbify npm run prod
 ```
 
+The `php artisan db:seed` command seeded the database with a pre-verified admin account with email `admin@arbify.io` and password `password`.
+
 [php-workflow]: https://github.com/Arbify/Arbify/actions?query=workflow%3APHP
 [php-workflow-badge]: https://github.com/Arbify/Arbify/workflows/PHP/badge.svg
