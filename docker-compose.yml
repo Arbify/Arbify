@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+    arbify:
+        build:
+            args:
+                user: arbify
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: arbify
+        container_name: arbify
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - arbify
+
+    db:
+        image: mariadb:10
+        container_name: arbify-db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        networks:
+            - arbify
+    
+    nginx:
+        image: nginx:1.17-alpine
+        container_name: arbify-nginx
+        restart: unless-stopped
+        ports:
+            - 8000:80
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx:/etc/nginx/conf.d
+        networks:
+            - arbify
+
+networks:
+    arbify:
+        driver: bridge
