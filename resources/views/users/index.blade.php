@@ -36,7 +36,17 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>Administrator</td>
+                    <td>
+                        @if($user->isSuperAdministrator())
+                            <span class="badge badge-danger">Super administrator</span>
+                        @elseif($user->isAdministrator())
+                            <span class="badge badge-warning">Administrator</span>
+                        @elseif($user->isUser())
+                            <span class="badge badge-info">User</span>
+                        @elseif($user->isGuest())
+                            <span class="badge badge-light">Guest</span>
+                        @endif
+                    </td>
                     <td class="py-0 align-middle">
                         <a href="{{ route('users.edit', $user) }}">Edit</a>
                         <form method="post" action="{{ route('users.destroy', $user) }}"

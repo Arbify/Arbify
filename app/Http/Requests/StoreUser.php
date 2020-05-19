@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUser extends FormRequest
 {
@@ -27,6 +28,16 @@ class StoreUser extends FormRequest
                 $this->isMethod('POST') ? 'required' : 'nullable',
                 'min:8',
             ],
+            'role' => [
+                'required',
+                Rule::in([
+                    // Only Super administrators can make other users super administrators.
+                    $this->user()->isSuperAdministrator() ? User::ROLE_SUPER_ADMINISTRATOR : null,
+                    User::ROLE_ADMINISTRATOR,
+                    User::ROLE_USER,
+                    User::ROLE_GUEST,
+                ]),
+            ]
         ];
 
         if ($this->isMethod('POST')) {

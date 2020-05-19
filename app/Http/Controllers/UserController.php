@@ -42,16 +42,16 @@ class UserController extends Controller
     {
         $user = User::create([
                 'password' => Hash::make($request->input('password')),
-            ] + $request->input());
+            ] + $request->validated());
 
         if ($request->input('email_verification')) {
             $user->markEmailAsVerified();
         }
 
         if ($request->input('send_credentials')) {
-            $user->notify(
-                new UserArtificiallyCreated($user->email, $request->input('password'))
-            );
+            $user->notify(new UserArtificiallyCreated(
+                $user->email, $request->input('password')
+            ));
         }
 
         event(new Registered($user));
@@ -69,12 +69,12 @@ class UserController extends Controller
 
     public function update(StoreUser $request, User $user): Response
     {
-        if (empty($request->password)) {
-            $request->offsetUnset('password');
+        $input = $request->except('password');
+        if ($request->has('password')) {
+            $input['password'] = Hash::make($request->input('password'));
         }
-        $user->update([
-                'password' => Hash::make($request->input('password')),
-            ] + $request->input());
+
+        $user->update($input);
 
         return redirect()->route('users.index')
             ->with('success', "User <b>$user->name</b> updated successfully.");
