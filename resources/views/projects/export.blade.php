@@ -12,8 +12,8 @@
                 <div class="card-body">
                     <form method="POST" action="">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis dolores error ex facilis itaque nobis odit velit. Beatae debitis dignissimos exercitationem fugit ipsa ipsum molestiae numquam quo sit totam?</p>
-                        <button class="btn btn-primary btn-block btn-lg">Export (zip)</button>
-                        <button class="btn btn-primary btn-block btn-lg">Export (tar.gz)</button>
+                        <button class="btn btn-primary btn-block btn-lg" disabled>Export (zip)</button>
+                        <button class="btn btn-primary btn-block btn-lg" disabled>Export (tar.gz)</button>
                     </form>
                 </div>
             </div>
