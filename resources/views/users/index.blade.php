@@ -18,6 +18,7 @@
                 <col style="width: 60px">
                 <col>
                 <col>
+                <col style="width: 80px">
                 <col style="width: 150px">
                 <col style="width: 200px">
             </colgroup>
@@ -26,6 +27,7 @@
                 <th>#</th>
                 <th>Display name</th>
                 <th>User email</th>
+                <th>Email</th>
                 <th>Role</th>
                 <th>Actions</th>
             </tr>
@@ -36,6 +38,13 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>
+                        @if($user->hasVerifiedEmail())
+                            <span class="badge badge-success">Activated</span>
+                        @else
+                            <span class="badge badge-secondary">Pending</span>
+                        @endif
+                    </td>
                     <td>
                         @if($user->isSuperAdministrator())
                             <span class="badge badge-danger">Super administrator</span>
