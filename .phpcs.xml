@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ruleset>
+    <rule ref="PSR12" />
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>database</exclude-pattern>
+    </rule>
+
+    <file>app</file>
+    <file>database</file>
+    <file>tests</file>
+    <file>routes</file>
+</ruleset>
