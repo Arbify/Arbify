@@ -9,8 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Project extends Model
 {
+    public const VISIBILITY_PUBLIC = 0;
+    public const VISIBILITY_ONLY_MEMBERS = 1;
+
     protected $fillable = [
         'name',
+        'visibility',
     ];
 
     public function messages(): HasMany
@@ -26,5 +30,20 @@ class Project extends Model
     public function languages(): BelongsToMany
     {
         return $this->belongsToMany(Language::class)->withTimestamps();
+    }
+
+    public function projectRoles(): HasMany
+    {
+        return $this->hasMany(ProjectRole::class);
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->visibility === self::VISIBILITY_PUBLIC;
+    }
+
+    public function isOnlyMembers(): bool
+    {
+        return $this->visibility === self::VISIBILITY_ONLY_MEMBERS;
     }
 }
