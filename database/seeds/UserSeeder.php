@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -11,6 +12,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@arbify.io',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
+            'role' => User::ROLE_SUPER_ADMINISTRATOR,
         ]);
     }
 }
