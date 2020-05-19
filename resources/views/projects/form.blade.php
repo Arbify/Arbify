@@ -43,17 +43,17 @@
                                         $onlyMembers = \App\Models\Project::VISIBILITY_ONLY_MEMBERS;
                                     @endphp
                                     <div class="custom-control custom-radio custom-control">
-                                        <input type="radio" id="type.public" name="visibility" value="{{ $public }}" class="custom-control-input"
+                                        <input type="radio" id="visibility.public" name="visibility" value="{{ $public }}" class="custom-control-input"
                                                @if(old('visibility', $project->visibility ?? '') === $public) checked @endif required>
-                                        <label class="custom-control-label" for="type.public">
+                                        <label class="custom-control-label" for="visibility.public">
                                             <b class="d-block">Public.</b>
                                             <span class="d-block mt-1 mb-2">Every registered user with the role <i>User</i> will be able to see this project.</span>
                                         </label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control">
-                                        <input type="radio" id="type.only-member" name="visibility" value="{{ $onlyMembers }}" class="custom-control-input"
+                                        <input type="radio" id="visibility.only-member" name="visibility" value="{{ $onlyMembers }}" class="custom-control-input"
                                                @if(old('visibility', $project->visibility ?? '') === $onlyMembers) checked @endif required>
-                                        <label class="custom-control-label" for="type.only-member">
+                                        <label class="custom-control-label" for="visibility.only-member">
                                             <b class="d-block">Only members.</b>
                                             <span class="d-block mt-1 mb-2">Only registered users with any role in this project will be able to see it.</span>
                                         </label>
