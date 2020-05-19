@@ -34,6 +34,39 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <span class="col-md-4 col-form-label text-md-right">Visibility</span>
+
+                                <div class="col-md-6 pt-2">
+                                    @php
+                                        $public = \App\Models\Project::VISIBILITY_PUBLIC;
+                                        $onlyMembers = \App\Models\Project::VISIBILITY_ONLY_MEMBERS;
+                                    @endphp
+                                    <div class="custom-control custom-radio custom-control">
+                                        <input type="radio" id="type.public" name="visibility" value="{{ $public }}" class="custom-control-input"
+                                               @if(old('visibility', $project->visibility ?? '') === $public) checked @endif required>
+                                        <label class="custom-control-label" for="type.public">
+                                            <b class="d-block">Public.</b>
+                                            <span class="d-block mt-1 mb-2">Every registered user with the role <i>User</i> will be able to see this project.</span>
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control">
+                                        <input type="radio" id="type.only-member" name="visibility" value="{{ $onlyMembers }}" class="custom-control-input"
+                                               @if(old('visibility', $project->visibility ?? '') === $onlyMembers) checked @endif required>
+                                        <label class="custom-control-label" for="type.only-member">
+                                            <b class="d-block">Only members.</b>
+                                            <span class="d-block mt-1 mb-2">Only registered users with any role in this project will be able to see it.</span>
+                                        </label>
+                                    </div>
+
+                                    @error('visibility')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

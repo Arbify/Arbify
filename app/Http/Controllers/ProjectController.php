@@ -45,7 +45,7 @@ class ProjectController extends Controller
 
     public function store(StoreProject $request): Response
     {
-        $project = Project::create($request->input());
+        $project = Project::create($request->validated());
 
         return redirect()->route('projects.index')
             ->with('success', "Added <b>$project->name</b> successfully.");
@@ -67,7 +67,7 @@ class ProjectController extends Controller
 
     public function update(StoreProject $request, Project $project): Response
     {
-        $project->update($request->input());
+        $project->update($request->validated());
 
         return redirect()->route('projects.index')
             ->with('success', "Updated <b>$project->name</b> successfully.");

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProject extends FormRequest
 {
@@ -15,6 +17,10 @@ class StoreProject extends FormRequest
     {
         return [
             'name' => 'required',
+            'visibility' => [
+                'required',
+                Rule::in([Project::VISIBILITY_PUBLIC, Project::VISIBILITY_ONLY_MEMBERS]),
+            ],
         ];
     }
 }
