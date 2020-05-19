@@ -50,7 +50,8 @@ class UserController extends Controller
 
         if ($request->input('send_credentials')) {
             $user->notify(new UserArtificiallyCreated(
-                $user->email, $request->input('password')
+                $user->email,
+                $request->input('password')
             ));
         }
 

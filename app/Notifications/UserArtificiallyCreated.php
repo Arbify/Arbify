@@ -27,7 +27,7 @@ class UserArtificiallyCreated extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('Account created')
             ->line('An administrator has created a user account just for you.')
             ->line("Your email: $this->email")

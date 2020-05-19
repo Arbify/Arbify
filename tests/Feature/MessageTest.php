@@ -11,7 +11,8 @@ use Tests\TestCase;
 
 class MessageTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function testIndexShows(): void
     {

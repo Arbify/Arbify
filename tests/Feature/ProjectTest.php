@@ -12,7 +12,8 @@ use Tests\TestCase;
 
 class ProjectTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function testIndexShows(): void
     {

@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function testLoginFormShows(): void
     {

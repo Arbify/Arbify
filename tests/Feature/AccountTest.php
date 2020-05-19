@@ -10,7 +10,8 @@ use Tests\TestCase;
 
 class AccountTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function testPreferencesShow(): void
     {

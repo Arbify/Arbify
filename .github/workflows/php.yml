@@ -37,7 +37,7 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
-      - name: Code sniffer
+      - name: Run code sniffer
         run: vendor/bin/phpcs
 
       - name: Run tests

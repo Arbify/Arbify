@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class LanguageTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function testIndexShows(): void
     {

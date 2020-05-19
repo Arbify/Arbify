@@ -84,7 +84,9 @@ class MessageController extends Controller
         Language $language
     ): Response {
         $this->messageValueRepository->byMessageLanguageAndForm(
-            $message, $language, $request->input('form')
+            $message,
+            $language,
+            $request->input('form')
         )
             ->update(['value' => $request->input('value')]);
 

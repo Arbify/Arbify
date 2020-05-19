@@ -42,11 +42,13 @@ class StoreMessage extends FormRequest
     private function makeNameUniqueInProjectValidator(MessageRepository $messageRepository): callable
     {
         return function ($attribute, $value, $fail) use ($messageRepository) {
-            if (false === $messageRepository->isNameUniqueInProject(
+            if (
+                false === $messageRepository->isNameUniqueInProject(
                     $value,
                     $this->route('project'),
                     $this->isMethod('PATCH') ? $this->route('message') : null,
-                )) {
+                )
+            ) {
                 $fail("This name is already used in this project.");
             }
         };
