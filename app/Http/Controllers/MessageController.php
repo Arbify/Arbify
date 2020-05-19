@@ -30,7 +30,7 @@ class MessageController extends Controller
     {
         $messageValues = $this->messageValueRepository->allByProject($project);
 
-        return view('messages.index', [
+        return view('projects.messages.index', [
             'project' => $project,
             'messageValues' => $messageValues,
         ]);
@@ -38,7 +38,7 @@ class MessageController extends Controller
 
     public function create(Project $project): View
     {
-        return view('messages.form', [
+        return view('projects.messages.form', [
             'project' => $project,
         ]);
     }
@@ -55,7 +55,7 @@ class MessageController extends Controller
 
     public function edit(Project $project, Message $message): View
     {
-        return view('messages.form', [
+        return view('projects.messages.form', [
             'project' => $project,
             'message' => $message,
         ]);

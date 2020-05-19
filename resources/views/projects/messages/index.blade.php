@@ -74,7 +74,7 @@
                             </th>
                             @foreach($project->languages as $language)
                                 <td>
-                                    @include('messages.partials.message-inputs', [
+                                    @include('projects.messages.message-inputs', [
                                         'language' => $language,
                                         'message' => $message,
                                     ])

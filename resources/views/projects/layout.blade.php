@@ -15,6 +15,10 @@
                 <a href="{{ route('messages.index', $project) }}"
                    class="nav-link @if(request()->route()->getName() == 'messages.index') active @endif">Messages</a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('project-roles.index', $project) }}"
+                   class="nav-link @if(request()->route()->getName() == 'project-roles.index') active @endif">Project roles</a>
+            </li>
         </ul>
     </div>
 
