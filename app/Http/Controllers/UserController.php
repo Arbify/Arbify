@@ -71,7 +71,7 @@ class UserController extends Controller
     public function update(StoreUser $request, User $user): Response
     {
         $input = $request->except('password');
-        if ($request->has('password')) {
+        if (!empty($request->input('password'))) {
             $input['password'] = Hash::make($request->input('password'));
         }
 
