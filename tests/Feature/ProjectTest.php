@@ -39,6 +39,7 @@ class ProjectTest extends TestCase
 
         $this->actingAsUser()->post('/projects', [
             'name' => $name,
+            'visibility' => factory(Project::class)->make()->visibility,
         ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
@@ -72,6 +73,7 @@ class ProjectTest extends TestCase
 
         $this->actingAsUser()->patch("/projects/$project->id", [
             'name' => $newName,
+            'visibility' => $project->visibility,
         ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();

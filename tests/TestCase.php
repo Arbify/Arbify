@@ -14,6 +14,7 @@ abstract class TestCase extends BaseTestCase
         return $this->actingAs(factory(User::class)->create(
             [
                 'email_verified_at' => $verified ? now() : null,
+                'role' => User::ROLE_SUPER_ADMINISTRATOR,
             ]
         ));
     }

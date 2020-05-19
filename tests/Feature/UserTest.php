@@ -31,12 +31,14 @@ class UserTest extends TestCase
 
     public function testStoreWithCorrectData(): void
     {
-        $email = $this->faker()->unique()->safeEmail();
+        $data = factory(User::class)->make();
+        $email = $data->email;
 
         $this->actingAsUser()->post('/users', [
-            'name' => $this->faker()->name(),
+            'name' => $data->name,
             'email' => $email,
-            'password' => $this->faker()->password(8),
+            'password' => $data->password,
+            'role' => $data->role,
         ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
@@ -62,6 +64,7 @@ class UserTest extends TestCase
         $this->actingAsUser()->patch("/users/$user->id", [
             'name' => $name,
             'email' => $user->email,
+            'role' => $user->role,
         ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
