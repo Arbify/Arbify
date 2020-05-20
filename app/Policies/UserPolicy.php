@@ -59,13 +59,10 @@ class UserPolicy
         return $this->giveRole($user, $role);
     }
 
-    public function giveRole(User $user, int $role): bool
+    private function giveRole(User $user, int $role): bool
     {
         // Only super administrators can make other users (super) administrators.
-        if (in_array($role, [
-            User::ROLE_SUPER_ADMINISTRATOR,
-            User::ROLE_ADMINISTRATOR
-        ])) {
+        if (in_array($role, [User::ROLE_SUPER_ADMINISTRATOR, User::ROLE_ADMINISTRATOR])) {
             return $user->isSuperAdministrator();
         }
 

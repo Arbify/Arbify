@@ -10,6 +10,13 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
+    public const ROLES = [
+        self::ROLE_SUPER_ADMINISTRATOR,
+        self::ROLE_ADMINISTRATOR,
+        self::ROLE_USER,
+        self::ROLE_GUEST,
+    ];
+
     public const ROLE_SUPER_ADMINISTRATOR = 3;
     public const ROLE_ADMINISTRATOR = 2;
     public const ROLE_USER = 1;

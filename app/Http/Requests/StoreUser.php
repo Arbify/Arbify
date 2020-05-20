@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -47,19 +46,10 @@ class StoreUser extends FormRequest
 
     private function getAvailableRoles(?User $editedUser): array
     {
-        $roles = collect([
-            User::ROLE_SUPER_ADMINISTRATOR,
-            User::ROLE_ADMINISTRATOR,
-            User::ROLE_USER,
-            User::ROLE_GUEST,
-        ]);
+        $roles = collect(User::ROLES);
 
         return $roles->filter(function (int $role) use ($editedUser) {
-            if ($editedUser) {
-                return Auth::user()->can('update-role', [$editedUser, $role]);
-            }
-
-            return Auth::user()->can('create-role', [User::class, $role]);
+            return canGiveRole($editedUser, $role);
         })->all();
     }
 }
