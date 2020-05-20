@@ -89,7 +89,8 @@
                                         $userRole = User::ROLE_USER;
                                         $guest = User::ROLE_GUEST;
 
-                                        $oldRole = old('role', $user->role ?? $userRole);
+                                        $oldRole = (int) old('role', $user->role ?? $userRole);
+
 
                                         function canGiveRole(?User $user, int $role) {
                                             if ($user) {
@@ -146,7 +147,8 @@
                                 <div class="form-group row">
                                     <div class="offset-4 col-md-6">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="email_verification" name="email_verification" value="1">
+                                            <input type="checkbox" class="custom-control-input" id="email_verification" name="email_verification"
+                                                   @if(old('email_verification')) checked @endif>
                                             <label class="custom-control-label" for="email_verification">
                                                 Mark the email as verified
                                             </label>
@@ -157,7 +159,9 @@
                                 <div class="form-group row">
                                     <div class="offset-4 col-md-6">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="send_credentials" name="send_credentials" value="1" checked>
+                                            {{-- Send credentials is checked by default --}}
+                                            <input type="checkbox" class="custom-control-input" id="send_credentials" name="send_credentials"
+                                                   @if(old('send_credentials') || empty(old())) checked @endif>
                                             <label class="custom-control-label" for="send_credentials">
                                                 Send an email with credentials
                                             </label>
