@@ -19,7 +19,9 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+
         $this->middleware('verified');
+        $this->authorizeResource(User::class, 'user');
     }
 
     public function index(): View

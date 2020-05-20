@@ -83,16 +83,25 @@
 
                                 <div class="col-md-6 pt-2">
                                     @php
-                                        $superAdministrator = \App\Models\User::ROLE_SUPER_ADMINISTRATOR;
-                                        $administrator = \App\Models\User::ROLE_ADMINISTRATOR;
-                                        $userRole = \App\Models\User::ROLE_USER;
-                                        $guest = \App\Models\User::ROLE_GUEST;
+                                        use \App\Models\User;
+                                        $superAdministrator = User::ROLE_SUPER_ADMINISTRATOR;
+                                        $administrator = User::ROLE_ADMINISTRATOR;
+                                        $userRole = User::ROLE_USER;
+                                        $guest = User::ROLE_GUEST;
 
                                         $oldRole = old('role', $user->role ?? $userRole);
+
+                                        function canGiveRole(?User $user, int $role) {
+                                            if ($user) {
+                                                return Auth::user()->can('update-role', [$user, $role]);
+                                            }
+
+                                            return Auth::user()->can('create-role', [User::class, $role]);
+                                        }
                                     @endphp
                                     <div class="custom-control custom-radio custom-control">
                                         <input type="radio" id="role.super-administrator" name="role" value="{{ $superAdministrator }}" class="custom-control-input"
-                                               @if($oldRole === $superAdministrator) checked @endif required @if(!request()->user()->isSuperAdministrator()) disabled @endif>
+                                               @if($oldRole === $superAdministrator) checked @endif required @unless(canGiveRole($user ?? null, $superAdministrator)) disabled @endunless>
                                         <label class="custom-control-label" for="role.super-administrator">
                                             <b class="d-block">Super administrator</b>
                                             <span class="d-block mt-1 mb-2">Can access and manage all resources, users and other super administrators. Has access to administration panel.</span>
@@ -100,7 +109,7 @@
                                     </div>
                                     <div class="custom-control custom-radio custom-control">
                                         <input type="radio" id="role.administrator" name="role" value="{{ $administrator }}" class="custom-control-input"
-                                               @if($oldRole === $administrator) checked @endif required>
+                                               @if($oldRole === $administrator) checked @endif required @unless(canGiveRole($user ?? null, $administrator)) disabled @endunless>
                                         <label class="custom-control-label" for="role.administrator">
                                             <b class="d-block">Administrator</b>
                                             <span class="d-block mt-1 mb-2">Can access and manage all resources and users.</span>
@@ -108,7 +117,7 @@
                                     </div>
                                     <div class="custom-control custom-radio custom-control">
                                         <input type="radio" id="role.user" name="role" value="{{ $userRole }}" class="custom-control-input"
-                                               @if($oldRole === $userRole) checked @endif required>
+                                               @if($oldRole === $userRole) checked @endif required @unless(canGiveRole($user ?? null, $userRole)) disabled @endunless>
                                         <label class="custom-control-label" for="role.user">
                                             <b class="d-block">User</b>
                                             <span class="d-block mt-1 mb-2">Can access all public projects and languages.</span>
@@ -116,7 +125,7 @@
                                     </div>
                                     <div class="custom-control custom-radio custom-control">
                                         <input type="radio" id="role.guest" name="role" value="{{ $guest }}" class="custom-control-input"
-                                               @if($oldRole === $guest) checked @endif required>
+                                               @if($oldRole === $guest) checked @endif required @unless(canGiveRole($user ?? null, $guest)) disabled @endunless>
                                         <label class="custom-control-label" for="role.guest">
                                             <b class="d-block">Guest</b>
                                             <span class="d-block mt-1 mb-2">Can only access projects to which they have been added.</span>

@@ -57,15 +57,19 @@
                         @endif
                     </td>
                     <td class="py-0 align-middle">
-                        <a href="{{ route('users.edit', $user) }}">Edit</a>
-                        <form method="post" action="{{ route('users.destroy', $user) }}"
-                              class="d-inline ml-2 delete-modal-show" data-delete-modal-title="Deleting user"
-                              data-delete-modal-body="<b>{{ $user->name }}</b>">
-                            @csrf
-                            @method('DELETE')
+                        @can('update', $user)
+                            <a href="{{ route('users.edit', $user) }}">Edit</a>
+                        @endcan
+                        @can('delete', $user)
+                            <form method="post" action="{{ route('users.destroy', $user) }}"
+                                  class="d-inline ml-2 delete-modal-show" data-delete-modal-title="Deleting user"
+                                  data-delete-modal-body="<b>{{ $user->name }}</b>">
+                                @csrf
+                                @method('DELETE')
 
-                            <button class="btn btn-link btn-sm text-danger">Delete</button>
-                        </form>
+                                <button class="btn btn-link btn-sm text-danger">Delete</button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @empty

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -15,6 +16,8 @@ class StoreUser extends FormRequest
 
     public function rules(): array
     {
+        $availableRoles = $this->getAvailableRoles($this->route('user'));
+
         $rules = [
             'name' => 'required',
             'email' => [
@@ -29,14 +32,8 @@ class StoreUser extends FormRequest
                 'min:8',
             ],
             'role' => [
-                'required',
-                Rule::in([
-                    // Only Super administrators can make other users super administrators.
-                    $this->user()->isSuperAdministrator() ? User::ROLE_SUPER_ADMINISTRATOR : null,
-                    User::ROLE_ADMINISTRATOR,
-                    User::ROLE_USER,
-                    User::ROLE_GUEST,
-                ]),
+                !empty($availableRoles) ? 'required' : null,
+                Rule::in($availableRoles),
             ]
         ];
 
@@ -46,5 +43,23 @@ class StoreUser extends FormRequest
         }
 
         return $rules;
+    }
+
+    private function getAvailableRoles(?User $editedUser): array
+    {
+        $roles = collect([
+            User::ROLE_SUPER_ADMINISTRATOR,
+            User::ROLE_ADMINISTRATOR,
+            User::ROLE_USER,
+            User::ROLE_GUEST,
+        ]);
+
+        return $roles->filter(function (int $role) use ($editedUser) {
+            if ($editedUser) {
+                return Auth::user()->can('update-role', [$editedUser, $role]);
+            }
+
+            return Auth::user()->can('create-role', [User::class, $role]);
+        })->all();
     }
 }
