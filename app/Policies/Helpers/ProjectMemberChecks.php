@@ -18,7 +18,7 @@ trait ProjectMemberChecks
             return true;
         }
 
-        return null !== $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
+        return $this->isInProject($user, $project);
     }
 
     private function isLeadInProject(User $user, Project $project): bool
@@ -33,5 +33,10 @@ trait ProjectMemberChecks
         $member = $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
 
         return $member !== null && ($member->isLead() || $member->isMember());
+    }
+
+    private function isInProject(User $user, Project $project): bool
+    {
+        return null !== $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
     }
 }
