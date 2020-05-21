@@ -56,3 +56,19 @@
     background: none;
     padding: 0;
 }
+
+.bootstrap-select .dropdown-menu a {
+    &.active, &:active {
+        &:not([href]):hover {
+            color: #fff;
+        }
+    }
+}
+
+.bs-searchbox {
+    padding-bottom: 12px;
+}
+
+.bootstrap-select .no-results {
+    background: none;
+}
