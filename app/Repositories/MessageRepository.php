@@ -18,7 +18,10 @@ class MessageRepository implements MessageRepositoryContract
 
     public function byProject(Project $project): Collection
     {
-        return $project->messages()->get();
+        return $project
+            ->messages()
+            ->orderBy('created_at')
+            ->get();
     }
 
     public function isNameUniqueInProject(string $name, Project $project, ?Message $except = null): bool

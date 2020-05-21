@@ -32,7 +32,7 @@ class MessageValueRepository implements MessageValueRepositoryContract
 
     public function allByProjectAndLanguage(Project $project, Language $language): Collection
     {
-        return $project->messageValues()->getQuery()
+        return $project->messageValues()
             ->where('language_id', $language->id)
             ->get();
     }

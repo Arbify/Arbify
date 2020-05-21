@@ -27,11 +27,12 @@ class ProjectRepository implements ProjectRepositoryContract
                     ->join('project_roles', 'project_roles.project_id', '=', 'projects.id')
                     ->where('project_roles.user_id', '=', $user->id);
             })
+            ->orderBy('name')
             ->paginate(30);
     }
 
     public function allPaginated(): LengthAwarePaginator
     {
-        return Project::paginate(30);
+        return Project::orderBy('name')->paginate(30);
     }
 }

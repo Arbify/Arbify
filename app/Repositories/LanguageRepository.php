@@ -25,7 +25,7 @@ class LanguageRepository implements LanguageRepositoryContract
 
     public function paginated(): LengthAwarePaginator
     {
-        return Language::paginate(30);
+        return Language::orderBy('code')->paginate(30);
     }
 
     public function allInProject(Project $project): Collection
