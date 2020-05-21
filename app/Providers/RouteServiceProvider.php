@@ -28,29 +28,12 @@ class RouteServiceProvider extends ServiceProvider
 
     private function bindModels(): void
     {
-        Route::bind('language', function ($value) {
-            return app(LanguageRepository::class)->byId((int) $value);
-        });
-
-        Route::bind('language_code', function ($value) {
-            return app(LanguageRepository::class)->byCode($value);
-        });
-
-        Route::bind('message', function ($value) {
-            return app(MessageRepository::class)->byId((int) $value);
-        });
-
-        Route::bind('project', function ($value) {
-            return app(ProjectRepository::class)->byId((int) $value);
-        });
-
-        Route::bind('member', function ($value) {
-            return app(ProjectMemberRepository::class)->byId((int) $value);
-        });
-
-        Route::bind('user', function ($value) {
-            return app(UserRepository::class)->byId((int) $value);
-        });
+        Route::bind('language', fn($value) => app(LanguageRepository::class)->byId((int) $value));
+        Route::bind('language_code', fn($value) => app(LanguageRepository::class)->byCode($value));
+        Route::bind('message', fn($value) => app(MessageRepository::class)->byId((int) $value));
+        Route::bind('project', fn($value) => app(ProjectRepository::class)->byId((int) $value));
+        Route::bind('member', fn($value) => app(ProjectMemberRepository::class)->byId((int) $value));
+        Route::bind('user', fn($value) => app(UserRepository::class)->byId((int) $value));
     }
 
     public function map(): void
