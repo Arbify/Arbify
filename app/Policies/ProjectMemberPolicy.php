@@ -31,7 +31,7 @@ class ProjectMemberPolicy extends BasePolicy
 
     public function viewAny(User $user, Project $project): bool
     {
-        return $this->canViewProject($user, $project);
+        return $this->canViewProject($user, $project) && !$user->isGuest();
     }
 
     public function create(User $user, Project $project): bool

@@ -27,16 +27,18 @@
                         @foreach($project->languages as $language)
                             <th class="align-middle">
                                 {{ $language->getDisplayName() }}
-                                <form method="POST"
-                                      action="{{ route('projects.destroy-language', [$project, $language->code]) }}"
-                                      class="d-inline float-right delete-modal-show" data-delete-modal-title="Deleting language from project"
-                                      data-delete-modal-body="<b>{{ $language->code }}</b> from <b>{{ $project->name }}</b>">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
-                                        delete
-                                    </button>
-                                </form>
+                                @can('manage-languages', $project)
+                                    <form method="POST"
+                                          action="{{ route('projects.destroy-language', [$project, $language->code]) }}"
+                                          class="d-inline float-right delete-modal-show" data-delete-modal-title="Deleting language from project"
+                                          data-delete-modal-body="<b>{{ $language->code }}</b> from <b>{{ $project->name }}</b>">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
+                                            delete
+                                        </button>
+                                    </form>
+                                @endcan
                             </th>
                         @endforeach
                         @can('manage-languages', $project)
@@ -61,17 +63,21 @@
                                         @elseif($message->isGender())
                                             <span class="badge badge-light mr-2">GENDER</span>
                                         @endif
-                                        <a href="{{ route('messages.edit', [$project, $message]) }}" class="small">edit</a>
-                                        <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}"
-                                              class="d-inline ml-2 delete-modal-show"
-                                              data-delete-modal-title="Deleting message" data-delete-modal-body="<code>{{ $message->name }}</code> message">
-                                            @csrf
-                                            @method('DELETE')
+                                        @can('update', [App\Models\Message::class, $project])
+                                            <a href="{{ route('messages.edit', [$project, $message]) }}" class="small">edit</a>
+                                        @endcan
+                                        @can('delete', [App\Models\Message::class, $project])
+                                            <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}"
+                                                  class="d-inline ml-2 delete-modal-show"
+                                                  data-delete-modal-title="Deleting message" data-delete-modal-body="<code>{{ $message->name }}</code> message">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
-                                                delete
-                                            </button>
-                                        </form>
+                                                <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
+                                                    delete
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </div>
 
@@ -89,16 +95,17 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td scope="row">
-                            <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add
-                                message</a>
-                        </td>
-                        <td colspan="{{ $project->languages->count() }}"></td>
-                        @can('manage-languages', $project)<td></td>@endcan
-                    </tr>
-                </tfoot>
+                @can('create', [App\Models\Message::class, $project])
+                    <tfoot>
+                        <tr>
+                            <td scope="row">
+                                <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add message</a>
+                            </td>
+                            <td colspan="{{ $project->languages->count() }}"></td>
+                            @can('manage-languages', $project)<td></td>@endcan
+                        </tr>
+                    </tfoot>
+                @endcan
             </table>
         </div>
     </div>

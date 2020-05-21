@@ -29,6 +29,8 @@ class MessageController extends Controller
 
     public function index(Project $project): View
     {
+        $this->authorize('view-any', [Message::class, $project]);
+
         $messageValues = $this->messageValueRepository->allByProject($project);
 
         return view('projects.messages.index', [
@@ -39,6 +41,8 @@ class MessageController extends Controller
 
     public function create(Project $project): View
     {
+        $this->authorize('create', [Message::class, $project]);
+
         return view('projects.messages.form', [
             'project' => $project,
         ]);
@@ -46,6 +50,8 @@ class MessageController extends Controller
 
     public function store(StoreMessage $request, Project $project): Response
     {
+        $this->authorize('create', [Message::class, $project]);
+
         $message = Message::create([
                 'project_id' => $project->id,
             ] + $request->input());
@@ -56,6 +62,8 @@ class MessageController extends Controller
 
     public function edit(Project $project, Message $message): View
     {
+        $this->authorize('update', [$message, $project]);
+
         return view('projects.messages.form', [
             'project' => $project,
             'message' => $message,
@@ -64,6 +72,8 @@ class MessageController extends Controller
 
     public function update(StoreMessage $request, Project $project, Message $message): Response
     {
+        $this->authorize('update', [$message, $project]);
+
         $message->update($request->input());
 
         return redirect()->route('messages.index', $project)
@@ -72,6 +82,8 @@ class MessageController extends Controller
 
     public function destroy(Project $project, Message $message): Response
     {
+        $this->authorize('delete', [$message, $project]);
+
         $message->delete();
 
         return redirect()->route('messages.index', $project)
