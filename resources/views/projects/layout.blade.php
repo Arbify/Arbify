@@ -4,7 +4,10 @@
     <div class="container">
         <div class="mb-3 d-flex align-items-center">
             <h2 class="mr-auto">{{ $project->name }}</h2>
-            <a href="{{ route('projects.export', $project) }}" class="btn btn-outline-primary mr-2">Export</a>
+            @can('update', $project)
+                <a href="{{ route('projects.edit', $project) }}" class="btn btn-outline-secondary mr-2">Edit</a>
+            @endcan
+            <a href="{{ route('projects.export', $project) }}" class="btn btn-outline-primary">Export</a>
         </div>
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
