@@ -17,7 +17,6 @@
 
         <table class="table table-bordered table-striped bg-white mb-4">
             <colgroup>
-                <col style="width: 60px">
                 <col>
                 <col>
                 <col style="width: 80px">
@@ -26,7 +25,6 @@
             </colgroup>
             <thead>
             <tr>
-                <th>#</th>
                 <th>Display name</th>
                 <th>User email</th>
                 <th>Email</th>
@@ -37,7 +35,6 @@
             <tbody>
             @forelse($users as $user)
                 <tr>
-                    <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
