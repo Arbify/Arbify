@@ -12,6 +12,7 @@
     "devDependencies": {
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
+        "bootstrap-select": "^1.13.17",
         "cross-env": "^7.0",
         "flag-icon-css": "^3.4.6",
         "jquery": "^3.2",

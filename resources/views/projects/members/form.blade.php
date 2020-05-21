@@ -16,7 +16,7 @@
                         <label for="user_id" class="col-md-4 col-form-label text-md-right">User</label>
 
                         <div class="col-md-6">
-                            <select name="user_id" id="user_id" class="custom-select @error('user_id') is-invalid @enderror" required autofocus>
+                            <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" required autofocus>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}" @if(old('user_id', $member->user_id ?? '') == $user->id) selected @endif>
                                         {{ $user->email }} ({{ $user->name }})
@@ -93,3 +93,11 @@
         @endformsection
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#user_id').selectpicker({
+            liveSearch: true,
+        });
+    </script>
+@endpush

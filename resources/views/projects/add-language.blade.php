@@ -34,3 +34,11 @@
         @endformsection
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#language').selectpicker({
+            liveSearch: true,
+        });
+    </script>
+@endpush
