@@ -27,9 +27,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         @auth
-                            <li class="nav-item">
-                                <a href="{{ route('projects.index') }}" class="nav-link">Projects</a>
-                            </li>
+                            @can('view-any', App\Models\Project::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('projects.index') }}" class="nav-link">Projects</a>
+                                </li>
+                            @endcan
                             @can('view-any', App\Models\Language::class)
                                 <li class="nav-item">
                                     <a href="{{ route('languages.index') }}" class="nav-link">Languages</a>
