@@ -26,7 +26,7 @@ Breadcrumbs::for('projects.show', function (Trail $trail, Project $project) {
 
 Breadcrumbs::for('projects.edit', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
-    $trail->push($project->name, route('projects.edit', $project));
+    $trail->push('Edit', route('projects.edit', $project));
 });
 
 Breadcrumbs::for('projects.create-language', function (Trail $trail, Project $project) {
@@ -87,7 +87,7 @@ Breadcrumbs::for('users.create', function (Trail $trail) {
 Breadcrumbs::for('users.edit', function (Trail $trail, User $user) {
     $trail->parent('users.index');
     $trail->push($user->name);
-    $trail->push('New user', route('users.edit', $user));
+    $trail->push('Edit', route('users.edit', $user));
 });
 
 Breadcrumbs::for('account.index', function (Trail $trail) {
