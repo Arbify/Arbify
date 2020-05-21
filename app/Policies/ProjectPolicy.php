@@ -29,7 +29,7 @@ class ProjectPolicy extends BasePolicy
         return true;
     }
 
-    public function viewOnlyForMembers(User $user): bool
+    public function viewPrivate(User $user): bool
     {
         return $this->hasAdministrativeRights($user);
     }

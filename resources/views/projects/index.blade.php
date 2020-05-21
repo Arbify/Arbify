@@ -36,8 +36,8 @@
                         <td>
                             <a href="{{ route('projects.show', $project) }}">{{ $project->name }}</a> -
                             <small><a href="{{ route('messages.index', $project) }}">Messages</a></small>
-                            @if($project->isOnlyMembers())
-                                <span class="badge badge-light">ONLY MEMBERS</span>
+                            @if($project->isPrivate())
+                                <span class="badge badge-light">PRIVATE</span>
                             @endif
                         </td>
                         <td>{{ $project->messages->count() }}</td>

@@ -19,7 +19,7 @@ class StoreProject extends FormRequest
             'name' => 'required',
             'visibility' => [
                 'required',
-                Rule::in([Project::VISIBILITY_PUBLIC, Project::VISIBILITY_ONLY_MEMBERS]),
+                Rule::in([Project::VISIBILITY_PUBLIC, Project::VISIBILITY_PRIVATE]),
             ],
         ];
     }

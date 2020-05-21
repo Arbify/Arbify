@@ -40,7 +40,7 @@ class ProjectController extends Controller
     {
         $user = $request->user();
 
-        if ($user->can('view-only-for-members', Project::class)) {
+        if ($user->can('view-private', Project::class)) {
             $projects = $this->projectRepository->allPaginated();
         } else {
             $projects = $this->projectRepository->visibleToUserPaginated($user);

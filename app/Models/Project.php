@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class Project extends Model
 {
     public const VISIBILITY_PUBLIC = 0;
-    public const VISIBILITY_ONLY_MEMBERS = 1;
+    public const VISIBILITY_PRIVATE = 1;
 
     protected $fillable = [
         'name',
@@ -42,8 +42,8 @@ class Project extends Model
         return $this->visibility === self::VISIBILITY_PUBLIC;
     }
 
-    public function isOnlyMembers(): bool
+    public function isPrivate(): bool
     {
-        return $this->visibility === self::VISIBILITY_ONLY_MEMBERS;
+        return $this->visibility === self::VISIBILITY_PRIVATE;
     }
 }

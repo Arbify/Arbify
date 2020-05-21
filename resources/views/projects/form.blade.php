@@ -40,7 +40,7 @@
                                 <div class="col-md-6 pt-2">
                                     @php
                                         $public = \App\Models\Project::VISIBILITY_PUBLIC;
-                                        $onlyMembers = \App\Models\Project::VISIBILITY_ONLY_MEMBERS;
+                                        $private = \App\Models\Project::VISIBILITY_PRIVATE;
                                     @endphp
                                     <div class="custom-control custom-radio custom-control">
                                         <input type="radio" id="visibility.public" name="visibility" value="{{ $public }}" class="custom-control-input"
@@ -51,10 +51,10 @@
                                         </label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control">
-                                        <input type="radio" id="visibility.only-member" name="visibility" value="{{ $onlyMembers }}" class="custom-control-input"
-                                               @if(old('visibility', $project->visibility ?? '') === $onlyMembers) checked @endif required>
-                                        <label class="custom-control-label" for="visibility.only-member">
-                                            <b class="d-block">Only members.</b>
+                                        <input type="radio" id="visibility.private" name="visibility" value="{{ $private }}" class="custom-control-input"
+                                               @if(old('visibility', $project->visibility ?? '') === $private) checked @endif required>
+                                        <label class="custom-control-label" for="visibility.private">
+                                            <b class="d-block">Private.</b>
                                             <span class="d-block mt-1 mb-2">Only registered users with any role in this project will be able to see it.</span>
                                         </label>
                                     </div>
