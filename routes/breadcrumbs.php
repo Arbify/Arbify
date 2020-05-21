@@ -57,7 +57,7 @@ Breadcrumbs::for('messages.edit', function (Trail $trail, Project $project, Mess
 
 Breadcrumbs::for('project-members.index', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
-    $trail->push('Project roles', route('project-members.index', $project));
+    $trail->push('Members', route('project-members.index', $project));
 });
 
 Breadcrumbs::for('languages.index', function (Trail $trail) {
