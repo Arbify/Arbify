@@ -4,16 +4,10 @@ namespace App\Http\Requests;
 
 use App\Contracts\Repositories\MessageRepository;
 use App\Models\Message;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreMessage extends FormRequest
+class StoreMessage extends AuthorizedFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(MessageRepository $messageRepository): array
     {
         $rules = [

@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Models\Language;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PutMessageValue extends FormRequest
+class PutMessageValue extends AuthorizedFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [

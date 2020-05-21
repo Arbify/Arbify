@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Models\Project;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreProject extends FormRequest
+class StoreProject extends AuthorizedFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [

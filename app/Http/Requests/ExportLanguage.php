@@ -3,15 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Models\Language;
-use Illuminate\Foundation\Http\FormRequest;
 
-class ExportLanguage extends FormRequest
+class ExportLanguage extends AuthorizedFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [

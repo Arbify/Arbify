@@ -4,16 +4,10 @@ namespace App\Http\Requests;
 
 use App\Models\ProjectMember;
 use App\Models\User;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreProjectMember extends FormRequest
+class StoreProjectMember extends AuthorizedFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         $rules = [
