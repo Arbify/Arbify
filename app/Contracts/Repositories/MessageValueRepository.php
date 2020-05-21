@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 interface MessageValueRepository
 {
-    public function byMessageLanguageAndForm(Message $message, Language $language, ?string $form): MessageValue;
+    public function byMessageLanguageAndFormOrCreate(Message $message, Language $language, ?string $form): MessageValue;
 
     public function allByProject(Project $project): Collection;
 

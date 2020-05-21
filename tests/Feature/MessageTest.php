@@ -84,27 +84,6 @@ class MessageTest extends TestCase
         $this->assertDatabaseMissing('messages', ['id' => $message->id]);
     }
 
-    public function testPutMessageValueWithCorrectData(): void
-    {
-        [$project, $message] = $this->projectAndMessage();
-        $language = factory(Language::class)->create();
-        $project->languages()->attach($language);
-
-        $value = $this->faker()->sentence();
-
-        $this->actingAsUser()->put("/projects/$project->id/messages/$message->id/$language->code", [
-            'value' => $value,
-        ])
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
-
-        $this->assertDatabaseHas('message_values', [
-            'message_id' => $message->id,
-            'language_id' => $language->id,
-            'value' => $value,
-        ]);
-    }
-
     private function projectAndMessage(): array
     {
         $project = factory(Project::class)->create();

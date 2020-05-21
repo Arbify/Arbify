@@ -89,22 +89,4 @@ class MessageController extends Controller
         return redirect()->route('messages.index', $project)
             ->with('success', "Deleted <b>$message->name</b> successfully.");
     }
-
-    public function putMessageValue(
-        PutMessageValue $request,
-        Project $project,
-        Message $message,
-        Language $language
-    ): Response {
-        $this->messageValueRepository->byMessageLanguageAndForm(
-            $message,
-            $language,
-            $request->input('form')
-        )
-            ->update(['value' => $request->input('value')]);
-
-        return $request->expectsJson() ?
-            status(Response::HTTP_CREATED)
-            : redirect()->route('messages.index', $project);
-    }
 }

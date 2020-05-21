@@ -15,15 +15,15 @@
 @endphp
 
 <div class="form-group row">
-    @if(is_null($form))
-        <label for="{{ $label }}" class="col-form-label message-type-col sr-only">Message</label>
-    @else
+    @if(isset($form))
         <label for="{{ $label }}" class="col-form-label message-type-col">
             <span class="badge badge-light">{{ strtoupper($form ?? '') }}</span>
         </label>
+    @else
+        <label for="{{ $label }}" class="col-form-label message-type-col sr-only">Message</label>
     @endif
     <div class="col">
-        <form method="POST" action="{{ route('messages.putMessageValue', [$project, $message, $language->code]) }}" class="message-value-form">
+        <form method="POST" action="{{ route('message-values.put', [$project, $message, $language->code]) }}" class="message-value-form">
             @method('PUT')
             @csrf
             @if(!is_null($form))

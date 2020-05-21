@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 
 class MessageValueRepository implements MessageValueRepositoryContract
 {
-    public function byMessageLanguageAndForm(Message $message, Language $language, ?string $form): MessageValue
+    public function byMessageLanguageAndFormOrCreate(Message $message, Language $language, ?string $form): MessageValue
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $message->messageValues()

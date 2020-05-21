@@ -29,8 +29,9 @@ Route::post('/projects/{project}/export', 'ProjectController@exportLanguage')->n
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);
-Route::put('/projects/{project}/messages/{message}/{language_code}', 'MessageController@putMessageValue')
-    ->name('messages.putMessageValue');
+
+Route::put('/projects/{project}/messages/{message}/{language_code}', 'MessageValueController@put')
+    ->name('message-values.put');
 
 Route::resource('/projects/{project}/roles', 'ProjectMemberController', ['names' => 'project-members'])
     ->except(['show']);
