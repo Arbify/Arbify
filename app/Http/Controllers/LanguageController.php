@@ -22,7 +22,7 @@ class LanguageController extends Controller
 
     public function index(): View
     {
-        $languages = $this->languageRepository->paginated();
+        $languages = $this->languageRepository->allPaginated();
 
         return view('languages.index', [
             'languages' => $languages,

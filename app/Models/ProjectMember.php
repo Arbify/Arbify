@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProjectMember extends Model
 {
-    public const LEAD = 2;
-    public const MEMBER = 1;
-    public const TRANSLATOR = 0;
+    public const RULES = [
+        self::ROLE_LEAD,
+        self::ROLE_MEMBER,
+        self::ROLE_TRANSLATOR,
+    ];
+
+    public const ROLE_LEAD = 2;
+    public const ROLE_MEMBER = 1;
+    public const ROLE_TRANSLATOR = 0;
 
     protected $fillable = [
         'user_id',
@@ -30,16 +36,16 @@ class ProjectMember extends Model
 
     public function isLead(): bool
     {
-        return $this->role === self::LEAD;
+        return $this->role === self::ROLE_LEAD;
     }
 
     public function isMember(): bool
     {
-        return $this->role === self::MEMBER;
+        return $this->role === self::ROLE_MEMBER;
     }
 
     public function isTranslator(): bool
     {
-        return $this->role === self::TRANSLATOR;
+        return $this->role === self::ROLE_TRANSLATOR;
     }
 }

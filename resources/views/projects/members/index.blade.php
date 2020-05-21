@@ -5,10 +5,22 @@
         <p class="alert alert-info mb-4"><b>Note:</b> All administrators and super administrators have lead role abilities in any project.</p>
         @can('create', [App\Models\ProjectMember::class, $project])
             <div class="d-flex mb-4">
-                <a href="{{ route('project-members.create', $project) }}" class="btn btn-primary ml-auto">Add user to project</a>
+                <a href="{{ route('project-members.create', $project) }}" class="btn btn-primary ml-auto">Add member</a>
             </div>
         @endcan
+
+        @if (session('success'))
+            <div class="alert alert-success mb-4">
+                {!! session('success') !!}
+            </div>
+        @endif
+
         <table class="table table-bordered table-striped bg-white mb-4">
+            <colgroup>
+                <col>
+                <col style="width: 100px">
+                <col style="width: 200px">
+            </colgroup>
             <thead>
                 <tr>
                     <th>User display name</th>

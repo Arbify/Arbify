@@ -12,6 +12,11 @@ use Illuminate\Support\Collection;
 
 class ProjectMemberRepository implements ProjectMemberRepositoryContract
 {
+    public function byId(int $id): ProjectMember
+    {
+        return ProjectMember::findOrFail($id);
+    }
+
     public function allInProject(Project $project): Collection
     {
         return $project->projectMembers()->get();

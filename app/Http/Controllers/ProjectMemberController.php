@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\ProjectMemberRepository;
+use App\Contracts\Repositories\UserRepository;
+use App\Http\Requests\StoreProjectMember;
 use App\Models\Project;
 use App\Models\ProjectMember;
 use Illuminate\Http\Request;
@@ -12,10 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 class ProjectMemberController extends Controller
 {
     private ProjectMemberRepository $projectMemberRepository;
+    private UserRepository $userRepository;
 
-    public function __construct(ProjectMemberRepository $projectMemberRepository)
-    {
+    public function __construct(
+        ProjectMemberRepository $projectMemberRepository,
+        UserRepository $userRepository
+    ) {
         $this->projectMemberRepository = $projectMemberRepository;
+        $this->userRepository = $userRepository;
 
         $this->middleware('verified');
     }
@@ -35,25 +41,53 @@ class ProjectMemberController extends Controller
     public function create(Project $project): View
     {
         $this->authorize('create', [ProjectMember::class, $project]);
+
+        return view('projects.members.form', [
+            'project' => $project,
+            'users' => $this->userRepository->all(),
+        ]);
     }
 
-    public function store(Request $request, Project $project): Response
+    public function store(StoreProjectMember $request, Project $project): Response
     {
         $this->authorize('create', [ProjectMember::class, $project]);
+
+        $member = ProjectMember::create([
+            'project_id' => $project->id
+        ] + $request->validated());
+
+        return redirect()->route('project-members.index', $project)
+            ->with('success', "Added <b>{$member->user->name}</b> to this project successfully.");
     }
 
     public function edit(Project $project, ProjectMember $projectMember): View
     {
-        $this->authorize('update', [ProjectMember::class, $project]);
+        $this->authorize('update', [$projectMember, $project]);
+
+        return view('projects.members.form', [
+            'project' => $project,
+            'member' => $projectMember,
+            'users' => $this->userRepository->all(),
+        ]);
     }
 
-    public function update(Request $request, Project $project, ProjectMember $projectMember): Response
+    public function update(StoreProjectMember $request, Project $project, ProjectMember $projectMember): Response
     {
-        $this->authorize('update', [ProjectMember::class, $project]);
+        $this->authorize('update', [$projectMember, $project]);
+
+        $projectMember->update($request->validated());
+
+        return redirect()->route('project-members.index', $project)
+            ->with('success', "Updated <b>{$projectMember->user->name}</b> in this project successfully.");
     }
 
     public function destroy(Project $project, ProjectMember $projectMember): Response
     {
-        $this->authorize('delete', [ProjectMember::class, $project]);
+        $this->authorize('delete', [$projectMember, $project]);
+
+        $projectMember->delete();
+
+        return redirect()->route('project-members.index', $project)
+            ->with('success', "Deleted <b>{$projectMember->user->name}</b> from this project successfully.");
     }
 }

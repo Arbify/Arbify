@@ -23,7 +23,7 @@ class LanguageRepository implements LanguageRepositoryContract
         return Language::where('code', $code)->firstOrFail();
     }
 
-    public function paginated(): LengthAwarePaginator
+    public function allPaginated(): LengthAwarePaginator
     {
         return Language::orderBy('code')->paginate(30);
     }

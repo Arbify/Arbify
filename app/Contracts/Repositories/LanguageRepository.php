@@ -15,7 +15,7 @@ interface LanguageRepository
 
     public function byCode(string $code): Language;
 
-    public function paginated(): LengthAwarePaginator;
+    public function allPaginated(): LengthAwarePaginator;
 
     public function allInProject(Project $project): Collection;
 

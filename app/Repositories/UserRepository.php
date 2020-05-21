@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\UserRepository as UserRepositoryContract;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryContract
 {
@@ -15,7 +16,12 @@ class UserRepository implements UserRepositoryContract
         return User::findOrFail($id);
     }
 
-    public function paginated(): LengthAwarePaginator
+    public function all(): Collection
+    {
+        return User::all();
+    }
+
+    public function allPaginated(): LengthAwarePaginator
     {
         // So that we firstly order users by role significance, descending.
         $userRolesWhens = collect(User::ROLES)

@@ -67,7 +67,7 @@ class ProjectController extends Controller
     {
         $project = Project::create($request->validated());
         $project->projectMembers()->create([
-            'role' => ProjectMember::LEAD,
+            'role' => ProjectMember::ROLE_LEAD,
             'user_id' => $request->user()->id,
         ]);
 

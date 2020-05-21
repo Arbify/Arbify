@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\Repositories\LanguageRepository;
 use App\Contracts\Repositories\MessageRepository;
+use App\Contracts\Repositories\ProjectMemberRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Contracts\Repositories\UserRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -27,20 +28,24 @@ class RouteServiceProvider extends ServiceProvider
 
     private function bindModels(): void
     {
-        Route::bind('project', function ($value) {
-            return app(ProjectRepository::class)->byId((int) $value);
-        });
-
-        Route::bind('message', function ($value) {
-            return app(MessageRepository::class)->byId((int) $value);
+        Route::bind('language', function ($value) {
+            return app(LanguageRepository::class)->byId((int) $value);
         });
 
         Route::bind('language_code', function ($value) {
             return app(LanguageRepository::class)->byCode($value);
         });
 
-        Route::bind('language', function ($value) {
-            return app(LanguageRepository::class)->byId((int) $value);
+        Route::bind('message', function ($value) {
+            return app(MessageRepository::class)->byId((int) $value);
+        });
+
+        Route::bind('project', function ($value) {
+            return app(ProjectRepository::class)->byId((int) $value);
+        });
+
+        Route::bind('member', function ($value) {
+            return app(ProjectMemberRepository::class)->byId((int) $value);
         });
 
         Route::bind('user', function ($value) {

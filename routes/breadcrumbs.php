@@ -3,6 +3,7 @@
 use App\Models\Language;
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\ProjectMember;
 use App\Models\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Trail;
 
@@ -58,6 +59,17 @@ Breadcrumbs::for('messages.edit', function (Trail $trail, Project $project, Mess
 Breadcrumbs::for('project-members.index', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
     $trail->push('Members', route('project-members.index', $project));
+});
+
+Breadcrumbs::for('project-members.create', function (Trail $trail, Project $project) {
+    $trail->parent('project-members.index', $project);
+    $trail->push('New member', route('project-members.create', $project));
+});
+
+Breadcrumbs::for('project-members.edit', function (Trail $trail, Project $project, ProjectMember $projectMember) {
+    $trail->parent('project-members.index', $project);
+    $trail->push($projectMember->user->name);
+    $trail->push('Edit', route('project-members.edit', [$project, $projectMember]));
 });
 
 Breadcrumbs::for('languages.index', function (Trail $trail) {
