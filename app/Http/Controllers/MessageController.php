@@ -54,7 +54,7 @@ class MessageController extends Controller
 
         $message = Message::create([
                 'project_id' => $project->id,
-            ] + $request->input());
+            ] + $request->validated());
 
         return redirect()->route('messages.index', $project)
             ->with('success', "Added <b>$message->name</b> successfully.");
@@ -74,7 +74,7 @@ class MessageController extends Controller
     {
         $this->authorize('update', [$message, $project]);
 
-        $message->update($request->input());
+        $message->update($request->validated());
 
         return redirect()->route('messages.index', $project)
             ->with('success', "Updated <b>$message->name</b> successfully.");

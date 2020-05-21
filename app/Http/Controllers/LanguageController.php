@@ -36,7 +36,7 @@ class LanguageController extends Controller
 
     public function store(StoreLanguage $request): Response
     {
-        $language = Language::create($request->input());
+        $language = Language::create($request->validated());
 
         return redirect()->route('languages.index')
             ->with('success', "Added <b>$language->code</b> successfully.");
@@ -51,7 +51,7 @@ class LanguageController extends Controller
 
     public function update(StoreLanguage $request, Language $language): Response
     {
-        $language->update($request->input());
+        $language->update($request->validated());
 
         return redirect()->route('languages.index')
             ->with('success', "Updated <b>$language->code</b> successfully.");

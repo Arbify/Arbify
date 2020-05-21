@@ -6,7 +6,6 @@ use App\Contracts\Repositories\MessageValueRepository;
 use App\Http\Requests\PutMessageValue;
 use App\Models\Language;
 use App\Models\Message;
-use App\Models\MessageValue;
 use App\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,7 +31,7 @@ class MessageValueController extends Controller
             $language,
             $request->input('form')
         )
-            ->update(['value' => $request->input('value')]);
+            ->update($request->only('value'));
 
         return $request->expectsJson() ?
             status(Response::HTTP_CREATED)
