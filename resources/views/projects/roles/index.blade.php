@@ -11,6 +11,11 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td><i>All administrators and super administrators</i></td>
+                    <td>Lead</td>
+                    <td></td>
+                </tr>
                 @foreach($project->projectRoles as $role)
                     <tr>
                         <td>{{ $role->user->name }}</td>

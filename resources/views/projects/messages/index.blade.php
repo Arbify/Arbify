@@ -17,7 +17,9 @@
                     @foreach($project->languages as $language)
                         <col style="width: 400px;">
                     @endforeach
-                    <col style="width: 146px">
+                    @can('manage-languages', $project)
+                        <col style="width: 146px">
+                    @endcan
                 </colgroup>
                 <thead>
                     <tr>
@@ -37,10 +39,13 @@
                                 </form>
                             </th>
                         @endforeach
-                        <th>
-                            <a href="{{ route('projects.create-language', $project) }}" class="btn btn-primary">Add
-                                language</a>
-                        </th>
+                        @can('manage-languages', $project)
+                            <th>
+                                <a href="{{ route('projects.create-language', $project) }}" class="btn btn-primary">
+                                    Add language
+                                </a>
+                            </th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -80,7 +85,7 @@
                                     ])
                                 </td>
                             @endforeach
-                            <td></td>
+                            @can('manage-languages', $project)<td></td>@endcan
                         </tr>
                     @endforeach
                 </tbody>
@@ -90,7 +95,8 @@
                             <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add
                                 message</a>
                         </td>
-                        <td colspan="{{ $project->languages->count() + 1 }}"></td>
+                        <td colspan="{{ $project->languages->count() }}"></td>
+                        @can('manage-languages', $project)<td></td>@endcan
                     </tr>
                 </tfoot>
             </table>

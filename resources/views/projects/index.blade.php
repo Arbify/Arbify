@@ -4,7 +4,9 @@
     <div class="container">
         <div class="d-flex mb-4 justify-content-between align-items-center">
             <h2>Projects</h2>
-            <a href="{{ route('projects.create') }}" class="btn btn-primary">New project</a>
+            @can('create', App\Models\Project::class)
+                <a href="{{ route('projects.create') }}" class="btn btn-primary">New project</a>
+            @endcan
         </div>
 
         @if (session('success'))
@@ -15,7 +17,6 @@
 
         <table class="table table-bordered table-striped bg-white mb-4">
             <colgroup>
-                <col style="width: 60px">
                 <col>
                 <col style="width: 100px">
                 <col style="width: 100px">
@@ -23,7 +24,6 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Project name</th>
                     <th>Messages</th>
                     <th>Languages</th>
@@ -33,24 +33,28 @@
             <tbody>
                 @forelse($projects as $project)
                     <tr>
-                        <td>{{ $project->id }}</td>
                         <td>
                             <a href="{{ route('projects.show', $project) }}">{{ $project->name }}</a> -
-                            <small>
-                                <a href="{{ route('messages.index', $project) }}">Messages</a>
-                            </small>
+                            <small><a href="{{ route('messages.index', $project) }}">Messages</a></small>
+                            @if($project->isOnlyMembers())
+                                <span class="badge badge-light">ONLY MEMBERS</span>
+                            @endif
                         </td>
                         <td>{{ $project->messages->count() }}</td>
                         <td>{{ $project->languages->count() }}</td>
                         <td class="py-0 align-middle">
-                            <a href="{{ route('projects.edit', $project) }}">Edit</a>
-                            <form method="post" action="{{ route('projects.destroy', $project) }}" class="d-inline ml-2 delete delete-modal-show"
-                                  data-delete-modal-title="Deleting project" data-delete-modal-body="<b>{{ $project->name }}</b>">
-                                @csrf
-                                @method('DELETE')
+                            @can('update', $project)
+                                <a href="{{ route('projects.edit', $project) }}">Edit</a>
+                            @endcan
+                            @can('delete', $project)
+                                <form method="post" action="{{ route('projects.destroy', $project) }}" class="d-inline ml-2 delete delete-modal-show"
+                                      data-delete-modal-title="Deleting project" data-delete-modal-body="<b>{{ $project->name }}</b>">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button class="btn btn-link btn-sm text-danger">Delete</button>
-                            </form>
+                                    <button class="btn btn-link btn-sm text-danger">Delete</button>
+                                </form>
+                            @endcan
                         </td>
                     </tr>
                 @empty

@@ -13,6 +13,7 @@ use App\Http\Requests\StoreProject;
 use App\Models\Language;
 use App\Models\Project;
 use App\Models\ProjectRole;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,12 +28,23 @@ class ProjectController extends Controller
     ) {
         $this->projectRepository = $projectRepository;
         $this->languageRepository = $languageRepository;
+
         $this->middleware('verified');
+        $this->authorizeResource(Project::class);
+        $this->middleware('can:manage-languages,project')
+            ->only(['createProjectLanguage', 'storeProjectLanguage', 'destroyProjectLanguage']);
+        $this->middleware('can:view,project')->only(['export', 'exportLanguage']);
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $projects = $this->projectRepository->paginated();
+        $user = $request->user();
+
+        if ($user->can('view-only-for-members', Project::class)) {
+            $projects = $this->projectRepository->allPaginated();
+        } else {
+            $projects = $this->projectRepository->visibleToUserPaginated($user);
+        }
 
         return view('projects.index', [
             'projects' => $projects,
