@@ -4,7 +4,9 @@
     <div class="container">
         <div class="d-flex mb-4 justify-content-between align-items-center">
             <h2>Users</h2>
-            <a href="{{ route('users.create') }}" class="btn btn-primary">New user</a>
+            @can('create', App\Models\User::class)
+                <a href="{{ route('users.create') }}" class="btn btn-primary">New user</a>
+            @endcan
         </div>
 
         @if (session('success'))
