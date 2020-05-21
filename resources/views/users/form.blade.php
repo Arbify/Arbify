@@ -134,7 +134,7 @@
                         <div class="offset-4 col-md-6">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="email_verification" name="email_verification"
-                                       @if(old('email_verification')) checked @endif>
+                                       value="1" @if(old('email_verification')) checked @endif>
                                 <label class="custom-control-label" for="email_verification">
                                     Mark the email as verified
                                 </label>
@@ -147,7 +147,7 @@
                             <div class="custom-control custom-checkbox">
                                 {{-- Send credentials is checked by default --}}
                                 <input type="checkbox" class="custom-control-input" id="send_credentials" name="send_credentials"
-                                       @if(old('send_credentials') || empty(old())) checked @endif>
+                                       value="1" @if(old('send_credentials') || empty(old())) checked @endif>
                                 <label class="custom-control-label" for="send_credentials">
                                     Send an email with credentials
                                 </label>
