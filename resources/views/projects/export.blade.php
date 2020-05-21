@@ -27,7 +27,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci assumenda commodi cum, eligendi et id iste maiores minima molestias neque nulla obcaecati praesentium quasi quia sint sit vero voluptates!</p>
                         <div class="form-group">
                             <label for="language">Language</label>
-                            <select id="language" class="custom-select" name="language" required>
+                            <select id="language" class="form-control" name="language" required>
                                 @foreach($project->languages()->getResults() as $language)
                                     <option value="{{ $language->id }}">{{ $language->getDisplayName() }}</option>
                                 @endforeach
@@ -40,3 +40,11 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#language').selectpicker({
+            liveSearch: true,
+        });
+    </script>
+@endpush
