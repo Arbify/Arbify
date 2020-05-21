@@ -22,8 +22,9 @@ class MessageController extends Controller
         MessageValueRepository $messageValueRepository
     ) {
         $this->messageRepository = $messageRepository;
-        $this->middleware('verified');
         $this->messageValueRepository = $messageValueRepository;
+
+        $this->middleware('verified');
     }
 
     public function index(Project $project): View

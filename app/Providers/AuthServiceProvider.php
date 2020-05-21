@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Language;
 use App\Models\Project;
+use App\Models\ProjectMember;
 use App\Models\User;
 use App\Policies\LanguagePolicy;
+use App\Policies\ProjectMemberPolicy;
 use App\Policies\ProjectPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,9 +15,10 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        Language::class => LanguagePolicy::class,
-        Project::class  => ProjectPolicy::class,
-        User::class     => UserPolicy::class,
+        Language::class      => LanguagePolicy::class,
+        Project::class       => ProjectPolicy::class,
+        ProjectMember::class => ProjectMemberPolicy::class,
+        User::class          => UserPolicy::class,
     ];
 
     public function boot(): void

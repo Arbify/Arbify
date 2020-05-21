@@ -8,7 +8,7 @@ use App\Models\User;
 
 class ProjectPolicy extends BasePolicy
 {
-    private ProjectMemberRepository $projectMemberRepository;
+    use Helpers\ProjectMemberChecks;
 
     public function __construct(ProjectMemberRepository $projectMemberRepository)
     {
@@ -36,11 +36,7 @@ class ProjectPolicy extends BasePolicy
 
     public function view(User $user, Project $project): bool
     {
-        if ($project->isPublic()) {
-            return true;
-        }
-
-        return null !== $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
+        return $this->canViewProject($user, $project);
     }
 
     public function create(User $user): bool
@@ -61,12 +57,5 @@ class ProjectPolicy extends BasePolicy
     public function delete(User $user, Project $project): bool
     {
         return $this->isLeadInProject($user, $project);
-    }
-
-    private function isLeadInProject(User $user, Project $project): bool
-    {
-        $role = $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
-
-        return $role !== null && $role->isLead();
     }
 }

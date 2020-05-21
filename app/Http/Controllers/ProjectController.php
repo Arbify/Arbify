@@ -31,9 +31,16 @@ class ProjectController extends Controller
 
         $this->middleware('verified');
         $this->authorizeResource(Project::class);
-        $this->middleware('can:manage-languages,project')
-            ->only(['createProjectLanguage', 'storeProjectLanguage', 'destroyProjectLanguage']);
-        $this->middleware('can:view,project')->only(['export', 'exportLanguage']);
+    }
+
+    protected function resourceAbilityMap(): array
+    {
+        return parent::resourceAbilityMap() + [
+                'createProjectLanguage' => 'manage-languages',
+                'storeProjectLanguage' => 'manage-languages',
+                'export' => 'view',
+                'exportLanguage' => 'view',
+            ];
     }
 
     public function index(Request $request): View

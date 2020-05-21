@@ -16,10 +16,14 @@ class ProjectMemberController extends Controller
     public function __construct(ProjectMemberRepository $projectMemberRepository)
     {
         $this->projectMemberRepository = $projectMemberRepository;
+
+        $this->middleware('verified');
     }
 
     public function index(Project $project): View
     {
+        $this->authorize('viewAny', [ProjectMember::class, $project]);
+
         $members = $this->projectMemberRepository->allInProject($project);
 
         return view('projects.members.index', [
@@ -28,28 +32,28 @@ class ProjectMemberController extends Controller
         ]);
     }
 
-    public function create(): View
+    public function create(Project $project): View
     {
-        //
+        $this->authorize('create', [ProjectMember::class, $project]);
     }
 
-    public function store(Request $request): Response
+    public function store(Request $request, Project $project): Response
     {
-        //
+        $this->authorize('create', [ProjectMember::class, $project]);
     }
 
-    public function edit(ProjectMember $projectMember): View
+    public function edit(Project $project, ProjectMember $projectMember): View
     {
-        //
+        $this->authorize('update', [ProjectMember::class, $project]);
     }
 
-    public function update(Request $request, ProjectMember $projectMember): Response
+    public function update(Request $request, Project $project, ProjectMember $projectMember): Response
     {
-        //
+        $this->authorize('update', [ProjectMember::class, $project]);
     }
 
-    public function destroy(ProjectMember $projectMember): Response
+    public function destroy(Project $project, ProjectMember $projectMember): Response
     {
-        //
+        $this->authorize('delete', [ProjectMember::class, $project]);
     }
 }
