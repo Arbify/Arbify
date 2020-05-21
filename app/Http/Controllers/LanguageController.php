@@ -15,7 +15,9 @@ class LanguageController extends Controller
     public function __construct(LanguageRepository $languageRepository)
     {
         $this->languageRepository = $languageRepository;
+
         $this->middleware('verified');
+        $this->authorizeResource(Language::class);
     }
 
     public function index(): View

@@ -30,10 +30,12 @@
                             <li class="nav-item">
                                 <a href="{{ route('projects.index') }}" class="nav-link">Projects</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('languages.index') }}" class="nav-link">Languages</a>
-                            </li>
-                            @can('view-any', \App\Models\User::class)
+                            @can('view-any', App\Models\Language::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('languages.index') }}" class="nav-link">Languages</a>
+                                </li>
+                            @endcan
+                            @can('view-any', App\Models\User::class)
                                 <li class="nav-item">
                                     <a href="{{ route('users.index') }}" class="nav-link">Users</a>
                                 </li>

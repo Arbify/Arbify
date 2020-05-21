@@ -3,16 +3,13 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class UserPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
     public function before(User $user, $ability): ?bool
     {
         // User has to be an administrator or a super administrator to access users.
-        if (!$user->isSuperAdministrator() && !$user->isAdministrator()) {
+        if (!$this->hasAdministrativeRights($user)) {
             return false;
         }
 

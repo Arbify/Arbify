@@ -4,7 +4,9 @@
     <div class="container">
         <div class="d-flex mb-4 justify-content-between align-items-center">
             <h2>Languages</h2>
-            <a href="{{ route('languages.create') }}" class="btn btn-primary">New language</a>
+            @can('create', App\Models\Language::class)
+                <a href="{{ route('languages.create') }}" class="btn btn-primary">New language</a>
+            @endcan
         </div>
 
         @if (session('success'))
@@ -50,14 +52,18 @@
                         @endif
                     </td>
                     <td class="py-0 align-middle">
-                        <a href="{{ route('languages.edit', $language) }}">Edit</a>
-                        <form method="post" action="{{ route('languages.destroy', $language) }}" class="d-inline ml-2 delete-modal-show"
-                              data-delete-modal-title="Deleting language" data-delete-modal-body="<b>{{ $language->code }}</b>">
-                            @csrf
-                            @method('DELETE')
+                        @can('update', $language)
+                            <a href="{{ route('languages.edit', $language) }}">Edit</a>
+                        @endcan
+                        @can('delete', $language)
+                            <form method="post" action="{{ route('languages.destroy', $language) }}" class="d-inline ml-2 delete-modal-show"
+                                  data-delete-modal-title="Deleting language" data-delete-modal-body="<b>{{ $language->code }}</b>">
+                                @csrf
+                                @method('DELETE')
 
-                            <button class="btn btn-link btn-sm text-danger">Delete</button>
-                        </form>
+                                <button class="btn btn-link btn-sm text-danger">Delete</button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @empty

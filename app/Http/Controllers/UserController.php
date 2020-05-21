@@ -21,7 +21,7 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
 
         $this->middleware('verified');
-        $this->authorizeResource(User::class, 'user');
+        $this->authorizeResource(User::class);
     }
 
     public function index(): View
