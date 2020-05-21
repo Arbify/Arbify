@@ -32,9 +32,9 @@ class Project extends Model
         return $this->belongsToMany(Language::class)->withTimestamps();
     }
 
-    public function projectRoles(): HasMany
+    public function projectMembers(): HasMany
     {
-        return $this->hasMany(ProjectRole::class);
+        return $this->hasMany(ProjectMember::class);
     }
 
     public function isPublic(): bool

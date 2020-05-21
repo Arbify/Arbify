@@ -12,7 +12,7 @@ use App\Http\Requests\ExportLanguage;
 use App\Http\Requests\StoreProject;
 use App\Models\Language;
 use App\Models\Project;
-use App\Models\ProjectRole;
+use App\Models\ProjectMember;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,8 +59,8 @@ class ProjectController extends Controller
     public function store(StoreProject $request): Response
     {
         $project = Project::create($request->validated());
-        $project->projectRoles()->create([
-            'role' => ProjectRole::LEAD,
+        $project->projectMembers()->create([
+            'role' => ProjectMember::LEAD,
             'user_id' => $request->user()->id,
         ]);
 

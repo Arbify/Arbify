@@ -2,17 +2,17 @@
 
 namespace App\Policies;
 
-use App\Contracts\Repositories\ProjectRoleRepository;
+use App\Contracts\Repositories\ProjectMemberRepository;
 use App\Models\Project;
 use App\Models\User;
 
 class ProjectPolicy extends BasePolicy
 {
-    private ProjectRoleRepository $projectRoleRepository;
+    private ProjectMemberRepository $projectMemberRepository;
 
-    public function __construct(ProjectRoleRepository $projectRoleRepository)
+    public function __construct(ProjectMemberRepository $projectMemberRepository)
     {
-        $this->projectRoleRepository = $projectRoleRepository;
+        $this->projectMemberRepository = $projectMemberRepository;
     }
 
     public function before(User $user, $ability): ?bool
@@ -40,7 +40,7 @@ class ProjectPolicy extends BasePolicy
             return true;
         }
 
-        return null !== $this->projectRoleRepository->byProjectAndUserOrNull($project, $user);
+        return null !== $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
     }
 
     public function create(User $user): bool
@@ -65,7 +65,7 @@ class ProjectPolicy extends BasePolicy
 
     private function isLeadInProject(User $user, Project $project): bool
     {
-        $role = $this->projectRoleRepository->byProjectAndUserOrNull($project, $user);
+        $role = $this->projectMemberRepository->byProjectAndUserOrNull($project, $user);
 
         return $role !== null && $role->isLead();
     }

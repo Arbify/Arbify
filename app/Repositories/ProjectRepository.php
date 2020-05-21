@@ -24,8 +24,8 @@ class ProjectRepository implements ProjectRepositoryContract
             ->orWhereExists(function (Builder $builder) use ($user) {
                 $builder
                     ->from('projects')
-                    ->join('project_roles', 'project_roles.project_id', '=', 'projects.id')
-                    ->where('project_roles.user_id', '=', $user->id);
+                    ->join('project_members', 'project_members.project_id', '=', 'projects.id')
+                    ->where('project_members.user_id', '=', $user->id);
             })
             ->orderBy('name')
             ->paginate(30);

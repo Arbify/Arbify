@@ -13,7 +13,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         Contracts\MessageRepository::class      => Repositories\MessageRepository::class,
         Contracts\MessageValueRepository::class => Repositories\MessageValueRepository::class,
         Contracts\ProjectRepository::class      => Repositories\ProjectRepository::class,
-        Contracts\ProjectRoleRepository::class  => Repositories\ProjectRoleRepository::class,
+        Contracts\ProjectMemberRepository::class  => Repositories\ProjectMemberRepository::class,
         Contracts\UserRepository::class         => Repositories\UserRepository::class,
     ];
 }

@@ -15,15 +15,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($project->projectRoles as $role)
+                @foreach($members as $member)
                     <tr>
-                        <td>{{ $role->user->name }}</td>
+                        <td>{{ $member->user->name }}</td>
                         <td>
-                            @if($role->isLead())
+                            @if($member->isLead())
                                 Lead
-                            @elseif($role->isMember())
+                            @elseif($member->isMember())
                                 Member
-                            @elseif($role->isTranslator())
+                            @elseif($member->isTranslator())
                                 Translator
                             @endif
                         </td>

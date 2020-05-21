@@ -32,7 +32,7 @@ Route::resource('/projects/{project}/messages', 'MessageController')
 Route::put('/projects/{project}/messages/{message}/{language_code}', 'MessageController@putMessageValue')
     ->name('messages.putMessageValue');
 
-Route::resource('/projects/{project}/roles', 'ProjectRoleController', ['names' => 'project-roles'])
+Route::resource('/projects/{project}/roles', 'ProjectMemberController', ['names' => 'project-members'])
     ->except(['show']);
 
 Route::resource('/languages', 'LanguageController')

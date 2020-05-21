@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ProjectRole extends Model
+class ProjectMember extends Model
 {
     public const LEAD = 2;
     public const MEMBER = 1;
