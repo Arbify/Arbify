@@ -2,6 +2,10 @@
 
 @section('project-content')
     <div class="container">
+        <p class="alert alert-info mb-4"><b>Note:</b> All administrators and super administrators have lead role abilities in any project.</p>
+        <div class="d-flex mb-4">
+            <a href="#" class="btn btn-primary ml-auto">Add user to project</a>
+        </div>
         <table class="table table-bordered table-striped bg-white mb-4">
             <thead>
                 <tr>
@@ -11,11 +15,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><i>All administrators and super administrators</i></td>
-                    <td>Lead</td>
-                    <td></td>
-                </tr>
                 @foreach($project->projectRoles as $role)
                     <tr>
                         <td>{{ $role->user->name }}</td>

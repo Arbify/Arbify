@@ -20,7 +20,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('project-roles.index', $project) }}"
-                   class="nav-link @if(request()->route()->getName() == 'project-roles.index') active @endif">Project roles</a>
+                   class="nav-link @if(request()->route()->getName() == 'project-roles.index') active @endif">Members</a>
             </li>
         </ul>
     </div>
