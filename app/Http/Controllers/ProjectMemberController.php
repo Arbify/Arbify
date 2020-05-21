@@ -7,7 +7,6 @@ use App\Contracts\Repositories\UserRepository;
 use App\Http\Requests\StoreProjectMember;
 use App\Models\Project;
 use App\Models\ProjectMember;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,9 +41,11 @@ class ProjectMemberController extends Controller
     {
         $this->authorize('create', [ProjectMember::class, $project]);
 
+        $users = $this->userRepository->allNotInProject($project);
+
         return view('projects.members.form', [
             'project' => $project,
-            'users' => $this->userRepository->all(),
+            'users' => $users,
         ]);
     }
 
@@ -64,10 +65,12 @@ class ProjectMemberController extends Controller
     {
         $this->authorize('update', [$projectMember, $project]);
 
+        $users = $this->userRepository->allNotInProject($project);
+
         return view('projects.members.form', [
             'project' => $project,
             'member' => $projectMember,
-            'users' => $this->userRepository->all(),
+            'users' => $users,
         ]);
     }
 

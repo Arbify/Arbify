@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Contracts\Repositories\UserRepository as UserRepositoryContract;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -32,5 +33,12 @@ class UserRepository implements UserRepositoryContract
         return User::orderByRaw($userRoleOrdering)
             ->orderBy('name')
             ->paginate(30);
+    }
+
+    public function allNotInProject(Project $project): Collection
+    {
+        $usersInProjectIds = $project->projectMembers->map(fn($member) => $member->user->id);
+
+        return User::whereNotIn('id', $usersInProjectIds)->get();
     }
 }
