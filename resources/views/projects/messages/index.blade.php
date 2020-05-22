@@ -11,43 +11,24 @@
 
     <div class="container-fluid d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table class="table table-striped table-bordered bg-white w-auto" style="table-layout: fixed">
+            <table class="messages-table table table-striped table-bordered bg-white w-auto" style="table-layout: fixed">
                 <colgroup>
                     <col style="width: 300px">
                     @foreach($project->languages as $language)
                         <col style="width: 400px;">
                     @endforeach
-                    @can('manage-languages', $project)
-                        <col style="width: 146px">
-                    @endcan
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>Message</th>
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Message
+                                <a href="#" class="btn btn-primary ml-auto">Add message</a>
+                            </div>
+                        </th>
                         @foreach($project->languages as $language)
-                            <th class="align-middle">
-                                {{ $language->getDisplayName() }}
-                                @can('manage-languages', $project)
-                                    <form method="POST"
-                                          action="{{ route('projects.destroy-language', [$project, $language->code]) }}"
-                                          class="d-inline float-right delete-modal-show" data-delete-modal-title="Deleting language from project"
-                                          data-delete-modal-body="<b>{{ $language->code }}</b> from <b>{{ $project->name }}</b>">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-link btn-sm text-danger p-0" style="font-size: 80%">
-                                            delete
-                                        </button>
-                                    </form>
-                                @endcan
-                            </th>
+                            <th class="align-middle">{{ $language->getDisplayName() }}</th>
                         @endforeach
-                        @can('manage-languages', $project)
-                            <th>
-                                <a href="{{ route('projects.create-language', $project) }}" class="btn btn-primary">
-                                    Add language
-                                </a>
-                            </th>
-                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +72,6 @@
                                     ])
                                 </td>
                             @endforeach
-                            @can('manage-languages', $project)<td></td>@endcan
                         </tr>
                     @endforeach
                 </tbody>
@@ -104,7 +84,6 @@
                             @if($project->languages->count() > 0)
                                 <td colspan="{{ $project->languages->count() }}"></td>
                             @endif
-                            @can('manage-languages', $project)<td></td>@endcan
                         </tr>
                     </tfoot>
                 @endcan

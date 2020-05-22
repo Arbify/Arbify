@@ -72,3 +72,18 @@
 .bootstrap-select .no-results {
     background: none;
 }
+
+.messages-table {
+    thead th, tbody td {
+        vertical-align: middle;
+    }
+
+    th code {
+        overflow-wrap: anywhere;
+    }
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+}
+
