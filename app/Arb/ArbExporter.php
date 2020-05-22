@@ -35,7 +35,7 @@ class ArbExporter
             $result = array_merge($result, $formattedValue);
         }
 
-        return json_encode($result, JSON_PRETTY_PRINT);
+        return json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
     private function formatLocale(string $locale): array
