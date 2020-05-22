@@ -7,14 +7,13 @@ use App\Contracts\Repositories\LanguageRepository;
 use App\Contracts\Repositories\MessageRepository;
 use App\Contracts\Repositories\MessageValueRepository;
 use App\Contracts\Repositories\ProjectRepository;
-use App\Http\Requests\AddLanguageToProject;
 use App\Http\Requests\ExportLanguage;
 use App\Http\Requests\StoreProject;
-use App\Models\Language;
 use App\Models\Project;
 use App\Models\ProjectMember;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
@@ -51,8 +50,14 @@ class ProjectController extends Controller
             $projects = $this->projectRepository->visibleToUserPaginated($user);
         }
 
+        $statistics = [];
+        foreach ($projects as $project) {
+            $statistics[$project->id] = $this->projectRepository->translationStatistics($project);
+        }
+
         return view('projects.index', [
             'projects' => $projects,
+            'statistics' => $statistics,
         ]);
     }
 

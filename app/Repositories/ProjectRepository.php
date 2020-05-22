@@ -39,6 +39,8 @@ class ProjectRepository implements ProjectRepositoryContract
 
     public function translationStatistics(Project $project): array
     {
+        // TODO: Utilize caching.
+
         $statistics = [
             'all' => [
                 'all' => 0,

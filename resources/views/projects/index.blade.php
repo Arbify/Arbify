@@ -18,6 +18,7 @@
         <table class="table table-bordered table-striped bg-white mb-4">
             <colgroup>
                 <col>
+                <col style="width: 200px">
                 <col style="width: 100px">
                 <col style="width: 100px">
                 <col style="width: 150px">
@@ -25,6 +26,7 @@
             <thead>
                 <tr>
                     <th>Project name</th>
+                    <th>Progress</th>
                     <th>Messages</th>
                     <th>Languages</th>
                     <th>Actions</th>
@@ -45,6 +47,9 @@
                             @if($project->isPrivate())
                                 <span class="badge badge-light">PRIVATE</span>
                             @endif
+                        </td>
+                        <td>
+                            @include('projects.translation-progress', ['statistics' => $statistics[$project->id]['all']])
                         </td>
                         <td>{{ $project->messages->count() }}</td>
                         <td>{{ $project->languages->count() }}</td>
