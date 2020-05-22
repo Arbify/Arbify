@@ -76,11 +76,14 @@ class ProjectRepository implements ProjectRepositoryContract
             $statistics[$language->code] = [
                 'all' => $allValues,
                 'translated' => $translatedValues,
-                'percent' => $translatedValues / max($allValues, 1) * 100,
+                'percent' => round($translatedValues / max($allValues, 1) * 100, 2),
             ];
         }
 
-        $statistics['all']['percent'] = $statistics['all']['translated'] / max($statistics['all']['all'], 1) * 100;
+        $statistics['all']['percent'] = round(
+            $statistics['all']['translated'] / max($statistics['all']['all'], 1) * 100,
+            2
+        );
 
         return $statistics;
     }
