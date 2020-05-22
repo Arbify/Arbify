@@ -23,19 +23,40 @@
                         <th>
                             <div class="d-flex align-items-center">
                                 Message
-                                <a href="#" class="btn btn-primary ml-auto">Add message</a>
+                                @can('create', [App\Models\Message::class, $project])
+                                    <a href="{{ route('messages.create', $project) }}" class="btn btn-primary ml-auto">
+                                        Add message
+                                    </a>
+                                @endcan
                             </div>
                         </th>
                         @foreach($project->languages as $language)
-                            <th class="align-middle">{{ $language->getDisplayName() }}</th>
+                            <th>
+                                <div class="d-flex align-items-center">
+                                    @if(!is_null($language->flag))
+                                        <span class="flag-icon flag-icon-{{ $language->flag }} mr-2" style="font-size: 1.5em"></span>
+                                    @endif
+
+                                    {{ $language->getDisplayName() }}
+
+                                    @php $stats = $statistics[$language->code]; @endphp
+                                    <span class="translation-progress-bg">
+                                        <span class="translation-progress @if($stats['percent'] == 100) bg-success @else bg-info @endif"
+                                              style="width: {{ $stats['percent'] }}%"></span>
+                                    </span>
+                                    <small class="ml-auto">
+                                        @include('projects.translation-progress', ['statistics' => $stats])
+                                    </small>
+                                </div>
+                            </th>
                         @endforeach
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($project->messages as $message)
+                    @forelse($project->messages as $message)
                         <tr>
                             <th scope="row" class="font-weight-normal">
-                                <div class="d-flex flex-wrap align-items-baseline">
+                                <div class="d-flex flex-wrap align-items-baseline justify-content-between">
                                     <strong><code class="d-block mb-1 mr-2">{{ $message->name }}</code></strong>
 
                                     <div>
@@ -73,12 +94,16 @@
                                 </td>
                             @endforeach
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="{{ $project->languages->count() + 1 }}">There are no messages.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
                 @can('create', [App\Models\Message::class, $project])
                     <tfoot>
                         <tr>
-                            <td scope="row">
+                            <td>
                                 <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add message</a>
                             </td>
                             @if($project->languages->count() > 0)

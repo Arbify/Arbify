@@ -78,6 +78,27 @@
         vertical-align: middle;
     }
 
+    thead th {
+        position: relative;
+        padding-top: calc(#{$table-cell-padding} + 5px);
+
+        .translation-progress-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 5px;
+            background: $border-color;
+        }
+
+        .translation-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+        }
+    }
+
     th code {
         overflow-wrap: anywhere;
     }

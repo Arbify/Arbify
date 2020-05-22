@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @formsection("Add language to $project->name")
-            <form method="POST" action="{{ route('projects.store-language', $project) }}">
+            <form method="POST" action="{{ route('project-languages.store', $project) }}">
                 @csrf
                 <div class="form-group row">
                     <label for="language" class="col-md-4 col-form-label text-md-right">Language</label>

@@ -18,7 +18,11 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('messages.index', $project) }}"
-                   class="nav-link @if(request()->route()->getName() == 'messages.index') active @endif">Messages</a>
+                   class="nav-link @if(request()->route()->getName() == 'messages.index') active @endif"><b>Messages</b></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('project-languages.index', $project) }}"
+                   class="nav-link @if(request()->route()->getName() == 'project-languages.index') active @endif">Languages</a>
             </li>
             @can('view-any', [App\Models\ProjectMember::class, $project])
                 <li class="nav-item">

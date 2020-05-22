@@ -36,8 +36,6 @@ class ProjectController extends Controller
     protected function resourceAbilityMap(): array
     {
         return parent::resourceAbilityMap() + [
-                'createProjectLanguage' => 'manage-languages',
-                'storeProjectLanguage' => 'manage-languages',
                 'export' => 'view',
                 'exportLanguage' => 'view',
             ];
@@ -103,33 +101,6 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')
             ->with('success', "Deleted <b>$project->name</b> successfully.");
-    }
-
-    public function createProjectLanguage(Project $project): View
-    {
-        $languages = $this->languageRepository->allExceptAlreadyInProject($project);
-
-        return view('projects.add-language', [
-            'project' => $project,
-            'languages' => $languages,
-        ]);
-    }
-
-    public function storeProjectLanguage(AddLanguageToProject $request, Project $project): Response
-    {
-        $language = $this->languageRepository->byId($request->input('language'));
-        $project->languages()->syncWithoutDetaching($language);
-
-        return redirect()->route('messages.index', $project)
-            ->with('success', "Added <b>$language->code</b> to <b>$project->name</b> successfully.");
-    }
-
-    public function destroyProjectLanguage(Project $project, Language $language): Response
-    {
-        $project->languages()->detach($language);
-
-        return redirect()->route('messages.index', $project)
-            ->with('success', "Deleted <b>$language->code</b> from <b>$project->name</b> successfully.");
     }
 
     public function export(Project $project): View

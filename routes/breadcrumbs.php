@@ -30,9 +30,14 @@ Breadcrumbs::for('projects.edit', function (Trail $trail, Project $project) {
     $trail->push('Edit', route('projects.edit', $project));
 });
 
-Breadcrumbs::for('projects.create-language', function (Trail $trail, Project $project) {
+Breadcrumbs::for('project-languages.index', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
-    $trail->push('Add language', route('projects.create-language', $project));
+    $trail->push('Languages', route('project-languages.index', $project));
+});
+
+Breadcrumbs::for('project-languages.create', function (Trail $trail, Project $project) {
+    $trail->parent('project-languages.index', $project);
+    $trail->push('Add language', route('project-languages.create', $project));
 });
 
 Breadcrumbs::for('projects.export', function (Trail $trail, Project $project) {

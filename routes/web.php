@@ -18,14 +18,17 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'DashboardController')->name('dashboard');
 
 Route::resource('/projects', 'ProjectController');
-Route::get('/projects/{project}/languages/create', 'ProjectController@createProjectLanguage')
-    ->name('projects.create-language');
-Route::post('/projects/{project}/languages', 'ProjectController@storeProjectLanguage')
-    ->name('projects.store-language');
-Route::delete('/projects/{project}/languages/{language_code}', 'ProjectController@destroyProjectLanguage')
-    ->name('projects.destroy-language');
 Route::get('/projects/{project}/export', 'ProjectController@export')->name('projects.export');
 Route::post('/projects/{project}/export', 'ProjectController@exportLanguage')->name('projects.export-language');
+
+Route::get('/projects/{project}/languages', 'ProjectLanguageController@index')
+    ->name('project-languages.index');
+Route::get('/projects/{project}/languages/create', 'ProjectLanguageController@create')
+    ->name('project-languages.create');
+Route::post('/projects/{project}/languages', 'ProjectLanguageController@store')
+    ->name('project-languages.store');
+Route::delete('/projects/{project}/languages/{language_code}', 'ProjectLanguageController@destroy')
+    ->name('project-languages.destroy');
 
 Route::resource('/projects/{project}/messages', 'MessageController')
     ->except(['show']);

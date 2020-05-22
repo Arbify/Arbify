@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Contracts\Repositories\ProjectRepository as ProjectRepositoryContract;
+use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -34,5 +35,51 @@ class ProjectRepository implements ProjectRepositoryContract
     public function allPaginated(): LengthAwarePaginator
     {
         return Project::orderBy('name')->paginate(30);
+    }
+
+    public function translationStatistics(Project $project): array
+    {
+        $statistics = [
+            'all' => [
+                'all' => 0,
+                'translated' => 0
+            ],
+        ];
+
+        $messages = $project->messages;
+        $messageValues = $project->messageValues;
+
+        foreach ($project->languages as $language) {
+            $allValues = $messages
+                ->map(function (Message $message) use ($language) {
+                    if ($message->isPlural()) {
+                        return count($language->plural_forms);
+                    } elseif ($message->isGender()) {
+                        return count($language->getGenderForms());
+                    }
+
+                    return 1;
+                })
+                ->sum();
+
+            // FIXME: Fix this once history will be added.
+            $translatedValues = $messageValues
+                ->where('language_id', $language->id)
+                ->whereNotNull('value')
+                ->count();
+
+            $statistics['all']['all'] += $allValues;
+            $statistics['all']['translated'] += $translatedValues;
+
+            $statistics[$language->code] = [
+                'all' => $allValues,
+                'translated' => $translatedValues,
+                'percent' => $translatedValues / max($allValues, 1) * 100,
+            ];
+        }
+
+        $statistics['all']['percent'] = $statistics['all']['translated'] / max($statistics['all']['all'], 1) * 100;
+
+        return $statistics;
     }
 }

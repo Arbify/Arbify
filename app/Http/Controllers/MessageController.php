@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\MessageRepository;
 use App\Contracts\Repositories\MessageValueRepository;
+use App\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\StoreMessage;
 use App\Http\Requests\PutMessageValue;
 use App\Models\Language;
@@ -14,13 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends Controller
 {
+    private ProjectRepository $projectRepository;
     private MessageRepository $messageRepository;
     private MessageValueRepository $messageValueRepository;
 
     public function __construct(
+        ProjectRepository $projectRepository,
         MessageRepository $messageRepository,
         MessageValueRepository $messageValueRepository
     ) {
+        $this->projectRepository = $projectRepository;
         $this->messageRepository = $messageRepository;
         $this->messageValueRepository = $messageValueRepository;
 
@@ -32,10 +36,12 @@ class MessageController extends Controller
         $this->authorize('view-any', [Message::class, $project]);
 
         $messageValues = $this->messageValueRepository->allByProject($project);
+        $statistics = $this->projectRepository->translationStatistics($project);
 
         return view('projects.messages.index', [
             'project' => $project,
             'messageValues' => $messageValues,
+            'statistics' => $statistics,
         ]);
     }
 
