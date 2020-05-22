@@ -1,6 +1,10 @@
-# Arbify
-
+<div align="center">
+<h1>Arbify</h1>
+    
 [![PHP workflow][php-workflow-badge]][php-workflow]
+</div>
+
+![Screenshot](resources/images/screenshot.png)
 
 ARB files localization tool. Dedicated to [Flutter](https://flutter.dev) and its [intl](https://pub.dev/packages/intl) package.
 
