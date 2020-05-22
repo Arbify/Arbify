@@ -29,6 +29,8 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         networks:
             - arbify
+        volumes:
+            - db-data:/var/lib/mysql
     
     nginx:
         image: nginx:1.17-alpine
@@ -45,3 +47,6 @@ services:
 networks:
     arbify:
         driver: bridge
+
+volumes:
+    db-data:
