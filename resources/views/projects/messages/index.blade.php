@@ -101,7 +101,9 @@
                             <td scope="row">
                                 <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add message</a>
                             </td>
-                            <td colspan="{{ $project->languages->count() }}"></td>
+                            @if($project->languages->count() > 0)
+                                <td colspan="{{ $project->languages->count() }}"></td>
+                            @endif
                             @can('manage-languages', $project)<td></td>@endcan
                         </tr>
                     </tfoot>
