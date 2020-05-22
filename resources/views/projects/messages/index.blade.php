@@ -1,13 +1,13 @@
 @extends('projects.layout')
 
 @section('project-content')
-    <div class="container">
-        @if (session('success'))
+    @if (session('success'))
+        <div class="container">
             <div class="alert alert-success mb-4">
                 {!! session('success') !!}
             </div>
-        @endif
-    </div>
+        </div>
+    @endif
 
     <div class="container-fluid d-flex justify-content-center">
         <div class="table-responsive w-auto">
