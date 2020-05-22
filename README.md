@@ -20,15 +20,14 @@ Fill `.env` file with the configuration you want to use.
 - By default `MAIL_MAILER` uses SMTP transport; you may want to change that to `log` for development purposes.
 
 ```bash
-docker-compose build arbify
 docker-compose up -d
 
-docker-compose run arbify composer install
-docker-compose run arbify php artisan key:generate
-docker-compose run arbify php artisan migrate
-docker-compose run arbify php artisan db:seed
-docker-compose run arbify npm install
-docker-compose run arbify npm run prod
+docker-compose run --rm arbify composer install
+docker-compose run --rm arbify php artisan key:generate
+docker-compose run --rm arbify php artisan migrate
+docker-compose run --rm arbify php artisan db:seed
+docker-compose run --rm arbify npm install
+docker-compose run --rm arbify npm run prod
 ```
 
 After this you're ready to go to [http://localhost:8000](http://localhost:8000) and check out Arbify yourself! 
