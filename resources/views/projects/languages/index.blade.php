@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     <th>Language</th>
-                    <th>Progress</th>
+                    <th>Translating progress</th>
                     <th>Actions</th>
                 </tr>
             </thead>

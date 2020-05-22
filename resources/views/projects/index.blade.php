@@ -26,7 +26,7 @@
             <thead>
                 <tr>
                     <th>Project name</th>
-                    <th>Progress</th>
+                    <th>Translating progress</th>
                     <th>Messages</th>
                     <th>Languages</th>
                     <th>Actions</th>
