@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProjectMember extends Model
 {
-    public const RULES = [
+    public const ROLES = [
         self::ROLE_LEAD,
         self::ROLE_MEMBER,
         self::ROLE_TRANSLATOR,

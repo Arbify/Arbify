@@ -13,7 +13,7 @@ class StoreProjectMember extends AuthorizedFormRequest
         $rules = [
             'role' => [
                 'required',
-                Rule::in(ProjectMember::RULES),
+                Rule::in(ProjectMember::ROLES),
             ],
         ];
 
