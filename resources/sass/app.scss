@@ -43,3 +43,11 @@
         @extend .mr-3;
     }
 }
+
+.text-super-muted {
+    color: #c3c7cb;
+
+    a {
+        color: #9fcbef;
+    }
+}

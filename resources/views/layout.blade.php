@@ -14,7 +14,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @stack('head')
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand logo" href="{{ route('dashboard') }}">
@@ -102,6 +102,15 @@
 
             @yield('content')
         </main>
+
+        <footer class="mt-auto py-4">
+            <div class="container">
+                <span class="text-super-muted">
+                    Country flag icons made by <a href="https://www.flaticon.com/authors/freepik">Freepik</a>
+                    from <a href="https://www.flaticon.com/">www.flaticon.com</a>.
+                </span>
+            </div>
+        </footer>
 
         @include('partials.modal')
         <script src="{{ asset('js/app.js') }}"></script>
