@@ -26,7 +26,7 @@ class LanguageTest extends TestCase
     {
         $this->actingAsUser()->get('/languages/create')
             ->assertOk()
-            ->assertSeeText('Code')
+            ->assertSeeText('Language code')
             ->assertSeeText('Create language');
     }
 
