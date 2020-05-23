@@ -16,7 +16,7 @@ class LanguageSeeder extends Seeder
             [
                 'name' => 'English',
                 'code' => 'en',
-                'flag' => 'us',
+                'flag' => 'united-kingdom',
                 'plural_forms' => $this->pluralFormsFormat(
                     Language::PLURAL_FORM_ONE,
                     Language::PLURAL_FORM_OTHER
@@ -25,7 +25,7 @@ class LanguageSeeder extends Seeder
             [
                 'name' => 'Polish',
                 'code' => 'pl',
-                'flag' => 'pl',
+                'flag' => 'poland',
                 'plural_forms' => $this->pluralFormsFormat(
                     Language::PLURAL_FORM_ONE,
                     Language::PLURAL_FORM_FEW,
@@ -35,7 +35,7 @@ class LanguageSeeder extends Seeder
             [
                 'name' => 'Spanish',
                 'code' => 'es',
-                'flag' => 'es',
+                'flag' => 'spain',
                 'plural_forms' => $this->pluralFormsFormat(
                     Language::PLURAL_FORM_ONE,
                     Language::PLURAL_FORM_OTHER
