@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 class RepositoriesServiceProvider extends ServiceProvider
 {
     public array $singletons = [
+        Contracts\CountryFlagRepository::class   => Repositories\CountryFlagRepository::class,
         Contracts\LanguageRepository::class      => Repositories\LanguageRepository::class,
         Contracts\MessageRepository::class       => Repositories\MessageRepository::class,
         Contracts\MessageValueRepository::class  => Repositories\MessageValueRepository::class,

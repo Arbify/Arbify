@@ -30,6 +30,7 @@ docker-compose run --rm arbify composer install
 docker-compose run --rm arbify php artisan key:generate
 docker-compose run --rm arbify php artisan migrate
 docker-compose run --rm arbify php artisan db:seed
+docker-compose run --rm arbify php artisan storage:link
 docker-compose run --rm arbify npm install
 docker-compose run --rm arbify npm run prod
 ```

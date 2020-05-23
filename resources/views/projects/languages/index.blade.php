@@ -14,13 +14,14 @@
 
         <table class="table table-bordered table-striped bg-white mb-4">
             <colgroup>
+                <col style="width: 58px">
                 <col>
                 <col style="width: 200px">
                 <col style="width: 90px">
             </colgroup>
             <thead>
                 <tr>
-                    <th>Language</th>
+                    <th colspan="2">Language</th>
                     <th>Translating progress</th>
                     <th>Actions</th>
                 </tr>
@@ -28,14 +29,13 @@
             <tbody>
                 @forelse($languages as $language)
                     <tr>
+                        <td class="py-0 align-middle">
+                            @if(!is_null($language->flag))
+                                <img src="{{ asset("storage/flags/$language->flag.svg") }}" alt="" class="country-flag">
+                            @endif
+                        </td>
                         <td>
-                            <div class="d-flex align-items-center">
-                                @if(!is_null($language->flag))
-                                    <span class="flag-icon flag-icon-{{ $language->flag }} mr-2" style="font-size: 1.5em"></span>
-                                @endif
-
-                                {{ $language->getDisplayName() }}
-                            </div>
+                            {{ $language->getDisplayName() }}
                         </td>
                         <td>
                             @include('projects.translation-progress', ['statistics' => $statistics[$language->code]])

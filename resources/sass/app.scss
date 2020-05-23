@@ -2,7 +2,6 @@
 
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-select/sass/bootstrap-select';
-@import '~flag-icon-css/sass/flag-icon';
 
 @import 'jetbrains-mono';
 @import 'parts/messages-index';
@@ -35,4 +34,12 @@
 
 .bootstrap-select .no-results {
     background: none;
+}
+
+.country-flag {
+    height: 2rem;
+
+    &:not(:last-child) {
+        @extend .mr-3;
+    }
 }

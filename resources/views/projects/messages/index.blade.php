@@ -34,7 +34,7 @@
                             <th>
                                 <div class="d-flex align-items-center">
                                     @if(!is_null($language->flag))
-                                        <span class="flag-icon flag-icon-{{ $language->flag }} mr-2" style="font-size: 1.5em"></span>
+                                        <img src="{{ asset("storage/flags/$language->flag.svg") }}" alt="" class="country-flag">
                                     @endif
 
                                     {{ $language->getDisplayName() }}

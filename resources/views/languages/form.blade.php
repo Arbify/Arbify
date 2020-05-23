@@ -46,20 +46,22 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="flag" class="col-md-4 col-form-label text-md-right">Flag code</label>
+                    <label for="flag" class="col-md-4 col-form-label text-md-right">Flag</label>
 
                     <div class="col-md-6">
-                        <input id="flag" type="text" class="form-control @error('flag') is-invalid @enderror" name="flag" value="{{ old('flag', $language->flag ?? '') }}">
+                        <select name="flag" id="flag" class="form-control @error('flag') is-invalid @enderror">
+                            <option value="">None</option>
+                            <option data-divider="true"></option>
+                            @foreach($countryFlags as $flag)
+                                <option value="{{ $flag }}" @if(old('flag', $language->flag ?? '') == $flag) selected @endif>{{ $flag }}</option>
+                            @endforeach
+                        </select>
 
                         @error('flag')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-
-                        <span class="form-text text-muted">
-                            Optional. Codes from <a href="https://flagicons.lipis.dev/">here</a>.
-                        </span>
                     </div>
                 </div>
 
@@ -100,3 +102,11 @@
         @endformsection
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#flag').selectpicker({
+            liveSearch: true,
+        });
+    </script>
+@endpush

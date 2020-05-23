@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\CountryFlagRepository;
 use App\Contracts\Repositories\LanguageRepository;
 use App\Http\Requests\StoreLanguage;
 use App\Models\Language;
@@ -11,10 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 class LanguageController extends Controller
 {
     private LanguageRepository $languageRepository;
+    private CountryFlagRepository $countryFlagRepository;
 
-    public function __construct(LanguageRepository $languageRepository)
-    {
+    public function __construct(
+        LanguageRepository $languageRepository,
+        CountryFlagRepository $countryFlagRepository
+    ) {
         $this->languageRepository = $languageRepository;
+        $this->countryFlagRepository = $countryFlagRepository;
 
         $this->middleware('verified');
         $this->authorizeResource(Language::class);
@@ -31,7 +36,11 @@ class LanguageController extends Controller
 
     public function create(): View
     {
-        return view('languages.form');
+        $countryFlags = $this->countryFlagRepository->getAllFlags();
+
+        return view('languages.form', [
+            'countryFlags' => $countryFlags,
+        ]);
     }
 
     public function store(StoreLanguage $request): Response
@@ -44,8 +53,11 @@ class LanguageController extends Controller
 
     public function edit(Language $language): View
     {
+        $countryFlags = $this->countryFlagRepository->getAllFlags();
+
         return view('languages.form', [
             'language' => $language,
+            'countryFlags' => $countryFlags,
         ]);
     }
 
