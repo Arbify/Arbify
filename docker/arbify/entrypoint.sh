@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-#npm ci
-#npm run prod
+npm ci
+npm run prod
 
-#composer install --no-interaction --no-suggest
+composer install --no-interaction --no-suggest
 
 if grep ^APP_KEY=$ .env; then
     php artisan -n key:generate
