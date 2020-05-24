@@ -54,7 +54,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3">There is no language in this project.</td>
+                        <td colspan="4">There is no language in this project.</td>
                     </tr>
                 @endforelse
             </tbody>
