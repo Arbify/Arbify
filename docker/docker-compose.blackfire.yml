@@ -3,7 +3,6 @@ version: '3.7'
 services:
     blackfire:
         image: blackfire/blackfire
-        container_name: arbify-blackfire
         environment:
             BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
             BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}

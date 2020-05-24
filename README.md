@@ -12,7 +12,7 @@ For documentation regarding source code of Arbify, check [DOCS.md](DOCS.md).
 
 ## Installation
 
-For installation using docker-compose.
+Firstly, copy the `.env.example` file to `.env` and fill it with the correct configuration for some of the services.
 
 ```bash
 cp .env.example .env
@@ -20,24 +20,16 @@ cp .env.example .env
 
 Fill `.env` file with the configuration you want to use.
 
-- If you're using docker-compose, you need to change `DB_HOST` to `db`.
-- By default `MAIL_MAILER` uses SMTP transport; you may want to change that to `log` for development purposes.
+**Note:** By default `MAIL_MAILER` uses SMTP transport; you may want to change that to `log` for development purposes.
 
 ```bash
+docker-compose build arbify
 docker-compose up -d
-
-docker-compose run --rm arbify composer install
-docker-compose run --rm arbify php artisan key:generate
-docker-compose run --rm arbify php artisan migrate
-docker-compose run --rm arbify php artisan db:seed
-docker-compose run --rm arbify php artisan storage:link
-docker-compose run --rm arbify npm install
-docker-compose run --rm arbify npm run prod
 ```
 
-After this you're ready to go to [http://localhost:8000](http://localhost:8000) and check out Arbify yourself! 
+After this you're ready to go to [http://localhost:8000](http://localhost:8000) and check out Arbify yourself!
 
-The `php artisan db:seed` command seeded the database with a pre-verified admin account with email `admin@arbify.io` and password `password`.
+The database is seeded with a pre-verified super administrator account `admin@arbify.io` with password `password`. 
 
 [php-workflow]: https://github.com/Arbify/Arbify/actions?query=workflow%3APHP
 [php-workflow-badge]: https://github.com/Arbify/Arbify/workflows/PHP/badge.svg

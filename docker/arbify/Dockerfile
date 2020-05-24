@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    mariadb-client
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -21,6 +22,7 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+# Node.js
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs
 
@@ -36,3 +38,5 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 WORKDIR /var/www
 
 USER $user
+
+CMD ["docker/arbify/entrypoint.sh"]
