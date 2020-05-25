@@ -19,6 +19,7 @@ Route::get('/', 'DashboardController')->name('dashboard');
 
 Route::resource('/projects', 'ProjectController');
 Route::get('/projects/{project}/export', 'ProjectController@export')->name('projects.export');
+Route::post('/projects/{project}/export-all', 'ProjectController@exportAll')->name('projects.export-all');
 Route::post('/projects/{project}/export', 'ProjectController@exportLanguage')->name('projects.export-language');
 
 Route::get('/projects/{project}/languages', 'ProjectLanguageController@index')

@@ -163,7 +163,7 @@ class ProjectTest extends TestCase
         ])
             ->assertOk();
 
-        $json = $response->json();
+        $json = json_decode($response->streamedContent(), true);
 
         $this->assertEquals($language->code, $json['@@locale']);
         $this->assertEquals($messageValue->value, $json[$message->name]);

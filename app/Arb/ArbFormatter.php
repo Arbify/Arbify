@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Arb;
 
+use App\Contracts\Arb\ArbFormatter as ArbFormatterContract;
 use App\Models\Message;
 use App\Models\MessageValue;
 use Carbon\Carbon;
@@ -13,9 +14,9 @@ use Illuminate\Support\Collection;
 /**
  * @see https://github.com/google/app-resource-bundle/wiki/ApplicationResourceBundleSpecification
  */
-class ArbExporter
+class ArbFormatter implements ArbFormatterContract
 {
-    public function exportToArb(string $locale, Collection $messages, Collection $values): string
+    public function format(string $locale, Collection $messages, Collection $values): string
     {
         $result = [];
 
@@ -30,6 +31,9 @@ class ArbExporter
         foreach ($valuesGrouped as $messageId => $valuesGroup) {
             /** @var Message $message */
             $message = $messages->firstWhere('id', $messageId);
+            if ($message === null) {
+                continue;
+            }
 
             $formattedValue = $this->formatValue($message, $valuesGroup);
             $result = array_merge($result, $formattedValue);
@@ -38,12 +42,12 @@ class ArbExporter
         return json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
-    private function formatLocale(string $locale): array
+    public function formatLocale(string $locale): array
     {
         return ['@@locale' => $locale];
     }
 
-    private function formatLastModified(Collection $values): array
+    public function formatLastModified(Collection $values): array
     {
         /** @var Carbon $lastModified */
         $lastModified = $values->max(function (MessageValue $value) {
@@ -57,11 +61,11 @@ class ArbExporter
         return ['@@last_modified' => $lastModified->toIso8601String()];
     }
 
-    private function formatValue(Message $message, Collection $values): array
+    public function formatValue(Message $message, Collection $values): array
     {
         switch ($message->type) {
             case Message::TYPE_MESSAGE:
-                $value = $values->first()->value;
+                $value = $this->escapeValue($values->first()->value);
                 break;
             case Message::TYPE_PLURAL:
                 $value = $this->formatPluralValue($values);
@@ -86,7 +90,7 @@ class ArbExporter
     {
         $forms = [];
         foreach ($values as $value) {
-            $forms[] = sprintf('%s {%s}', $value->form, $value->value);
+            $forms[] = sprintf('%s {%s}', $value->form, $this->escapeValue($value->value));
         }
 
         return sprintf('{count, plural, %s}', implode(' ', $forms));
@@ -96,9 +100,14 @@ class ArbExporter
     {
         $forms = [];
         foreach ($values as $value) {
-            $forms[] = sprintf('%s {%s}', $value->form, $value->value);
+            $forms[] = sprintf('%s {%s}', $value->form, $this->escapeValue($value->value));
         }
 
         return sprintf('{gender, gender, %s}', implode(' ', $forms));
+    }
+
+    private function escapeValue(?string $value): string
+    {
+        return $value ?? '';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Arb;
 
-use App\Arb\ArbExporter;
+use App\Arb\ArbFormatter;
 use App\Models\Message;
 use App\Models\MessageValue;
 use Tests\TestCase;
@@ -25,8 +25,8 @@ class ArbExporterTest extends TestCase
         $messages = collect([$message]);
         $values = collect([$value]);
 
-        $arbExporter = new ArbExporter();
-        $result = $arbExporter->exportToArb('en', $messages, $values);
+        $arbExporter = new ArbFormatter();
+        $result = $arbExporter->format('en', $messages, $values);
 
         $this->assertJson($result);
 
@@ -60,8 +60,8 @@ class ArbExporterTest extends TestCase
             'updated_at' => now(),
         ]));
 
-        $arbExporter = new ArbExporter();
-        $result = $arbExporter->exportToArb('en', $messages, $values);
+        $arbExporter = new ArbFormatter();
+        $result = $arbExporter->format('en', $messages, $values);
 
         $this->assertJson($result);
 

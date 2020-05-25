@@ -2,14 +2,22 @@
 
 namespace App\Providers;
 
+use App\Arb\ArbFormatter;
+use App\Contracts\Arb\ArbFormatter as ArbFormatterContract;
+use App\Arb\Exporter\ArbExporter;
+use App\Contracts\Arb\ArbExporter as ArbExporterContract;
 use Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public $bindings = [
+        ArbExporterContract::class => ArbExporter::class,
+        ArbFormatterContract::class => ArbFormatter::class,
+    ];
+
     public function register(): void
     {
-        //
     }
 
     public function boot(): void

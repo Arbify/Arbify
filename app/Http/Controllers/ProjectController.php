@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Arb\ArbExporter;
+use App\Contracts\Arb\ArbExporter;
 use App\Contracts\Repositories\LanguageRepository;
-use App\Contracts\Repositories\MessageRepository;
-use App\Contracts\Repositories\MessageValueRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\ExportLanguage;
 use App\Http\Requests\StoreProject;
@@ -13,7 +11,6 @@ use App\Models\Project;
 use App\Models\ProjectMember;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
@@ -36,6 +33,7 @@ class ProjectController extends Controller
     {
         return parent::resourceAbilityMap() + [
                 'export' => 'view',
+                'exportAll' => 'view',
                 'exportLanguage' => 'view',
             ];
     }
@@ -115,26 +113,29 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function exportAll(
+        Project $project,
+        ArbExporter $exporter
+    ): Response {
+        $languages = $this->languageRepository->allInProject($project);
+
+        return $exporter->getDownloadResponse(
+            $exporter->exportLanguages($project, $languages, ArbExporter::ARCHIVE_ZIP)
+        );
+    }
+
     public function exportLanguage(
         ExportLanguage $request,
         Project $project,
-        MessageRepository $messageRepository,
-        MessageValueRepository $messageValueRepository
+        ArbExporter $exporter
     ): Response {
         $language = $this->languageRepository->byId($request->input('language'));
-        $messages = $messageRepository->byProject($project);
-        $values = $messageValueRepository->allByProjectAndLanguage($project, $language);
 
-        $exporter = new ArbExporter();
-        $result = $exporter->exportToArb($language->code, $messages, $values);
+//        // Disable Debug bar so it doesn't add its HTML to our ARB file response...
+//        app('debugbar')->disable();
 
-        $filename = "$language->code.arb";
-
-        // Disable Debug bar so it doesn't add its HTML to our ARB file response...
-        app('debugbar')->disable();
-
-        return response($result, 200, [
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
-        ]);
+        return $exporter->getDownloadResponse(
+            $exporter->exportLanguage($project, $language)
+        );
     }
 }
