@@ -9,4 +9,6 @@ interface SettingsRepository
     public function allAsAssociativeArray(): array;
 
     public function saveAll(array $settings): void;
+
+    public function defaultLanguage(): int;
 }

@@ -18,7 +18,7 @@
                         <select name="default_language" id="default_language"
                                 class="form-control @error('default_language') is-invalid @enderror" required autofocus>
                             @foreach($languages as $language)
-                                <option value="{{ $language->id }}" @if($settings['default_language'] == $language->id) selected @endif>
+                                <option value="{{ $language->id }}" @if(old('default_language', Settings::defaultLanguage()) == $language->id) selected @endif>
                                     {{ $language->getDisplayName() }}
                                 </option>
                             @endforeach

@@ -25,14 +25,12 @@ class AdministrationController extends Controller
         return view('administration.statistics');
     }
 
-    public function settings(
-        LanguageRepository $languageRepository
-    ): View {
-        $settings = $this->settingsRepository->allAsAssociativeArray();
+    public function settings(LanguageRepository $languageRepository): View
+    {
         $languages = $languageRepository->all();
 
+        // Settings are provided via the Settings facade.
         return view('administration.settings', [
-            'settings' => $settings,
             'languages' => $languages,
         ]);
     }
