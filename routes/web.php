@@ -46,6 +46,13 @@ Route::resource('/languages', 'LanguageController')
 Route::resource('/users', 'UserController')
     ->except(['show']);
 
+Route::get('/administration/statistics', 'AdministrationController@statistics')
+    ->name('administration.statistics');
+Route::get('/administration/settings', 'AdministrationController@settings')->name('administration.settings');
+Route::post('/administration/settings', 'AdministrationController@updateSettings')
+    ->name('administration.update-settings');
+Route::get('/administration/logs', 'AdministrationController@logs')->name('administration.logs');
+
 Route::get('/account/preferences', 'AccountController@preferences')->name('account.preferences');
 Route::post('/account/preferences', 'AccountController@updatePreferences')->name('account.update-preferences');
 Route::get('/account/change-password', 'AccountController@changePassword')->name('account.change-password');

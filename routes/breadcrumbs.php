@@ -107,6 +107,25 @@ Breadcrumbs::for('users.edit', function (Trail $trail, User $user) {
     $trail->push('Edit', route('users.edit', $user));
 });
 
+Breadcrumbs::for('administration', function (Trail $trail) {
+    $trail->push('Administration');
+});
+
+Breadcrumbs::for('administration.statistics', function (Trail $trail) {
+    $trail->parent('administration');
+    $trail->push('Statistics', route('administration.statistics'));
+});
+
+Breadcrumbs::for('administration.settings', function (Trail $trail) {
+    $trail->parent('administration');
+    $trail->push('Settings', route('administration.settings'));
+});
+
+Breadcrumbs::for('administration.logs', function (Trail $trail) {
+    $trail->parent('administration');
+    $trail->push('Logs', route('administration.logs'));
+});
+
 Breadcrumbs::for('account.index', function (Trail $trail) {
     $trail->push('Account');
 });

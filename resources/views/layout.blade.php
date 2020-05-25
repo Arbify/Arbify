@@ -42,9 +42,11 @@
                                     <a href="{{ route('users.index') }}" class="nav-link">Users</a>
                                 </li>
                             @endcan
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" style="color: rgba(0, 0, 0, .3)" data-toggle="tooltip" title="Not implemented yet">Administration</a>
-                            </li>
+                            @can('administration')
+                                <li class="nav-item">
+                                    <a href="{{ route('administration.statistics') }}" class="nav-link">Administration</a>
+                                </li>
+                            @endcan
                         @endauth
                     </ul>
 

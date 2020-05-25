@@ -36,6 +36,10 @@
     background: none;
 }
 
+.bootstrap-select > button {
+    @extend .form-control;
+}
+
 .country-flag {
     height: 2rem;
 

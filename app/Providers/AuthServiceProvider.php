@@ -8,12 +8,14 @@ use App\Models\MessageValue;
 use App\Models\Project;
 use App\Models\ProjectMember;
 use App\Models\User;
+use App\Policies\AdministrationPolicy;
 use App\Policies\LanguagePolicy;
 use App\Policies\MessagePolicy;
 use App\Policies\MessageValuePolicy;
 use App\Policies\ProjectMemberPolicy;
 use App\Policies\ProjectPolicy;
 use App\Policies\UserPolicy;
+use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -30,5 +32,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
+        Gate::define('administration', AdministrationPolicy::class);
     }
 }

@@ -23,6 +23,11 @@ class LanguageRepository implements LanguageRepositoryContract
         return Language::where('code', $code)->firstOrFail();
     }
 
+    public function all(): Collection
+    {
+        return Language::orderBy('code')->get();
+    }
+
     public function allPaginated(): LengthAwarePaginator
     {
         return Language::orderBy('code')->paginate(30);
@@ -30,13 +35,18 @@ class LanguageRepository implements LanguageRepositoryContract
 
     public function allInProject(Project $project): Collection
     {
-        return $project->languages()->get();
+        return $project->languages()
+            ->orderBy('code')
+            ->get();
     }
 
     public function allExceptAlreadyInProject(Project $project): Collection
     {
         $usedIds = $project->languages()->allRelatedIds();
 
-        return Language::query()->whereNotIn('id', $usedIds)->get();
+        return Language::query()
+            ->whereNotIn('id', $usedIds)
+            ->orderBy('code')
+            ->get();
     }
 }
