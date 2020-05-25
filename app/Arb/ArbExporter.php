@@ -50,6 +50,10 @@ class ArbExporter
             return $value->updated_at;
         });
 
+        if ($lastModified == null) {
+            return [];
+        }
+
         return ['@@last_modified' => $lastModified->toIso8601String()];
     }
 
