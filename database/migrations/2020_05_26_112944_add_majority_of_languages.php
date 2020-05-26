@@ -17,6 +17,12 @@ class AddMajorityOfLanguages extends Migration
             ->where('code', 'pl')
             ->update([
                 'flag' => 'poland',
+                'plural_forms' => $this->pluralFormsFormat(
+                    Language::PLURAL_FORM_ONE,
+                    Language::PLURAL_FORM_FEW,
+                    Language::PLURAL_FORM_MANY,
+                    Language::PLURAL_FORM_OTHER
+                ),
             ]);
 
         DB::table('languages')
