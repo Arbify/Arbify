@@ -15,7 +15,7 @@ class AddFewFlagsAndDefaultAdmin extends Migration
      */
     public function up()
     {
-        DB::table('languages')->insert([
+        DB::table('languages')->insertOrIgnore([
             [
                 'name' => 'English',
                 'code' => 'en',
@@ -46,7 +46,7 @@ class AddFewFlagsAndDefaultAdmin extends Migration
             ],
         ]);
 
-        DB::table('users')->insert([
+        DB::table('users')->insertOrIgnore([
             'name' => 'admin',
             'email' => 'admin@arbify.io',
             'password' => Hash::make('password'),
