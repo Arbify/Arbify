@@ -21,7 +21,7 @@ class AddMajorityOfLanguages extends Migration
                     Language::PLURAL_FORM_ONE,
                     Language::PLURAL_FORM_FEW,
                     Language::PLURAL_FORM_MANY,
-                    Language::PLURAL_FORM_OTHER,
+                    Language::PLURAL_FORM_OTHER
                 ),
             ]);
 
