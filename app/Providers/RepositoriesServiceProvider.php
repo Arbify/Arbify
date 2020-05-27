@@ -15,6 +15,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         Contracts\MessageValueRepository::class  => Repositories\MessageValueRepository::class,
         Contracts\ProjectRepository::class       => Repositories\ProjectRepository::class,
         Contracts\ProjectMemberRepository::class => Repositories\ProjectMemberRepository::class,
+        Contracts\SecretRepository::class        => Repositories\SecretRepository::class,
         Contracts\SettingsRepository::class      => Repositories\SettingsRepository::class,
         Contracts\UserRepository::class          => Repositories\UserRepository::class,
     ];

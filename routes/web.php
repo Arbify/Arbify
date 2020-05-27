@@ -53,6 +53,11 @@ Route::post('/administration/settings', 'AdministrationController@updateSettings
     ->name('administration.update-settings');
 Route::get('/administration/logs', 'AdministrationController@logs')->name('administration.logs');
 
+Route::get('/account/secrets', 'SecretController@index')->name('account-secrets.index');
+Route::get('/account/secrets/create', 'SecretController@create')->name('account-secrets.create');
+Route::post('/account/secrets', 'SecretController@store')->name('account-secrets.store');
+Route::delete('/account/secrets/{secret}', 'SecretController@revoke')->name('account-secrets.revoke');
+
 Route::get('/account/preferences', 'AccountController@preferences')->name('account.preferences');
 Route::post('/account/preferences', 'AccountController@updatePreferences')->name('account.update-preferences');
 Route::get('/account/change-password', 'AccountController@changePassword')->name('account.change-password');

@@ -14,9 +14,11 @@ use App\Policies\MessagePolicy;
 use App\Policies\MessageValuePolicy;
 use App\Policies\ProjectMemberPolicy;
 use App\Policies\ProjectPolicy;
+use App\Policies\SecretPolicy;
 use App\Policies\UserPolicy;
 use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Sanctum\PersonalAccessToken as Secret;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Project::class       => ProjectPolicy::class,
         ProjectMember::class => ProjectMemberPolicy::class,
         User::class          => UserPolicy::class,
+        Secret::class        => SecretPolicy::class
     ];
 
     public function boot(): void

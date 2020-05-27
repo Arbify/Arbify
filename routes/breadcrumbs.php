@@ -130,6 +130,16 @@ Breadcrumbs::for('account.index', function (Trail $trail) {
     $trail->push('Account');
 });
 
+Breadcrumbs::for('account-secrets.index', function (Trail $trail) {
+    $trail->parent('account.index');
+    $trail->push('Secrets', route('account-secrets.index'));
+});
+
+Breadcrumbs::for('account-secrets.create', function (Trail $trail) {
+    $trail->parent('account-secrets.index');
+    $trail->push('New secret', route('account-secrets.create'));
+});
+
 Breadcrumbs::for('account.preferences', function (Trail $trail) {
     $trail->parent('account.index');
     $trail->push('Preferences', route('account.preferences'));

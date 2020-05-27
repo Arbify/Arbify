@@ -6,6 +6,7 @@ use App\Contracts\Repositories\LanguageRepository;
 use App\Contracts\Repositories\MessageRepository;
 use App\Contracts\Repositories\ProjectMemberRepository;
 use App\Contracts\Repositories\ProjectRepository;
+use App\Contracts\Repositories\SecretRepository;
 use App\Contracts\Repositories\UserRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('message', fn($value) => app(MessageRepository::class)->byId((int) $value));
         Route::bind('project', fn($value) => app(ProjectRepository::class)->byId((int) $value));
         Route::bind('member', fn($value) => app(ProjectMemberRepository::class)->byId((int) $value));
+        Route::bind('secret', fn($value) => app(SecretRepository::class)->byId((int) $value));
         Route::bind('user', fn($value) => app(UserRepository::class)->byId((int) $value));
     }
 

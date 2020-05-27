@@ -70,6 +70,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('account-secrets.index') }}" class="dropdown-item">
+                                        Secrets
+                                    </a>
                                     <a href="{{ route('account.preferences') }}" class="dropdown-item">
                                         Preferences
                                     </a>
