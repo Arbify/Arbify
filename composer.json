@@ -9,15 +9,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
+        "ext-zip": "*",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
+        "laravel/sanctum": "^2.3",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0",
-        "ext-json": "*",
-      "ext-zip": "*"
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",
