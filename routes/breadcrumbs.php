@@ -17,7 +17,7 @@ Breadcrumbs::for('projects.index', function (Trail $trail) {
 
 Breadcrumbs::for('projects.create', function (Trail $trail) {
     $trail->parent('projects.index');
-    $trail->push('New project', route('projects.create'));
+    $trail->push('New', route('projects.create'));
 });
 
 Breadcrumbs::for('projects.show', function (Trail $trail, Project $project) {
@@ -37,7 +37,7 @@ Breadcrumbs::for('project-languages.index', function (Trail $trail, Project $pro
 
 Breadcrumbs::for('project-languages.create', function (Trail $trail, Project $project) {
     $trail->parent('project-languages.index', $project);
-    $trail->push('Add language', route('project-languages.create', $project));
+    $trail->push('Add', route('project-languages.create', $project));
 });
 
 Breadcrumbs::for('projects.export', function (Trail $trail, Project $project) {
@@ -52,7 +52,7 @@ Breadcrumbs::for('messages.index', function (Trail $trail, Project $project) {
 
 Breadcrumbs::for('messages.create', function (Trail $trail, Project $project) {
     $trail->parent('messages.index', $project);
-    $trail->push('New message', route('messages.create', $project));
+    $trail->push('New', route('messages.create', $project));
 });
 
 Breadcrumbs::for('messages.edit', function (Trail $trail, Project $project, Message $message) {
@@ -68,7 +68,7 @@ Breadcrumbs::for('project-members.index', function (Trail $trail, Project $proje
 
 Breadcrumbs::for('project-members.create', function (Trail $trail, Project $project) {
     $trail->parent('project-members.index', $project);
-    $trail->push('New member', route('project-members.create', $project));
+    $trail->push('Add', route('project-members.create', $project));
 });
 
 Breadcrumbs::for('project-members.edit', function (Trail $trail, Project $project, ProjectMember $projectMember) {
@@ -83,7 +83,7 @@ Breadcrumbs::for('languages.index', function (Trail $trail) {
 
 Breadcrumbs::for('languages.create', function (Trail $trail) {
     $trail->parent('languages.index');
-    $trail->push('New language', route('languages.create'));
+    $trail->push('New', route('languages.create'));
 });
 
 Breadcrumbs::for('languages.edit', function (Trail $trail, Language $language) {
@@ -98,7 +98,7 @@ Breadcrumbs::for('users.index', function (Trail $trail) {
 
 Breadcrumbs::for('users.create', function (Trail $trail) {
     $trail->parent('users.index');
-    $trail->push('New user', route('users.create'));
+    $trail->push('New', route('users.create'));
 });
 
 Breadcrumbs::for('users.edit', function (Trail $trail, User $user) {
@@ -137,7 +137,7 @@ Breadcrumbs::for('account-secrets.index', function (Trail $trail) {
 
 Breadcrumbs::for('account-secrets.create', function (Trail $trail) {
     $trail->parent('account-secrets.index');
-    $trail->push('New secret', route('account-secrets.create'));
+    $trail->push('New', route('account-secrets.create'));
 });
 
 Breadcrumbs::for('account.preferences', function (Trail $trail) {

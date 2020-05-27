@@ -25,7 +25,7 @@
                                 Message
                                 @can('create', [App\Models\Message::class, $project])
                                     <a href="{{ route('messages.create', $project) }}" class="btn btn-primary ml-auto">
-                                        Add message
+                                        New message
                                     </a>
                                 @endcan
                             </div>
@@ -105,7 +105,7 @@
                     <tfoot>
                         <tr>
                             <td>
-                                <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">Add message</a>
+                                <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">New message</a>
                             </td>
                             @if($project->languages->count() > 0)
                                 <td colspan="{{ $project->languages->count() }}"></td>
