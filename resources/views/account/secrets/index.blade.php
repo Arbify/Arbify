@@ -23,9 +23,9 @@
             </colgroup>
             <thead>
                 <tr>
-                    <td>Secret name</td>
-                    <td>Last used</td>
-                    <td>Actions</td>
+                    <th>Secret name</th>
+                    <th>Last used</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
