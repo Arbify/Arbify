@@ -52,5 +52,9 @@
                 @endforelse
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-center">
+            {{ $secrets->links() }}
+        </div>
     </div>
 @endsection

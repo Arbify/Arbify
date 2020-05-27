@@ -61,8 +61,6 @@ class SecretController extends Controller
 
         return redirect()->route('account-secrets.index')
             ->with('success', $message);
-
-        // iEhgvvDXa6k4xxxm6msCYEm9Avhk6QCecPGywF7EZOqYGfDm8D52z4CYNXj3I7VeaC7ZbVwdkpRwivkV
     }
 
     public function revoke(Secret $secret): Response

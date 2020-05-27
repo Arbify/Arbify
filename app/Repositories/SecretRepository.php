@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\SecretRepository as SecretRepositoryContract;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class SecretRepository implements SecretRepositoryContract
@@ -16,11 +16,11 @@ class SecretRepository implements SecretRepositoryContract
         return PersonalAccessToken::findOrFail($id);
     }
 
-    public function allByUser(User $user): Collection
+    public function allByUser(User $user): LengthAwarePaginator
     {
         return $user->tokens()
             ->orderBy('last_used_at', 'DESC')
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->paginate(30);
     }
 }
