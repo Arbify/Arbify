@@ -7,6 +7,10 @@ class AddMajorityOfLanguages extends Migration
 {
     public function up(): void
     {
+        if (app()->runningUnitTests()) {
+            return;
+        }
+
         DB::table('languages')
             ->where('code', 'en')
             ->update([

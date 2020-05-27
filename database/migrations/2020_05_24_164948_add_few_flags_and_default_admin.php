@@ -15,6 +15,10 @@ class AddFewFlagsAndDefaultAdmin extends Migration
      */
     public function up()
     {
+        if (app()->runningUnitTests()) {
+            return;
+        }
+
         DB::table('languages')->insertOrIgnore([
             [
                 'name' => 'English',
