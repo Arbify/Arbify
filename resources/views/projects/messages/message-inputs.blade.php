@@ -2,6 +2,7 @@
     @include('projects.messages.message-value-input', [
         'language' => $language,
         'message' => $message,
+        'messageValues' => $messageValues,
         'form' => null,
     ])
 @elseif($message->isPlural())
@@ -9,6 +10,7 @@
         @include('projects.messages.message-value-input', [
             'language' => $language,
             'message' => $message,
+            'messageValues' => $messageValues,
             'form' => $form,
         ])
     @endforeach
@@ -17,6 +19,7 @@
         @include('projects.messages.message-value-input', [
             'language' => $language,
             'message' => $message,
+            'messageValues' => $messageValues,
             'form' => $gender,
         ])
     @endforeach

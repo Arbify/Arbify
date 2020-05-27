@@ -1,17 +1,13 @@
 @php
     /**
-      * @var \App\Models\Message            $message
-      * @var \App\Models\Language           $language
-      * @var string|null                    $form
-      * @var \Illuminate\Support\Collection $messageValues
+      * @var \App\Models\Message  $message
+      * @var \App\Models\Language $language
+      * @var string|null          $form
+      * @var array                $messageValues
       */
     $label = $message->name . '.' . $language->code . (!is_null($form) ? '.' . $form ?? '' : '');
-    $value = $messageValues
-        ->where('language_id', $language->id)
-        ->where('message_id', $message->id)
-        ->where('form', $form)
-        ->first();
-    $value = $value ? $value->value : null;
+    $value = $messageValues[$message->id][$language->id][$form] ?? null;
+    $value = $value ? $value['value'] : null;
 @endphp
 
 <div class="form-group row">

@@ -6,8 +6,6 @@ use App\Contracts\Repositories\MessageRepository;
 use App\Contracts\Repositories\MessageValueRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\StoreMessage;
-use App\Http\Requests\PutMessageValue;
-use App\Models\Language;
 use App\Models\Message;
 use App\Models\Project;
 use Illuminate\View\View;
@@ -35,7 +33,7 @@ class MessageController extends Controller
     {
         $this->authorize('view-any', [Message::class, $project]);
 
-        $messageValues = $this->messageValueRepository->allByProject($project);
+        $messageValues = $this->messageValueRepository->allByProjectAssociativeGrouped($project);
         $statistics = $this->projectRepository->translationStatistics($project);
 
         return view('projects.messages.index', [

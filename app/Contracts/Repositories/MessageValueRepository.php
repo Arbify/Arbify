@@ -14,7 +14,29 @@ interface MessageValueRepository
 {
     public function byMessageLanguageAndFormOrCreate(Message $message, Language $language, ?string $form): MessageValue;
 
-    public function allByProject(Project $project): Collection;
+    /**
+     * Returns an associative array with message values grouped by message id and language id.
+     *
+     *     [
+     *         1 => [ // 1 is message id
+     *             13 => [ // 13 is language id
+     *                 '' => [ // '' (null) is message form
+     *                     // Only relation ids, `name` and `value` keys are available.
+     *                     'name' => 'app_name',
+     *                     'value' => 'Example app'
+     *                 ],
+     *                 // (...)
+     *             ],
+     *             // (...)
+     *         ],
+     *         // (...)
+     *     ]
+     *
+     * @param Project $project
+     *
+     * @return array
+     */
+    public function allByProjectAssociativeGrouped(Project $project): array;
 
     public function allByProjectAndLanguage(Project $project, Language $language): Collection;
 }

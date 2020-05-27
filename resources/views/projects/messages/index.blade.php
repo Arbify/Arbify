@@ -90,6 +90,7 @@
                                     @include('projects.messages.message-inputs', [
                                         'language' => $language,
                                         'message' => $message,
+                                        'messageValues' => $messageValues,
                                     ])
                                 </td>
                             @endforeach

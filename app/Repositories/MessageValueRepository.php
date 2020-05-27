@@ -25,9 +25,22 @@ class MessageValueRepository implements MessageValueRepositoryContract
             ]);
     }
 
-    public function allByProject(Project $project): Collection
+    public function allByProjectAssociativeGrouped(Project $project): array
     {
-        return $project->messageValues()->get();
+        $values = $project->messageValues()->get([
+            'message_id',
+            'language_id',
+            'form',
+            'name',
+            'value',
+        ])->toArray();
+
+        $results = [];
+        foreach ($values as $value) {
+            $results[$value['message_id']][$value['language_id']][$value['form']] = $value;
+        }
+
+        return $results;
     }
 
     public function allByProjectAndLanguage(Project $project, Language $language): Collection
