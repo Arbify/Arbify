@@ -13,7 +13,7 @@
 
             <div class="card card-body mb-4">
                 <div class="row">
-                    <label for="default_language" class="col-md-6 col-form-label text-md-right">Default language</label>
+                    <label for="default_language" class="col-md-6 col-form-label text-md-right">Default project language</label>
                     <div class="col-md-6">
                         <select name="default_language" id="default_language"
                                 class="form-control @error('default_language') is-invalid @enderror" required autofocus>

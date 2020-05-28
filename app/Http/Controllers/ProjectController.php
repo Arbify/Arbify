@@ -11,6 +11,7 @@ use App\Models\Project;
 use App\Models\ProjectMember;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Settings;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
@@ -71,6 +72,9 @@ class ProjectController extends Controller
             'role' => ProjectMember::ROLE_LEAD,
             'user_id' => $request->user()->id,
         ]);
+
+        // Add default language
+        $project->languages()->attach(Settings::defaultLanguage());
 
         return redirect()->route('projects.index')
             ->with('success', "Added <b>$project->name</b> successfully.");
