@@ -34,9 +34,4 @@ class SettingsRepository implements SettingsRepositoryContract
             }
         }
     }
-
-    public function defaultLanguage(): int
-    {
-        return (int) $this->allAsAssociativeArray()['default_language'];
-    }
 }
