@@ -2,11 +2,11 @@
 
 namespace Arbify\Http\Controllers\Web\Auth;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------

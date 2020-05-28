@@ -2,10 +2,10 @@
 
 namespace Arbify\Http\Controllers\Web\Auth;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
-class ForgotPasswordController extends Controller
+class ForgotPasswordController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
 use Arbify\Http\Requests\AddLanguageToProject;
@@ -11,7 +11,7 @@ use Arbify\Models\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProjectLanguageController extends Controller
+class ProjectLanguageController extends BaseController
 {
     private LanguageRepository $languageRepository;
     private ProjectRepository $projectRepository;

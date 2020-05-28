@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Auth;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Providers\RouteServiceProvider;
 use Arbify\Models\User;
 use Auth;
@@ -15,7 +15,7 @@ use Settings;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
     use RedirectsUsers;
 

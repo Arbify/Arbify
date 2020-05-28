@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\SecretRepository;
 use Arbify\Http\Requests\CreateSecret;
 use Arbify\Models\User;
@@ -11,7 +11,7 @@ use Illuminate\View\View;
 use Laravel\Sanctum\PersonalAccessToken as Secret;
 use Symfony\Component\HttpFoundation\Response;
 
-class SecretController extends Controller
+class SecretController extends BaseController
 {
     private SecretRepository $secretRepository;
 

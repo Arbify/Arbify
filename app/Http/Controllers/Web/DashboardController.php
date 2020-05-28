@@ -2,10 +2,10 @@
 
 namespace Arbify\Http\Controllers\Web;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Illuminate\View\View;
 
-class DashboardController extends Controller
+class DashboardController extends BaseController
 {
     public function __construct()
     {

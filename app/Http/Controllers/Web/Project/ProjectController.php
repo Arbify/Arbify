@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Arb\ArbExporter;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 use Settings;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     private ProjectRepository $projectRepository;
     private LanguageRepository $languageRepository;

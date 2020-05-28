@@ -2,14 +2,14 @@
 
 namespace Arbify\Http\Controllers\Web;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\SettingsRepository;
 use Arbify\Http\Requests\UpdateSettings;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdministrationController extends Controller
+class AdministrationController extends BaseController
 {
     private SettingsRepository $settingsRepository;
 

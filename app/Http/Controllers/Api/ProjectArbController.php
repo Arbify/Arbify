@@ -6,12 +6,12 @@ namespace Arbify\Http\Controllers\Api;
 
 use Arbify\Contracts\Arb\ArbExporter;
 use Arbify\Contracts\Repositories\MessageValueRepository;
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Models\Language;
 use Arbify\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProjectArbController extends Controller
+class ProjectArbController extends BaseController
 {
     private ArbExporter $exporter;
 

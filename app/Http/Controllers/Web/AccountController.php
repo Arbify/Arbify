@@ -2,14 +2,14 @@
 
 namespace Arbify\Http\Controllers\Web;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Http\Requests\UpdatePassword;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
-class AccountController extends Controller
+class AccountController extends BaseController
 {
     public function __construct()
     {

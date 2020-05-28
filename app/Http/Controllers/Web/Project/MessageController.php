@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\MessageRepository;
 use Arbify\Contracts\Repositories\MessageValueRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
@@ -12,7 +12,7 @@ use Arbify\Models\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
-class MessageController extends Controller
+class MessageController extends BaseController
 {
     private ProjectRepository $projectRepository;
     private MessageRepository $messageRepository;

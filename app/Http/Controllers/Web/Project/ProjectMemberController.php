@@ -4,14 +4,14 @@ namespace Arbify\Http\Controllers\Web\Project;
 
 use Arbify\Contracts\Repositories\ProjectMemberRepository;
 use Arbify\Contracts\Repositories\UserRepository;
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Http\Requests\StoreProjectMember;
 use Arbify\Models\Project;
 use Arbify\Models\ProjectMember;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProjectMemberController extends Controller
+class ProjectMemberController extends BaseController
 {
     private ProjectMemberRepository $projectMemberRepository;
     private UserRepository $userRepository;

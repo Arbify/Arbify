@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\CountryFlagRepository;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Http\Requests\StoreLanguage;
@@ -10,7 +10,7 @@ use Arbify\Models\Language;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
-class LanguageController extends Controller
+class LanguageController extends BaseController
 {
     private LanguageRepository $languageRepository;
     private CountryFlagRepository $countryFlagRepository;

@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\UserRepository;
 use Arbify\Http\Requests\StoreUser;
 use Arbify\Notifications\UserArtificiallyCreated;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 use Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     private UserRepository $userRepository;
 

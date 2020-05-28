@@ -2,7 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
-use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\MessageValueRepository;
 use Arbify\Http\Requests\PutMessageValue;
 use Arbify\Models\Language;
@@ -10,7 +10,7 @@ use Arbify\Models\Message;
 use Arbify\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 
-class MessageValueController extends Controller
+class MessageValueController extends BaseController
 {
     private MessageValueRepository $messageValueRepository;
 
