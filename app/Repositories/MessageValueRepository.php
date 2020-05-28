@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\Models\MessageValue;
 use App\Models\Project;
 use Arr;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Collection;
 
@@ -57,11 +58,14 @@ class MessageValueRepository implements MessageValueRepositoryContract
         // FIXME: Maybe replace this with a query without the n+1 problem.
         $result = $project->languages
             ->map(function (Language $language) use ($project) {
+                /** @var string $lastModified */
                 $lastModified = $project->messageValues()
                     ->where('language_id', $language->id)
                     ->max('message_values.updated_at');
 
-                return [$language->code => $lastModified];
+                $lastModifiedIso8601 = $lastModified ? Carbon::parse($lastModified)->toIso8601String() : null;
+
+                return [$language->code => $lastModifiedIso8601];
             });
 
         return Arr::collapse($result);
