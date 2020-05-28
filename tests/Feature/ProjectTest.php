@@ -35,6 +35,9 @@ class ProjectTest extends TestCase
 
     public function testStoreWithCorrectData(): void
     {
+        // Create default language (with id 1)
+        factory(Language::class)->create();
+
         $name = $this->faker()->name;
 
         $this->actingAsUser()->post('/projects', [
