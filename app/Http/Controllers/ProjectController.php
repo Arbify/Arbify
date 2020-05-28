@@ -135,9 +135,6 @@ class ProjectController extends Controller
     ): Response {
         $language = $this->languageRepository->byId($request->input('language'));
 
-//        // Disable Debug bar so it doesn't add its HTML to our ARB file response...
-//        app('debugbar')->disable();
-
         return $exporter->getDownloadResponse(
             $exporter->exportLanguage($project, $language)
         );
