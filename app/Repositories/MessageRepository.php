@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\MessageRepository as MessageRepositoryContract;
-use App\Models\Message;
-use App\Models\Project;
+use Arbify\Contracts\Repositories\MessageRepository as MessageRepositoryContract;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
 use Illuminate\Support\Collection;
 
 class MessageRepository implements MessageRepositoryContract

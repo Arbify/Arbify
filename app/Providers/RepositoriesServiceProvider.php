@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace Arbify\Providers;
 
-use App\Contracts\Repositories as Contracts;
-use App\Repositories as Repositories;
+use Arbify\Contracts\Repositories as Contracts;
+use Arbify\Repositories as Repositories;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoriesServiceProvider extends ServiceProvider

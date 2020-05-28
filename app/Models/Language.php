@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Arbify\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\ProjectRepository as ProjectRepositoryContract;
-use App\Models\Message;
-use App\Models\Project;
-use App\Models\User;
+use Arbify\Contracts\Repositories\ProjectRepository as ProjectRepositoryContract;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
+use Arbify\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder;
 

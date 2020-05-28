@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project;
+namespace Arbify\Http\Controllers\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\MessageValueRepository;
-use App\Http\Requests\PutMessageValue;
-use App\Models\Language;
-use App\Models\Message;
-use App\Models\Project;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\MessageValueRepository;
+use Arbify\Http\Requests\PutMessageValue;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 
 class MessageValueController extends Controller

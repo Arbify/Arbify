@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
-use App\Models\Language;
-use App\Models\Message;
-use App\Models\MessageValue;
-use App\Models\Project;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
+use Arbify\Models\Project;
 use Illuminate\Support\Collection;
 
 interface MessageValueRepository

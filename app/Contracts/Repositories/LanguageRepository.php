@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
-use App\Models\Language;
-use App\Models\Project;
+use Arbify\Models\Language;
+use Arbify\Models\Project;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 

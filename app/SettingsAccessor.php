@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace Arbify;
 
-use App\Contracts\Repositories\SettingsRepository;
+use Arbify\Contracts\Repositories\SettingsRepository;
 
 class SettingsAccessor
 {

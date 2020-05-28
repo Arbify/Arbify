@@ -23,7 +23,7 @@
                         <th>
                             <div class="d-flex align-items-center">
                                 Message
-                                @can('create', [App\Models\Message::class, $project])
+                                @can('create', [Arbify\Models\Message::class, $project])
                                     <a href="{{ route('messages.create', $project) }}" class="btn btn-primary ml-auto">
                                         New message
                                     </a>
@@ -65,10 +65,10 @@
                                         @elseif($message->isGender())
                                             <span class="badge badge-light mr-2">GENDER</span>
                                         @endif
-                                        @can('update', [App\Models\Message::class, $project])
+                                        @can('update', [Arbify\Models\Message::class, $project])
                                             <a href="{{ route('messages.edit', [$project, $message]) }}" class="small">edit</a>
                                         @endcan
-                                        @can('delete', [App\Models\Message::class, $project])
+                                        @can('delete', [Arbify\Models\Message::class, $project])
                                             <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}"
                                                   class="d-inline ml-2 delete-modal-show"
                                                   data-delete-modal-title="Deleting message" data-delete-modal-body="<code>{{ $message->name }}</code> message">
@@ -101,7 +101,7 @@
                         </tr>
                     @endforelse
                 </tbody>
-                @can('create', [App\Models\Message::class, $project])
+                @can('create', [Arbify\Models\Message::class, $project])
                     <tfoot>
                         <tr>
                             <td>

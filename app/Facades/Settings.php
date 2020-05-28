@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Facades;
+namespace Arbify\Facades;
 
-use App\Contracts\Repositories\SettingsRepository;
-use App\SettingsAccessor;
+use Arbify\SettingsAccessor;
 use Illuminate\Support\Facades\Facade;
 
 class Settings extends Facade

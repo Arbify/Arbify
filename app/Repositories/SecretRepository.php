@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\SecretRepository as SecretRepositoryContract;
-use App\Models\User;
+use Arbify\Contracts\Repositories\SecretRepository as SecretRepositoryContract;
+use Arbify\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Laravel\Sanctum\PersonalAccessToken;
 

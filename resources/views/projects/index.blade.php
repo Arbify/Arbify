@@ -4,7 +4,7 @@
     <div class="container">
         <div class="d-flex mb-4 justify-content-between align-items-center">
             <h2>Projects</h2>
-            @can('create', App\Models\Project::class)
+            @can('create', Arbify\Models\Project::class)
                 <a href="{{ route('projects.create') }}" class="btn btn-primary">New project</a>
             @endcan
         </div>
@@ -40,7 +40,7 @@
                             <small>
                                 <a href="{{ route('messages.index', $project) }}"><b>Messages</b></a>
                                 | <a href="{{ route('project-languages.index', $project) }}">Languages</a>
-                                @can('view-any', [App\Models\ProjectMember::class, $project])
+                                @can('view-any', [Arbify\Models\ProjectMember::class, $project])
                                     | <a href="{{ route('project-members.index', $project) }}">Members</a>
                                 @endcan
                             </small>

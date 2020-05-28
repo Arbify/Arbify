@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace Arbify\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\CountryFlagRepository;
-use App\Contracts\Repositories\LanguageRepository;
-use App\Http\Requests\StoreLanguage;
-use App\Models\Language;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\CountryFlagRepository;
+use Arbify\Contracts\Repositories\LanguageRepository;
+use Arbify\Http\Requests\StoreLanguage;
+use Arbify\Models\Language;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 

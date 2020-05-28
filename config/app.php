@@ -170,12 +170,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\RepositoriesServiceProvider::class
+        Arbify\Providers\AppServiceProvider::class,
+        Arbify\Providers\AuthServiceProvider::class,
+        // Arbify\Providers\BroadcastServiceProvider::class,
+        Arbify\Providers\EventServiceProvider::class,
+        Arbify\Providers\RouteServiceProvider::class,
+        Arbify\Providers\RepositoriesServiceProvider::class
 
     ],
 
@@ -229,7 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Settings' => \App\Facades\Settings::class,
+        'Settings' => \Arbify\Facades\Settings::class,
     ],
 
 ];

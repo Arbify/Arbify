@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Arbify\Http\Requests;
 
-use App\Contracts\Repositories\MessageRepository;
-use App\Models\Message;
+use Arbify\Contracts\Repositories\MessageRepository;
+use Arbify\Models\Message;
 use Illuminate\Validation\Rule;
 
 class StoreMessage extends AuthorizedFormRequest

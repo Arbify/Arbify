@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
-use App\Models\Project;
-use App\Models\ProjectMember;
-use App\Models\User;
+use Arbify\Models\Project;
+use Arbify\Models\ProjectMember;
+use Arbify\Models\User;
 use Illuminate\Support\Collection;
 
 interface ProjectMemberRepository

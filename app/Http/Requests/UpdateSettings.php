@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Arbify\Http\Requests;
 
-use App\Models\Language;
+use Arbify\Models\Language;
 
 class UpdateSettings extends AuthorizedFormRequest
 {

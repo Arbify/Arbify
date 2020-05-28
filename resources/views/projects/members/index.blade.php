@@ -3,7 +3,7 @@
 @section('project-content')
     <div class="container">
         <p class="alert alert-info mb-4"><b>Note:</b> All administrators and super administrators have lead role abilities in any project.</p>
-        @can('create', [App\Models\ProjectMember::class, $project])
+        @can('create', [Arbify\Models\ProjectMember::class, $project])
             <div class="d-flex mb-4">
                 <a href="{{ route('project-members.create', $project) }}" class="btn btn-primary ml-auto">Add member</a>
             </div>

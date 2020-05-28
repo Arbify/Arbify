@@ -4,7 +4,7 @@
     <div class="container">
         <div class="d-flex mb-4 justify-content-between align-items-center">
             <h2>Languages</h2>
-            @can('create', App\Models\Language::class)
+            @can('create', Arbify\Models\Language::class)
                 <a href="{{ route('languages.create') }}" class="btn btn-primary">New language</a>
             @endcan
         </div>

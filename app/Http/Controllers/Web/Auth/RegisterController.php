@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\Auth;
+namespace Arbify\Http\Controllers\Web\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Providers\RouteServiceProvider;
+use Arbify\Models\User;
 use Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RedirectsUsers;

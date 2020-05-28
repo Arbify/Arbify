@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Arbify\Http\Requests;
 
 class CreateSecret extends AuthorizedFormRequest
 {

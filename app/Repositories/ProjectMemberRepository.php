@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\ProjectMemberRepository as ProjectMemberRepositoryContract;
-use App\Models\Project;
-use App\Models\ProjectMember;
-use App\Models\User;
+use Arbify\Contracts\Repositories\ProjectMemberRepository as ProjectMemberRepositoryContract;
+use Arbify\Models\Project;
+use Arbify\Models\ProjectMember;
+use Arbify\Models\User;
 use Illuminate\Support\Collection;
 
 class ProjectMemberRepository implements ProjectMemberRepositoryContract

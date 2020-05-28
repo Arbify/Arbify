@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Arbify\Http\Requests;
 
-use App\Models\User;
+use Arbify\Models\User;
 use Illuminate\Validation\Rule;
 
 class StoreUser extends AuthorizedFormRequest

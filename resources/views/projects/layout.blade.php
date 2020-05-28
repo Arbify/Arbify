@@ -24,7 +24,7 @@
                 <a href="{{ route('project-languages.index', $project) }}"
                    class="nav-link @if(request()->route()->getName() == 'project-languages.index') active @endif">Languages</a>
             </li>
-            @can('view-any', [App\Models\ProjectMember::class, $project])
+            @can('view-any', [Arbify\Models\ProjectMember::class, $project])
                 <li class="nav-item">
                     <a href="{{ route('project-members.index', $project) }}"
                        class="nav-link @if(request()->route()->getName() == 'project-members.index') active @endif">Members</a>

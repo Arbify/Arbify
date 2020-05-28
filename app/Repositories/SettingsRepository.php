@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\SettingsRepository as SettingsRepositoryContract;
-use App\Models\Setting;
+use Arbify\Contracts\Repositories\SettingsRepository as SettingsRepositoryContract;
+use Arbify\Models\Setting;
 use Arr;
 use Cache;
 

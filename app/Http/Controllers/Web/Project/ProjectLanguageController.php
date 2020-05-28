@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project;
+namespace Arbify\Http\Controllers\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\LanguageRepository;
-use App\Contracts\Repositories\ProjectRepository;
-use App\Http\Requests\AddLanguageToProject;
-use App\Models\Language;
-use App\Models\Project;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\LanguageRepository;
+use Arbify\Contracts\Repositories\ProjectRepository;
+use Arbify\Http\Requests\AddLanguageToProject;
+use Arbify\Models\Language;
+use Arbify\Models\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\MessageValueRepository as MessageValueRepositoryContract;
-use App\Models\Language;
-use App\Models\Message;
-use App\Models\MessageValue;
-use App\Models\Project;
+use Arbify\Contracts\Repositories\MessageValueRepository as MessageValueRepositoryContract;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
+use Arbify\Models\Project;
 use Arr;
 use Carbon\Carbon;
 use DB;

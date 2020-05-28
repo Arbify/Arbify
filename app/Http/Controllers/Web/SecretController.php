@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace Arbify\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\SecretRepository;
-use App\Http\Requests\CreateSecret;
-use App\Models\User;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\SecretRepository;
+use Arbify\Http\Requests\CreateSecret;
+use Arbify\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Laravel\Sanctum\PersonalAccessToken as Secret;

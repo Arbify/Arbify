@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace Arbify\Providers;
 
-use App\Arb\ArbFormatter;
-use App\Contracts\Arb\ArbFormatter as ArbFormatterContract;
-use App\Arb\Exporter\ArbExporter;
-use App\Contracts\Arb\ArbExporter as ArbExporterContract;
+use Arbify\Arb\ArbFormatter;
+use Arbify\Contracts\Arb\ArbFormatter as ArbFormatterContract;
+use Arbify\Arb\Exporter\ArbExporter;
+use Arbify\Contracts\Arb\ArbExporter as ArbExporterContract;
 use Blade;
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Arbify\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
 function status(int $status, $content = null, array $headers = []): Response

@@ -1,7 +1,7 @@
 @php
     /**
-      * @var \App\Models\Message  $message
-      * @var \App\Models\Language $language
+      * @var \Arbify\Models\Message  $message
+      * @var \Arbify\Models\Language $language
       * @var string|null          $form
       * @var array                $messageValues
       */

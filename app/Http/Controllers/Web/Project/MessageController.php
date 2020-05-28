@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project;
+namespace Arbify\Http\Controllers\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\MessageRepository;
-use App\Contracts\Repositories\MessageValueRepository;
-use App\Contracts\Repositories\ProjectRepository;
-use App\Http\Requests\StoreMessage;
-use App\Models\Message;
-use App\Models\Project;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\MessageRepository;
+use Arbify\Contracts\Repositories\MessageValueRepository;
+use Arbify\Contracts\Repositories\ProjectRepository;
+use Arbify\Http\Requests\StoreMessage;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 

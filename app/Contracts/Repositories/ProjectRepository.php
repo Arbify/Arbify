@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
-use App\Models\Project;
-use App\Models\User;
+use Arbify\Models\Project;
+use Arbify\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface ProjectRepository

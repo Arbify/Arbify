@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace Arbify\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\UserRepository;
-use App\Http\Requests\StoreUser;
-use App\Notifications\UserArtificiallyCreated;
-use App\Models\User;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\UserRepository;
+use Arbify\Http\Requests\StoreUser;
+use Arbify\Notifications\UserArtificiallyCreated;
+use Arbify\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;

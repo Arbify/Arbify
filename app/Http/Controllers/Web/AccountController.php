@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace Arbify\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdatePassword;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Http\Requests\UpdatePassword;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

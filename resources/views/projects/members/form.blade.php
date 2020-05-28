@@ -38,7 +38,7 @@
 
                     <div class="col-md-6 pt-2">
                         @php
-                            use \App\Models\ProjectMember;
+                            use \Arbify\Models\ProjectMember;
                             $lead = ProjectMember::ROLE_LEAD;
                             $memberRole = ProjectMember::ROLE_MEMBER;
                             $translator = ProjectMember::ROLE_TRANSLATOR;

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Models\Language;
-use App\Models\Message;
-use App\Models\MessageValue;
-use App\Models\Project;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
+use Arbify\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

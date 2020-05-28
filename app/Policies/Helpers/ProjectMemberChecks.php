@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Policies\Helpers;
+namespace Arbify\Policies\Helpers;
 
-use App\Contracts\Repositories\ProjectMemberRepository;
-use App\Models\Project;
-use App\Models\User;
+use Arbify\Contracts\Repositories\ProjectMemberRepository;
+use Arbify\Models\Project;
+use Arbify\Models\User;
 
 trait ProjectMemberChecks
 {

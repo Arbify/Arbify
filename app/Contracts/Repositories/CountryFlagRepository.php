@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
 interface CountryFlagRepository
 {

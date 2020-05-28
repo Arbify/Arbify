@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Arb;
 
-use App\Arb\ArbFormatter;
-use App\Models\Message;
-use App\Models\MessageValue;
+use Arbify\Arb\ArbFormatter;
+use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
 use Tests\TestCase;
 
 class ArbExporterTest extends TestCase

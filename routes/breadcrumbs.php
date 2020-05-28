@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Language;
-use App\Models\Message;
-use App\Models\Project;
-use App\Models\ProjectMember;
-use App\Models\User;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
+use Arbify\Models\ProjectMember;
+use Arbify\Models\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Trail;
 
 Breadcrumbs::for('dashboard', function (Trail $trail) {

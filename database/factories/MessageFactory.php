@@ -2,8 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Message;
-use App\Models\Project;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
 use Faker\Generator as Faker;
 
 $factory->define(Message::class, function (Faker $faker) {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api;
+namespace Arbify\Http\Controllers\Api;
 
-use App\Contracts\Arb\ArbExporter;
-use App\Contracts\Repositories\MessageValueRepository;
-use App\Http\Controllers\Controller;
-use App\Models\Language;
-use App\Models\Project;
+use Arbify\Contracts\Arb\ArbExporter;
+use Arbify\Contracts\Repositories\MessageValueRepository;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Models\Language;
+use Arbify\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectArbController extends Controller

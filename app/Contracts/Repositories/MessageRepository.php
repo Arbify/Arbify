@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
-use App\Models\Message;
-use App\Models\Project;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
 use Illuminate\Support\Collection;
 
 interface MessageRepository

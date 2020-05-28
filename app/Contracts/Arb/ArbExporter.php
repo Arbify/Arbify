@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Arb;
+namespace Arbify\Contracts\Arb;
 
-use App\Arb\Exporter\ExportedFile;
-use App\Models\Language;
-use App\Models\Project;
+use Arbify\Arb\Exporter\ExportedFile;
+use Arbify\Models\Language;
+use Arbify\Models\Project;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 interface ArbExporter

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
 use Storage;
 
-class CountryFlagRepository implements \App\Contracts\Repositories\CountryFlagRepository
+class CountryFlagRepository implements \Arbify\Contracts\Repositories\CountryFlagRepository
 {
     public function getAllFlags(): array
     {

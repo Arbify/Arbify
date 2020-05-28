@@ -30,8 +30,8 @@
 
                     <div class="col-md-6 pt-2">
                         @php
-                            $public = \App\Models\Project::VISIBILITY_PUBLIC;
-                            $private = \App\Models\Project::VISIBILITY_PRIVATE;
+                            $public = \Arbify\Models\Project::VISIBILITY_PUBLIC;
+                            $private = \Arbify\Models\Project::VISIBILITY_PRIVATE;
                         @endphp
                         <div class="custom-control custom-radio custom-control">
                             <input type="radio" id="visibility.public" name="visibility" value="{{ $public }}" class="custom-control-input"

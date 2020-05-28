@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Policies;
+namespace Arbify\Policies;
 
-use App\Contracts\Repositories\ProjectMemberRepository;
-use App\Models\Language;
-use App\Models\Message;
-use App\Models\Project;
-use App\Models\User;
+use Arbify\Contracts\Repositories\ProjectMemberRepository;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\Project;
+use Arbify\Models\User;
 
 class MessageValuePolicy extends BasePolicy
 {

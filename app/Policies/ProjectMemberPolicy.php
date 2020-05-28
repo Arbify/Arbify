@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Policies;
+namespace Arbify\Policies;
 
-use App\Contracts\Repositories\ProjectMemberRepository;
-use App\Models\Project;
-use App\Models\ProjectMember;
-use App\Models\User;
+use Arbify\Contracts\Repositories\ProjectMemberRepository;
+use Arbify\Models\Project;
+use Arbify\Models\ProjectMember;
+use Arbify\Models\User;
 
 class ProjectMemberPolicy extends BasePolicy
 {

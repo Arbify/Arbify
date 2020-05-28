@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\UserRepository as UserRepositoryContract;
-use App\Models\Project;
-use App\Models\User;
+use Arbify\Contracts\Repositories\UserRepository as UserRepositoryContract;
+use Arbify\Models\Project;
+use Arbify\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 

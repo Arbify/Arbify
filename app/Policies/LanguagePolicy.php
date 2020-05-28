@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Policies;
+namespace Arbify\Policies;
 
-use App\Models\Language;
-use App\Models\User;
+use Arbify\Models\Language;
+use Arbify\Models\User;
 
 class LanguagePolicy extends BasePolicy
 {

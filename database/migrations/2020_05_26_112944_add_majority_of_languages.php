@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Language;
+use Arbify\Models\Language;
 use Illuminate\Database\Migrations\Migration;
 
 class AddMajorityOfLanguages extends Migration

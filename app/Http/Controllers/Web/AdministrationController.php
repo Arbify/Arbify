@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace Arbify\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\LanguageRepository;
-use App\Contracts\Repositories\SettingsRepository;
-use App\Http\Requests\UpdateSettings;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Repositories\LanguageRepository;
+use Arbify\Contracts\Repositories\SettingsRepository;
+use Arbify\Http\Requests\UpdateSettings;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 

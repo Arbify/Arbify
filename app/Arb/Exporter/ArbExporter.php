@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Arb\Exporter;
+namespace Arbify\Arb\Exporter;
 
-use App\Contracts\Arb\ArbExporter as ArbExporterContract;
-use App\Contracts\Arb\ArbFormatter;
-use App\Contracts\Repositories\MessageRepository;
-use App\Contracts\Repositories\MessageValueRepository;
-use App\Models\Language;
-use App\Models\Project;
+use Arbify\Contracts\Arb\ArbExporter as ArbExporterContract;
+use Arbify\Contracts\Arb\ArbFormatter;
+use Arbify\Contracts\Repositories\MessageRepository;
+use Arbify\Contracts\Repositories\MessageValueRepository;
+use Arbify\Models\Language;
+use Arbify\Models\Project;
 use Illuminate\Filesystem\FilesystemAdapter;
 use InvalidArgumentException;
 use Storage;

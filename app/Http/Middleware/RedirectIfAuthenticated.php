@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Arbify\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
+use Arbify\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 

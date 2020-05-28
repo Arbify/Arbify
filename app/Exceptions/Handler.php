@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace Arbify\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;

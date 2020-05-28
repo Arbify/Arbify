@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Arbify\Http\Requests;
 
-use App\Models\Project;
+use Arbify\Models\Project;
 use Illuminate\Validation\Rule;
 
 class StoreProject extends AuthorizedFormRequest

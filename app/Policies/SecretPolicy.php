@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Policies;
+namespace Arbify\Policies;
 
-use App\Models\User;
+use Arbify\Models\User;
 use Laravel\Sanctum\PersonalAccessToken as Secret;
 
 class SecretPolicy extends BasePolicy

@@ -74,7 +74,7 @@
 
                     <div class="col-md-6 pt-2">
                         @php
-                            use \App\Models\User;
+                            use \Arbify\Models\User;
                             $superAdministrator = User::ROLE_SUPER_ADMINISTRATOR;
                             $administrator = User::ROLE_ADMINISTRATOR;
                             $userRole = User::ROLE_USER;

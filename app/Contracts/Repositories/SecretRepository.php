@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories;
+namespace Arbify\Contracts\Repositories;
 
-use App\Models\User;
+use Arbify\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Laravel\Sanctum\PersonalAccessToken as Secret;
 

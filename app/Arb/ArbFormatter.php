@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Arb;
+namespace Arbify\Arb;
 
-use App\Contracts\Arb\ArbFormatter as ArbFormatterContract;
-use App\Models\Message;
-use App\Models\MessageValue;
+use Arbify\Contracts\Arb\ArbFormatter as ArbFormatterContract;
+use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;

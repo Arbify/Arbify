@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Providers;
+namespace Arbify\Providers;
 
-use App\Contracts\Repositories\LanguageRepository;
-use App\Contracts\Repositories\MessageRepository;
-use App\Contracts\Repositories\ProjectMemberRepository;
-use App\Contracts\Repositories\ProjectRepository;
-use App\Contracts\Repositories\SecretRepository;
-use App\Contracts\Repositories\UserRepository;
+use Arbify\Contracts\Repositories\LanguageRepository;
+use Arbify\Contracts\Repositories\MessageRepository;
+use Arbify\Contracts\Repositories\ProjectMemberRepository;
+use Arbify\Contracts\Repositories\ProjectRepository;
+use Arbify\Contracts\Repositories\SecretRepository;
+use Arbify\Contracts\Repositories\UserRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = 'Arbify\Http\Controllers';
 
     public const HOME = '/';
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Arbify\Repositories;
 
-use App\Contracts\Repositories\LanguageRepository as LanguageRepositoryContract;
-use App\Models\Language;
-use App\Models\Project;
+use Arbify\Contracts\Repositories\LanguageRepository as LanguageRepositoryContract;
+use Arbify\Models\Language;
+use Arbify\Models\Project;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 

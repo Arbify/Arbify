@@ -69,7 +69,7 @@
                     <span class="col-md-4 col-form-label text-md-right">Plural forms</span>
 
                     <div class="col-md-6 pt-2">
-                        @foreach(array_keys(App\Models\Language::PLURAL_FORMS) as $form)
+                        @foreach(array_keys(Arbify\Models\Language::PLURAL_FORMS) as $form)
                             <div class="custom-control custom-checkbox custom-control-inline">
                                 <input type="checkbox" class="custom-control-input" id="plural_forms.{{ $form }}"
                                        name="plural_forms[]" value="{{ $form }}" @if(isset($language) && in_array($form, $language->plural_forms)) checked @endif>

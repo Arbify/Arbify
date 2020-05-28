@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project;
+namespace Arbify\Http\Controllers\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Contracts\Arb\ArbExporter;
-use App\Contracts\Repositories\LanguageRepository;
-use App\Contracts\Repositories\ProjectRepository;
-use App\Http\Requests\ExportLanguage;
-use App\Http\Requests\StoreProject;
-use App\Models\Project;
-use App\Models\ProjectMember;
+use Arbify\Http\Controllers\Controller;
+use Arbify\Contracts\Arb\ArbExporter;
+use Arbify\Contracts\Repositories\LanguageRepository;
+use Arbify\Contracts\Repositories\ProjectRepository;
+use Arbify\Http\Requests\ExportLanguage;
+use Arbify\Http\Requests\StoreProject;
+use Arbify\Models\Project;
+use Arbify\Models\ProjectMember;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Settings;

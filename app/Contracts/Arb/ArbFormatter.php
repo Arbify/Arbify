@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Arb;
+namespace Arbify\Contracts\Arb;
 
-use App\Models\Message;
+use Arbify\Models\Message;
 use Illuminate\Support\Collection;
 
 interface ArbFormatter
