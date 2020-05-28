@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes([
     'verify' => true,
-    'register' => Settings::registrationEnabled(),
 ]);
 
 Route::get('/', 'DashboardController')->name('dashboard');

@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class AddRegistrationEnabledSetting extends Migration
 {
@@ -10,7 +8,7 @@ class AddRegistrationEnabledSetting extends Migration
     {
         DB::table('settings')->insert([
             'name' => 'registration_enabled',
-            'value' => '0',
+            'value' => '1',
         ]);
     }
 
