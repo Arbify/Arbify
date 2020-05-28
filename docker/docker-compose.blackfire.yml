@@ -8,5 +8,3 @@ services:
             BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
             BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
             BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
-        networks:
-            - arbify

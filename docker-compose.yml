@@ -16,8 +16,6 @@ services:
             DB_PASSWORD: ${DB_PASSWORD}
         volumes:
             - .:/var/www
-        networks:
-            - arbify
 
     db:
         image: mariadb:10
@@ -28,11 +26,9 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        networks:
-            - arbify
         volumes:
             - db-data:/var/lib/mysql
-    
+
     nginx:
         image: nginx:1.17-alpine
         restart: unless-stopped
@@ -41,12 +37,6 @@ services:
         volumes:
             - .:/var/www
             - ./docker/nginx:/etc/nginx/conf.d
-        networks:
-            - arbify
-
-networks:
-    arbify:
-        driver: bridge
 
 volumes:
     db-data:
