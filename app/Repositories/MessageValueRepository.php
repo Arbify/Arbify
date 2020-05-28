@@ -9,6 +9,8 @@ use App\Models\Language;
 use App\Models\Message;
 use App\Models\MessageValue;
 use App\Models\Project;
+use Arr;
+use DB;
 use Illuminate\Support\Collection;
 
 class MessageValueRepository implements MessageValueRepositoryContract
@@ -48,5 +50,20 @@ class MessageValueRepository implements MessageValueRepositoryContract
         return $project->messageValues()
             ->where('language_id', $language->id)
             ->get();
+    }
+
+    public function languageGroupedDetailsByProject(Project $project): array
+    {
+        // FIXME: Maybe replace this with a query without the n+1 problem.
+        $result = $project->languages
+            ->map(function (Language $language) use ($project) {
+                $lastModified = $project->messageValues()
+                    ->where('language_id', $language->id)
+                    ->max('message_values.updated_at');
+
+                return [$language->code => $lastModified];
+            });
+
+        return Arr::collapse($result);
     }
 }

@@ -39,4 +39,20 @@ interface MessageValueRepository
     public function allByProjectAssociativeGrouped(Project $project): array;
 
     public function allByProjectAndLanguage(Project $project, Language $language): Collection;
+
+    /**
+     * Returns an associative array with project languages as keys and last updated_at date as value.
+     *
+     *     [
+     *         "pl": "2020-05-28 12:22:27",
+     *         "az": "2020-05-28 13:25:59",
+     *         "iu": null,
+     *         // (...)
+     *     ]
+     *
+     * @param Project $project
+     *
+     * @return array
+     */
+    public function languageGroupedDetailsByProject(Project $project): array;
 }
