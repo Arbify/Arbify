@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\LanguageRepository;
 use App\Contracts\Repositories\SettingsRepository;
 use App\Http\Requests\UpdateSettings;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\CountryFlagRepository;
 use App\Contracts\Repositories\LanguageRepository;
 use App\Http\Requests\StoreLanguage;

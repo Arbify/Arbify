@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Project;
 
 use App\Contracts\Repositories\ProjectMemberRepository;
 use App\Contracts\Repositories\UserRepository;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectMember;
 use App\Models\Project;
 use App\Models\ProjectMember;

@@ -19,27 +19,27 @@ Auth::routes([
 
 Route::get('/', 'DashboardController')->name('dashboard');
 
-Route::resource('/projects', 'ProjectController');
-Route::get('/projects/{project}/export', 'ProjectController@export')->name('projects.export');
-Route::post('/projects/{project}/export-all', 'ProjectController@exportAll')->name('projects.export-all');
-Route::post('/projects/{project}/export', 'ProjectController@exportLanguage')->name('projects.export-language');
+Route::resource('/projects', 'Project\ProjectController');
+Route::get('/projects/{project}/export', 'Project\ProjectController@export')->name('projects.export');
+Route::post('/projects/{project}/export-all', 'Project\ProjectController@exportAll')->name('projects.export-all');
+Route::post('/projects/{project}/export', 'Project\ProjectController@exportLanguage')->name('projects.export-language');
 
-Route::get('/projects/{project}/languages', 'ProjectLanguageController@index')
+Route::get('/projects/{project}/languages', 'Project\ProjectLanguageController@index')
     ->name('project-languages.index');
-Route::get('/projects/{project}/languages/create', 'ProjectLanguageController@create')
+Route::get('/projects/{project}/languages/create', 'Project\ProjectLanguageController@create')
     ->name('project-languages.create');
-Route::post('/projects/{project}/languages', 'ProjectLanguageController@store')
+Route::post('/projects/{project}/languages', 'Project\ProjectLanguageController@store')
     ->name('project-languages.store');
-Route::delete('/projects/{project}/languages/{language_code}', 'ProjectLanguageController@destroy')
+Route::delete('/projects/{project}/languages/{language_code}', 'Project\ProjectLanguageController@destroy')
     ->name('project-languages.destroy');
 
-Route::resource('/projects/{project}/messages', 'MessageController')
+Route::resource('/projects/{project}/messages', 'Project\MessageController')
     ->except(['show']);
 
-Route::put('/projects/{project}/messages/{message}/{language_code}', 'MessageValueController@put')
+Route::put('/projects/{project}/messages/{message}/{language_code}', 'Project\MessageValueController@put')
     ->name('message-values.put');
 
-Route::resource('/projects/{project}/members', 'ProjectMemberController', ['names' => 'project-members'])
+Route::resource('/projects/{project}/members', 'Project\ProjectMemberController', ['names' => 'project-members'])
     ->except(['show']);
 
 Route::resource('/languages', 'LanguageController')

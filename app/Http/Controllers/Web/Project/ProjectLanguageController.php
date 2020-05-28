@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Project;
 
+use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\LanguageRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\AddLanguageToProject;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Project;
 
+use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\MessageRepository;
 use App\Contracts\Repositories\MessageValueRepository;
 use App\Contracts\Repositories\ProjectRepository;

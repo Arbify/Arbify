@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\UserRepository;
 use App\Http\Requests\StoreUser;
 use App\Notifications\UserArtificiallyCreated;

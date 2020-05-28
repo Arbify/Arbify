@@ -15,9 +15,6 @@ class RouteServiceProvider extends ServiceProvider
 {
     protected $namespace = 'App\Http\Controllers';
 
-    /**
-     * The path to the "home" route for your application.
-     */
     public const HOME = '/';
 
     public function boot(): void
@@ -47,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
     private function mapWebRoutes(): void
     {
         Route::middleware('web')
-            ->namespace($this->namespace)
+            ->namespace($this->namespace . '\Web')
             ->group(base_path('routes/web.php'));
     }
 
@@ -55,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('/api/v1')
             ->middleware(['api', 'auth:sanctum'])
-            ->namespace($this->namespace)
+            ->namespace($this->namespace . '\Api')
             ->name('api-v1')
             ->group(base_path('routes/api-v1.php'));
     }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Project;
 
+use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\MessageValueRepository;
 use App\Http\Requests\PutMessageValue;
 use App\Models\Language;
