@@ -17,6 +17,16 @@ class SettingsAccessor
 
     public function defaultLanguage(): int
     {
-        return (int) $this->settingsRepository->allAsAssociativeArray()['default_language'];
+        return (int) $this->getSetting('default_language');
+    }
+
+    public function registrationEnabled(): bool
+    {
+        return (bool) $this->getSetting('registration_enabled');
+    }
+
+    private function getSetting(string $name): ?string
+    {
+        return $this->settingsRepository->allAsAssociativeArray()[$name];
     }
 }
