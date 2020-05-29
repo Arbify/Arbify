@@ -1,11 +1,25 @@
 (function () {
+    const $messagesTable = $('.messages-table');
+
+    // Set width for table according to screen size.
+    const languagesCount = $messagesTable.find('thead tr').children().length - 1;
+    const columnsWidth = 300 + languagesCount * 400;
+    const updateTableWidth = () => {
+        if ($(window).width() < columnsWidth) {
+            $messagesTable.css('width', '');
+        } else {
+            $messagesTable.css('width', 'initial');
+        }
+    };
+
+    updateTableWidth();
+    $(window).resize(updateTableWidth);
+
     const NULL_VALUE_SYMBOL = '$$null$$';
     const MESSAGE_FORM_SELECTOR = '.message-value-form';
     const MESSAGE_FIELD_SELECTOR = '.message-field';
     const CLASS_ACCEPTED = 'is-accepted';
     const CLASS_MODIFIED = 'is-modified';
-
-    const $messagesTable = $('.messages-table');
 
     $messagesTable.on('input', MESSAGE_FIELD_SELECTOR, e => {
         const $field = $(e.target);

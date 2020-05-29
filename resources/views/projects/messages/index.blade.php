@@ -9,9 +9,9 @@
         @endif
     </div>
 
-    <div class="container-fluid d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table class="messages-table table table-striped table-bordered bg-white w-auto" style="table-layout: fixed">
+            <table class="messages-table table table-striped table-bordered bg-white" style="table-layout: fixed">
                 <colgroup>
                     <col style="width: 300px">
                     @foreach($project->languages as $language)
