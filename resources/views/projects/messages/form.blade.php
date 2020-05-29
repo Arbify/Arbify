@@ -44,24 +44,26 @@
                 <div class="form-group row">
                     <span class="col-md-4 col-form-label text-md-right">Type</span>
 
+                    @php $oldType = old('type', $message->type ?? 'message') @endphp
+
                     <div class="col-md-6 pt-2">
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="custom-control custom-radio custom-control mb-1">
                             <input type="radio" id="type.message" name="type" value="message" class="custom-control-input"
-                                   @if(old('type', $message->type ?? '') == 'message') checked @endif required @isset($message) disabled @endisset>
+                                   @if($oldType == 'message') checked @endif required @isset($message) disabled @endisset>
                             <label class="custom-control-label" for="type.message">
                                 Basic message
                             </label>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="custom-control custom-radio custom-control mb-1">
                             <input type="radio" id="type.plural" name="type" value="plural" class="custom-control-input"
-                                   @if(old('type', $message->type ?? '') == 'plural') checked @endif required @isset($message) disabled @endisset>
+                                   @if($oldType == 'plural') checked @endif required @isset($message) disabled @endisset>
                             <label class="custom-control-label" for="type.plural">
                                 <span class="badge badge-light">PLURAL</span>
                             </label>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="custom-control custom-radio custom-control">
                             <input type="radio" id="type.gender" name="type" value="gender" class="custom-control-input"
-                                   @if(old('type', $message->type ?? '') == 'gender') checked @endif required @isset($message) disabled @endisset>
+                                   @if($oldType == 'gender') checked @endif required @isset($message) disabled @endisset>
                             <label class="custom-control-label" for="type.gender">
                                 <span class="badge badge-light">GENDER</span>
                             </label>
