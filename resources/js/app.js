@@ -33,4 +33,4 @@ require('bootstrap-select');
 // });
 
 require('./global-modal');
-require('./message_values_inputs');
+require('./messages-table');

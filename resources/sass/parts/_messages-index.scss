@@ -50,11 +50,6 @@
 }
 
 .message-field {
-    &:not(.is-modified) {
-        border-top-right-radius: $input-border-radius !important;
-        border-bottom-right-radius: $input-border-radius !important;
-    }
-
     &.is-accepted {
         border-color: $success;
 
@@ -72,12 +67,4 @@
             box-shadow: 0 0 0 $input-focus-width rgba($dark, .25);
         }
     }
-
-    &.is-modified + .message-submit {
-        display: flex;
-    }
-}
-
-.message-submit {
-    display: none;
 }

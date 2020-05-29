@@ -1,13 +1,13 @@
 @extends('projects.layout')
 
 @section('project-content')
-    @if (session('success'))
-        <div class="container">
+    <div class="container">
+        @if (session('success'))
             <div class="alert alert-success mb-4">
                 {!! session('success') !!}
             </div>
-        </div>
-    @endif
+        @endif
+    </div>
 
     <div class="container-fluid d-flex justify-content-center">
         <div class="table-responsive w-auto">
@@ -44,8 +44,9 @@
                                         <span class="translation-progress @if($stats['percent'] == 100) bg-success @else bg-info @endif"
                                               style="width: {{ $stats['percent'] }}%"></span>
                                     </span>
-                                    <small class="ml-auto">
-                                        @include('projects.translation-progress', ['statistics' => $stats])
+                                    <small class="ml-auto messages-statistics"
+                                           data-all="{{ $stats['all'] }}" data-translated="{{ $stats['translated'] }}">
+                                        @include('projects.messages.translation-progress', ['statistics' => $stats])
                                     </small>
                                 </div>
                             </th>

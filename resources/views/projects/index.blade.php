@@ -49,7 +49,7 @@
                             @endif
                         </td>
                         <td>
-                            @include('projects.translation-progress', ['statistics' => $statistics[$project->id]['all']])
+                            @include('projects.messages.translation-progress', ['statistics' => $statistics[$project->id]['all']])
                         </td>
                         <td>{{ $project->messages->count() }}</td>
                         <td>{{ $project->languages->count() }}</td>
