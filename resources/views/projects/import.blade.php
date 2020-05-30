@@ -14,10 +14,10 @@
                     <label for="files" class="col-md-4 col-form-label text-md-right">File(s)</label>
 
                     <div class="col-md-6">
-                        <input id="files" type="file" class="@error('file') is-invalid @enderror" name="file[]" required multiple>
+                        <input id="files" type="file" class="@error('file.*') is-invalid @enderror" name="file[]" required multiple>
 
-                        @error('file')
-                        <span class="invalid-feedback" role="alert">
+                        @error('file.*')
+                            <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -54,7 +54,12 @@
 @push('scripts')
     <script>
         $('#files').filepond({
-            server: '/filepond',
+            server: {
+                url: '/filepond',
+                headers: {
+                    'Accept': 'application/json, text/plain'
+                }
+            },
         });
     </script>
 @endpush

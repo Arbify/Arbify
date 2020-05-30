@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'Arbify\Http\Controllers';
+    public $namespace = 'Arbify\Http\Controllers';
 
     public const HOME = '/';
 

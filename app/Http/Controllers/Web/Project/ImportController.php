@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Arbify\Http\Controllers\Web\Project;
 
+use Albert221\Filepond\Filepond;
 use Arbify\Http\Controllers\BaseController;
 use Arbify\Http\Requests\ImportToProject;
 use Arbify\Models\Project;
@@ -19,8 +20,10 @@ class ImportController extends BaseController
         ]);
     }
 
-    public function upload(ImportToProject $request): Response
+    public function upload(ImportToProject $request, Filepond $filepond): Response
     {
+        dump($filepond->fromRequest($request, 'file'));
+
         return back();
     }
 }

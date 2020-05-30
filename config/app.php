@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Albert221\Filepond\FilepondServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -175,7 +176,8 @@ return [
         // Arbify\Providers\BroadcastServiceProvider::class,
         Arbify\Providers\EventServiceProvider::class,
         Arbify\Providers\RouteServiceProvider::class,
-        Arbify\Providers\RepositoriesServiceProvider::class
+        Arbify\Providers\RepositoriesServiceProvider::class,
+
 
     ],
 
