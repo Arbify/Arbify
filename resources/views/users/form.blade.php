@@ -82,7 +82,7 @@
 
                             $oldRole = (int) old('role', $user->role ?? $userRole);
                         @endphp
-                        <div class="custom-control custom-radio custom-control">
+                        <div class="custom-control custom-radio">
                             <input type="radio" id="role.super-administrator" name="role" value="{{ $superAdministrator }}" class="custom-control-input"
                                    @if($oldRole === $superAdministrator) checked @endif required
                                    @unless(canGiveRole($user ?? null, $superAdministrator)) disabled @endunless>
@@ -91,7 +91,7 @@
                                 <span class="d-block mt-1 mb-2">Can access and manage all resources, users and other super administrators. Has access to administration panel.</span>
                             </label>
                         </div>
-                        <div class="custom-control custom-radio custom-control">
+                        <div class="custom-control custom-radio">
                             <input type="radio" id="role.administrator" name="role" value="{{ $administrator }}" class="custom-control-input"
                                    @if($oldRole === $administrator) checked @endif required
                                    @unless(canGiveRole($user ?? null, $administrator)) disabled @endunless>
@@ -100,7 +100,7 @@
                                 <span class="d-block mt-1 mb-2">Can access and manage all resources and users.</span>
                             </label>
                         </div>
-                        <div class="custom-control custom-radio custom-control">
+                        <div class="custom-control custom-radio">
                             <input type="radio" id="role.user" name="role" value="{{ $userRole }}" class="custom-control-input"
                                    @if($oldRole === $userRole) checked @endif required
                                    @unless(canGiveRole($user ?? null, $userRole)) disabled @endunless>
@@ -109,7 +109,7 @@
                                 <span class="d-block mt-1 mb-2">Can access all public projects and languages.</span>
                             </label>
                         </div>
-                        <div class="custom-control custom-radio custom-control">
+                        <div class="custom-control custom-radio">
                             <input type="radio" id="role.guest" name="role" value="{{ $guest }}" class="custom-control-input"
                                    @if($oldRole === $guest) checked @endif required
                                    @unless(canGiveRole($user ?? null, $guest)) disabled @endunless>
