@@ -12,9 +12,7 @@ class ImportToProject extends AuthorizedFormRequest
         return [
             'file.*' => [
                 'required',
-                new FilepondRule($filepondSerializer, [
-                    'mimetypes:application/pdf',
-                ]),
+                new FilepondRule($filepondSerializer),
             ],
             'override_message_values' => 'boolean',
         ];
