@@ -30,6 +30,15 @@ Breadcrumbs::for('projects.edit', function (Trail $trail, Project $project) {
     $trail->push('Edit', route('projects.edit', $project));
 });
 
+Breadcrumbs::for('projects.import', function (Trail $trail, Project $project) {
+    $trail->parent('projects.show', $project);
+    $trail->push('Import', route('projects.import', $project));
+});
+Breadcrumbs::for('projects.export', function (Trail $trail, Project $project) {
+    $trail->parent('projects.show', $project);
+    $trail->push('Export', route('projects.export', $project));
+});
+
 Breadcrumbs::for('project-languages.index', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
     $trail->push('Languages', route('project-languages.index', $project));
@@ -38,11 +47,6 @@ Breadcrumbs::for('project-languages.index', function (Trail $trail, Project $pro
 Breadcrumbs::for('project-languages.create', function (Trail $trail, Project $project) {
     $trail->parent('project-languages.index', $project);
     $trail->push('Add', route('project-languages.create', $project));
-});
-
-Breadcrumbs::for('projects.export', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
-    $trail->push('Export', route('projects.export', $project));
 });
 
 Breadcrumbs::for('messages.index', function (Trail $trail, Project $project) {

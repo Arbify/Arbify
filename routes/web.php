@@ -21,6 +21,9 @@ Route::get('/', 'DashboardController')->name('dashboard');
 
 Route::resource('/projects', 'Project\ProjectController');
 
+Route::get('/projects/{project}/import', 'Project\ImportController@show')->name('projects.import');
+Route::post('/projects/{project}/import', 'Project\ImportController@upload')->name('projects.import-upload');
+
 Route::get('/projects/{project}/export', 'Project\ExportController@show')->name('projects.export');
 Route::post('/projects/{project}/export/all', 'Project\ExportController@all')->name('projects.export-all');
 Route::post('/projects/{project}/export', 'Project\ExportController@language')->name('projects.export-language');

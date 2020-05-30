@@ -7,6 +7,9 @@
 require('./bootstrap');
 require('bootstrap-select');
 
+window.FilePond = require('filepond');
+require('jquery-filepond/filepond.jquery');
+
 // window.Vue = require('vue');
 
 /**
