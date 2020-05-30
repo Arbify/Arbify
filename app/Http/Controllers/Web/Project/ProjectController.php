@@ -3,10 +3,8 @@
 namespace Arbify\Http\Controllers\Web\Project;
 
 use Arbify\Http\Controllers\BaseController;
-use Arbify\Contracts\Arb\ArbExporter;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
-use Arbify\Http\Requests\ExportLanguage;
 use Arbify\Http\Requests\StoreProject;
 use Arbify\Models\Project;
 use Arbify\Models\ProjectMember;
@@ -18,14 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 class ProjectController extends BaseController
 {
     private ProjectRepository $projectRepository;
-    private LanguageRepository $languageRepository;
 
-    public function __construct(
-        ProjectRepository $projectRepository,
-        LanguageRepository $languageRepository
-    ) {
+    public function __construct(ProjectRepository $projectRepository)
+    {
         $this->projectRepository = $projectRepository;
-        $this->languageRepository = $languageRepository;
 
         $this->middleware('verified');
         $this->authorizeResource(Project::class);
@@ -109,35 +103,5 @@ class ProjectController extends BaseController
 
         return redirect()->route('projects.index')
             ->with('success', "Deleted <b>$project->name</b> successfully.");
-    }
-
-    public function export(Project $project): View
-    {
-        return view('projects.export', [
-            'project' => $project,
-        ]);
-    }
-
-    public function exportAll(
-        Project $project,
-        ArbExporter $exporter
-    ): Response {
-        $languages = $this->languageRepository->allInProject($project);
-
-        return $exporter->getDownloadResponse(
-            $exporter->exportLanguages($project, $languages, ArbExporter::ARCHIVE_ZIP)
-        );
-    }
-
-    public function exportLanguage(
-        ExportLanguage $request,
-        Project $project,
-        ArbExporter $exporter
-    ): Response {
-        $language = $this->languageRepository->byId($request->input('language'));
-
-        return $exporter->getDownloadResponse(
-            $exporter->exportLanguage($project, $language)
-        );
     }
 }
