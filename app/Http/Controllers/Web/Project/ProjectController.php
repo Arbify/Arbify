@@ -25,15 +25,6 @@ class ProjectController extends BaseController
         $this->authorizeResource(Project::class);
     }
 
-    protected function resourceAbilityMap(): array
-    {
-        return parent::resourceAbilityMap() + [
-                'export' => 'view',
-                'exportAll' => 'view',
-                'exportLanguage' => 'view',
-            ];
-    }
-
     public function index(Request $request): View
     {
         $user = $request->user();

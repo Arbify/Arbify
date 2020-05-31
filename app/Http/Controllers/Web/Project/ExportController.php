@@ -19,7 +19,20 @@ class ExportController extends BaseController
     {
         $this->languageRepository = $languageRepository;
         $this->exporter = $exporter;
+
+        $this->middleware('verified');
+        $this->authorizeResource(Project::class);
     }
+
+    protected function resourceAbilityMap(): array
+    {
+        return [
+            'export' => 'view',
+            'exportAll' => 'view',
+            'exportLanguage' => 'view',
+        ];
+    }
+
 
     public function show(Project $project): View
     {
