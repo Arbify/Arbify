@@ -10,7 +10,9 @@
                 @endcan
             </div>
             <div class="btn-group">
-                <a href="{{ route('projects.import', $project) }}" class="btn btn-outline-primary">Import</a>
+                @can('import', $project)
+                    <a href="{{ route('projects.import', $project) }}" class="btn btn-outline-primary">Import</a>
+                @endcan
                 <a href="{{ route('projects.export', $project) }}" class="btn btn-outline-primary">Export</a>
             </div>
         </div>

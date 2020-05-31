@@ -58,4 +58,9 @@ class ProjectPolicy extends BasePolicy
     {
         return $this->isLeadInProject($user, $project);
     }
+
+    public function import(User $user, Project $project): bool
+    {
+        return $this->isLeadOrMemberInProject($user, $project);
+    }
 }

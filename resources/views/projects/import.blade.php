@@ -6,17 +6,25 @@
             <form method="POST" action="{{ route('projects.import-upload', $project) }}" enctype="multipart/form-data">
                 @csrf
 
-                <div class="alert alert-warning mb-4">
-                    <pre class="mb-0">// This part is still a big work-in-progress. It may even not work at all!</pre>
-                </div>
+                <p class="alert alert-warning mb-4">
+                    <b>Warning!</b> This importer still lacks many features. It imports messages
+                    only as simple messages. It does not support plural or gender message types yet. You may
+                    (but do not have to) encounter some unwanted behaviors while importing.
+                </p>
+
+                @if (session('success'))
+                    <div class="alert alert-success mb-4">
+                        {!! session('success') !!}
+                    </div>
+                @endif
 
                 <div class="form-group row">
                     <label for="files" class="col-md-4 col-form-label text-md-right">File(s)</label>
 
                     <div class="col-md-6">
-                        <input id="files" type="file" class="@error('file.*') is-invalid @enderror" name="file[]" required multiple>
+                        <input id="files" type="file" class="@error('files.*') is-invalid @enderror" name="files[]" required multiple>
 
-                        @error('file.*')
+                        @error('files.*')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -29,7 +37,7 @@
 
                     <div class="col-md-6 pt-2">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" id="override_message_values" name="override_message_values"
+                            <input type="checkbox" id="override_message_values" name="override_message_values" value="1"
                                    class="custom-control-input" @if(old('override_message_values')) checked @endif>
                             <label for="override_message_values" class="custom-control-label">
                                 <b class="d-block">Override message values</b>
