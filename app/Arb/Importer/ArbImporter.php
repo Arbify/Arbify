@@ -96,7 +96,7 @@ class ArbImporter
             $messages[] = [
                 'name' => $key,
                 'value' => $item,
-                'description' => $messages["@$key"]['description'] ?? null,
+                'description' => $json["@$key"]['description'] ?? null,
             ];
         }
 
