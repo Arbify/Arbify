@@ -9,7 +9,12 @@
                     <a href="{{ route('projects.edit', $project) }}" class="btn btn-outline-secondary">Edit</a>
                 @endcan
             </div>
-            <a href="{{ route('projects.export', $project) }}" class="btn btn-outline-primary">Export</a>
+            <div class="btn-group">
+                @can('import', $project)
+                    <a href="{{ route('projects.import', $project) }}" class="btn btn-outline-primary">Import</a>
+                @endcan
+                <a href="{{ route('projects.export', $project) }}" class="btn btn-outline-primary">Export</a>
+            </div>
         </div>
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
