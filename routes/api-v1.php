@@ -13,3 +13,5 @@
 
 Route::get('/projects/{project}/arb', 'Project\ExportController@index');
 Route::get('/projects/{project}/arb/{language_code}', 'Project\ExportController@show');
+
+Route::post('/projects/{project}/import', 'Project\ImportController@import');

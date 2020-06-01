@@ -18,6 +18,8 @@ class ExportController extends BaseController
     public function __construct(ArbExporter $exporter)
     {
         $this->exporter = $exporter;
+
+        $this->middleware('verified');
     }
 
     public function index(Project $project, MessageValueRepository $messageValueRepository): array
