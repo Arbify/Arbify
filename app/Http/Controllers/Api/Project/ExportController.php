@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Arbify\Http\Controllers\Api;
+namespace Arbify\Http\Controllers\Api\Project;
 
 use Arbify\Contracts\Arb\ArbExporter;
 use Arbify\Contracts\Repositories\MessageValueRepository;
@@ -11,38 +11,26 @@ use Arbify\Models\Language;
 use Arbify\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProjectArbController extends BaseController
+class ExportController extends BaseController
 {
     private ArbExporter $exporter;
 
     public function __construct(ArbExporter $exporter)
     {
         $this->exporter = $exporter;
-
-        $this->authorizeResource(Project::class);
     }
-
-    protected function resourceAbilityMap(): array
-    {
-        return [
-            'index' => 'view',
-            'show' => 'view',
-        ];
-    }
-
-    protected function resourceMethodsWithoutModels(): array
-    {
-        return [];
-    }
-
 
     public function index(Project $project, MessageValueRepository $messageValueRepository): array
     {
+        $this->authorize('view', $project);
+
         return $messageValueRepository->languageGroupedDetailsByProject($project);
     }
 
     public function show(Project $project, Language $language): Response
     {
+        $this->authorize('view', $project);
+
         return $this->exporter->getDownloadResponse(
             $this->exporter->exportLanguage($project, $language)
         );

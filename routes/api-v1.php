@@ -11,5 +11,5 @@
 |
 */
 
-Route::get('/projects/{project}/arb', 'ProjectArbController@index');
-Route::get('/projects/{project}/arb/{language_code}', 'ProjectArbController@show');
+Route::get('/projects/{project}/arb', 'Project\ExportController@index');
+Route::get('/projects/{project}/arb/{language_code}', 'Project\ExportController@show');
