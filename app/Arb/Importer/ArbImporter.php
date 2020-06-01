@@ -77,10 +77,19 @@ class ArbImporter
         }
 
         if (1 === preg_match('/^intl_(.*)\.arb$/', $originalFilename, $matches)) {
-            return $matches[1];
+            $language = $matches[1];
+
+            // https://stackoverflow.com/a/24663196/3158312
+            if (preg_match('/^[a-z]{2,3}(?:-[a-zA-Z]{4})?(?:-[A-Z]{2,3})?$/', $language)) {
+                return $language;
+            }
         }
 
-        throw new ImportException('Cannot determine language from file.');
+        throw new ImportException(
+            'Cannot determine language from file.',
+            'You can fix it by adding <code>@@locale</code> to ARB file '
+            . 'or renaming it to <code>intl_&lt;locale&gt;.arb</code>.'
+        );
     }
 
     private function processMessages(array $json): array
@@ -113,7 +122,8 @@ class ArbImporter
             $language = $this->languageRepository->byCode($languageCode);
         } catch (ModelNotFoundException $e) {
             throw new ImportException(
-                "Invalid language \"$languageCode\". If that's a valid language create it first."
+                "Invalid language \"$languageCode\".",
+                'If you wish to use this language, create it in Languages first.'
             );
         }
 
@@ -161,7 +171,7 @@ class ArbImporter
         } catch (Throwable $e) {
             DB::rollBack();
 
-            throw new ImportException('Error while importing into database.', 0, $e);
+            throw new ImportException('Error while importing into database.', null, $e);
         }
     }
 }

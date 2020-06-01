@@ -12,22 +12,19 @@
                     (but do not have to) encounter some unwanted behaviors while importing.
                 </p>
 
-                @if (session('success'))
-                    <div class="alert alert-success mb-4">
-                        {!! session('success') !!}
-                    </div>
-                @endif
-
                 <div class="form-group row">
                     <label for="files" class="col-md-4 col-form-label text-md-right">File(s)</label>
 
                     <div class="col-md-6">
-                        <input id="files" type="file" class="@error('files.*') is-invalid @enderror" name="files[]" required multiple>
+                        <input id="files" type="file" class="@error('files') is-invalid @enderror" name="files[]" required multiple>
 
-                        @error('files.*')
+                        @error('files')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
+                        @enderror
+                        @error('files.*')
+                            <span class="invalid-feedback d-block" role="alert">{!! $message !!}</span>
                         @enderror
                     </div>
                 </div>

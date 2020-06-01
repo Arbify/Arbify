@@ -10,6 +10,7 @@ class ImportToProject extends AuthorizedFormRequest
     public function rules(FilepondSerializer $filepondSerializer): array
     {
         return [
+            'files' => 'required|array',
             'files.*' => [
                 'required',
                 new FilepondRule($filepondSerializer),
