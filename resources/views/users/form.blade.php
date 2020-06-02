@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @formsection(isset($user) ? "Edit $user->name" : 'New user')
+        @formsection(isset($user) ? "Edit $user->username" : 'New user')
             @isset($user)
                 <form method="POST" action="{{ route('users.update', $user) }}" autocomplete="off">
                 @method('PATCH')
@@ -12,15 +12,15 @@
 
                 @csrf
                 <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">Display name</label>
+                    <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
 
                     <div class="col-md-6">
-                        <input id="name" type="text"
-                               class="form-control @error('name') is-invalid @enderror"
-                               name="name" value="{{ old('name', $user->name ?? '') }}"
+                        <input id="username" type="text"
+                               class="form-control @error('username') is-invalid @enderror"
+                               name="username" value="{{ old('username', $user->username ?? '') }}"
                                required autofocus>
 
-                        @error('name')
+                        @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

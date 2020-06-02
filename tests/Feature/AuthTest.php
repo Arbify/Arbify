@@ -15,7 +15,7 @@ class AuthTest extends TestCase
     public function testLoginFormShows(): void
     {
         $this->get('/login')
-            ->assertSeeText('Login')
+            ->assertSeeText('Username or email')
             ->assertSeeText('Password')
             ->assertOk();
     }
@@ -25,7 +25,7 @@ class AuthTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->post('/login', [
-            'email' => $user->email,
+            'username_or_email' => $user->email,
             'password' => 'password',
         ])
             ->assertSessionHasNoErrors()
@@ -35,7 +35,7 @@ class AuthTest extends TestCase
     public function testLoginWithBadEmail(): void
     {
         $this->post('/login', [
-            'email' => 'not-existing-email',
+            'username_or_email' => 'not-existing-email',
             'password' => 'password',
         ])
             ->assertSessionHasErrors()
@@ -46,7 +46,7 @@ class AuthTest extends TestCase
     {
         $this->get('/register')
             ->assertSeeText('Register')
-            ->assertSeeText('Name')
+            ->assertSeeText('Username')
             ->assertSeeText('Email')
             ->assertSeeText('Password')
             ->assertOk();
@@ -58,7 +58,7 @@ class AuthTest extends TestCase
         $password = $this->faker()->password(8);
 
         $this->post('/register', [
-            'name' => $this->faker()->name(),
+            'username' => $this->faker()->name(),
             'email' => $email,
             'password' => $password,
             'password_confirmation' => $password,

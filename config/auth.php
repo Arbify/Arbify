@@ -67,7 +67,7 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'username-or-email',
             'model' => Arbify\Models\User::class,
         ],
 

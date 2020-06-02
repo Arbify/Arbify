@@ -12,7 +12,12 @@ class StoreUser extends AuthorizedFormRequest
         $availableRoles = $this->getAvailableRoles($this->route('user'));
 
         $rules = [
-            'name' => 'required',
+            'username' => [
+                'required',
+                $this->isMethod('PATCH')
+                    ? 'unique:' . User::class . ',id,' . $this->route('user')->id
+                    : 'unique:' . User::class,
+            ],
             'email' => [
                 'required',
                 'email',

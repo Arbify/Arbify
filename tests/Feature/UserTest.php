@@ -35,7 +35,7 @@ class UserTest extends TestCase
         $email = $data->email;
 
         $this->actingAsUser()->post('/users', [
-            'name' => $data->name,
+            'username' => $data->username,
             'email' => $email,
             'password' => $data->password,
             'role' => $data->role,
@@ -62,14 +62,14 @@ class UserTest extends TestCase
         $name = $this->faker()->name;
 
         $this->actingAsUser()->patch("/users/$user->id", [
-            'name' => $name,
+            'username' => $name,
             'email' => $user->email,
             'role' => $user->role,
         ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 
-        $this->assertDatabaseHas('users', ['name' => $name, 'email' => $user->email]);
+        $this->assertDatabaseHas('users', ['username' => $name, 'email' => $user->email]);
     }
 
     public function testDestroyWithCorrectData(): void

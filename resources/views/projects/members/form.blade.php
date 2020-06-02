@@ -19,7 +19,7 @@
                             <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" required autofocus>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}" @if(old('user_id', $member->user_id ?? '') == $user->id) selected @endif>
-                                        {{ $user->email }} ({{ $user->name }})
+                                        {{ $user->email }} ({{ $user->username }})
                                     </option>
                                 @endforeach
                             </select>

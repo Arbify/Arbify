@@ -61,7 +61,7 @@ class UserController extends BaseController
         event(new Registered($user));
 
         return redirect()->route('users.index')
-            ->with('success', "User <b>$user->name</b> created successfully.");
+            ->with('success', "User <b>$user->username</b> created successfully.");
     }
 
     public function edit(User $user): View
@@ -81,7 +81,7 @@ class UserController extends BaseController
         $user->update($input);
 
         return redirect()->route('users.index')
-            ->with('success', "User <b>$user->name</b> updated successfully.");
+            ->with('success', "User <b>$user->username</b> updated successfully.");
     }
 
     public function destroy(User $user): Response
@@ -89,6 +89,6 @@ class UserController extends BaseController
         $user->delete();
 
         return redirect()->route('users.index')
-            ->with('success', "User <b>$user->name</b> deleted successfully.");
+            ->with('success', "User <b>$user->username</b> deleted successfully.");
     }
 }

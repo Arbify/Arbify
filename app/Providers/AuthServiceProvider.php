@@ -8,6 +8,7 @@ use Arbify\Models\MessageValue;
 use Arbify\Models\Project;
 use Arbify\Models\ProjectMember;
 use Arbify\Models\User;
+use Arbify\Security\Authentication\UsernameOrEmailUserProvider;
 use Arbify\Security\Policies\AdministrationPolicy;
 use Arbify\Security\Policies\LanguagePolicy;
 use Arbify\Security\Policies\MessagePolicy;
@@ -16,7 +17,9 @@ use Arbify\Security\Policies\ProjectMemberPolicy;
 use Arbify\Security\Policies\ProjectPolicy;
 use Arbify\Security\Policies\SecretPolicy;
 use Arbify\Security\Policies\UserPolicy;
+use Auth;
 use Gate;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Sanctum\PersonalAccessToken as Secret;
 
@@ -37,5 +40,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('administration', AdministrationPolicy::class);
+
+        Auth::provider('username-or-email', function (Application $app, array $config) {
+            return new UsernameOrEmailUserProvider($app->make('hash'), $config['model']);
+        });
     }
 }

@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_GUEST = 0;
 
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
         'role',

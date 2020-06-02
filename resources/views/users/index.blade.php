@@ -35,7 +35,7 @@
             <tbody>
             @forelse($users as $user)
                 <tr>
-                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
                         @if($user->hasVerifiedEmail())
@@ -62,7 +62,7 @@
                         @can('delete', $user)
                             <form method="post" action="{{ route('users.destroy', $user) }}"
                                   class="d-inline ml-2 delete-modal-show" data-delete-modal-title="Deleting user"
-                                  data-delete-modal-body="<b>{{ $user->name }}</b>">
+                                  data-delete-modal-body="<b>{{ $user->username }}</b>">
                                 @csrf
                                 @method('DELETE')
 
