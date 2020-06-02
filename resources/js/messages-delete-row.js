@@ -1,3 +1,5 @@
+import { updateStatistics } from "./messages-table";
+
 const SELECTOR = '.delete-row';
 
 $(document).on('submit', SELECTOR, e => {
@@ -25,6 +27,14 @@ $(document).on('submit', SELECTOR, e => {
                 $form.popover('hide');
                 const $row = $form.closest('tr');
                 $row.hide(400, () => {
+                    $row.find('td').each((index, element) => {
+                        const allFields = $(element).find('.message-field').length;
+                        const nullFields = $(element).find('.message-field[data-initial-value="$$null$$"]').length;
+                        const translatedFields = allFields - nullFields;
+
+                        updateStatistics(index + 1, -allFields, -translatedFields);
+                    });
+
                     $row.remove();
                 });
             });
