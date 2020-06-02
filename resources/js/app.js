@@ -36,4 +36,5 @@ require('jquery-filepond/filepond.jquery');
 // });
 
 require('./global-modal');
+require('./messages-delete-row');
 require('./messages-table');

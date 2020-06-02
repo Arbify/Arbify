@@ -9,6 +9,7 @@ use Arbify\Contracts\Repositories\ProjectRepository;
 use Arbify\Http\Requests\StoreMessage;
 use Arbify\Models\Message;
 use Arbify\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -85,13 +86,15 @@ class MessageController extends BaseController
             ->with('success', "Updated <b>$message->name</b> successfully.");
     }
 
-    public function destroy(Project $project, Message $message): Response
+    public function destroy(Request $request, Project $project, Message $message): Response
     {
         $this->authorize('delete', [$message, $project]);
 
         $message->delete();
 
-        return redirect()->route('messages.index', $project)
-            ->with('success', "Deleted <b>$message->name</b> successfully.");
+        return $request->isXmlHttpRequest() ?
+            status(Response::HTTP_NO_CONTENT)
+            : redirect()->route('messages.index', $project)
+                ->with('success', "Deleted <b>$message->name</b> successfully.");
     }
 }

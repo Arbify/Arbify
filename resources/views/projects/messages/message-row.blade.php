@@ -14,8 +14,8 @@
                 @endcan
                 @can('delete', [Arbify\Models\Message::class, $project])
                     <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}"
-                          class="d-inline ml-2 delete-modal-show"
-                          data-delete-modal-title="Deleting message" data-delete-modal-body="<code>{{ $message->name }}</code> message">
+                          class="d-inline ml-2 delete-row"
+                          data-delete-text="this message">
                         @csrf
                         @method('DELETE')
 
