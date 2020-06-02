@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Arbify\Policies\Helpers;
+namespace Arbify\Security\Policies\Helpers;
 
 use Arbify\Contracts\Repositories\ProjectMemberRepository;
 use Arbify\Models\Project;

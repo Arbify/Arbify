@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Arbify\Policies;
+namespace Arbify\Security\Policies;
 
 use Arbify\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

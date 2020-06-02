@@ -1,6 +1,6 @@
 <?php
 
-namespace Arbify\Policies;
+namespace Arbify\Security\Policies;
 
 use Arbify\Contracts\Repositories\ProjectMemberRepository;
 use Arbify\Models\Language;

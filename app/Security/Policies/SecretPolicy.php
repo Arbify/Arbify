@@ -1,6 +1,6 @@
 <?php
 
-namespace Arbify\Policies;
+namespace Arbify\Security\Policies;
 
 use Arbify\Models\User;
 use Laravel\Sanctum\PersonalAccessToken as Secret;
