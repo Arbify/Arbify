@@ -56,3 +56,22 @@
         color: #9fcbef;
     }
 }
+
+.help-icon {
+    font-weight: bold;
+    border: 2px solid grey;
+    color: grey;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    font-size: 16px;
+    opacity: 0.7;
+    vertical-align: middle;
+    margin-bottom: 3px;
+    cursor: help;
+}
+
+.justify-content-evenly {
+    justify-content: space-evenly !important;
+}

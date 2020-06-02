@@ -6,7 +6,7 @@
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
                 <a href="{{ route('administration.statistics') }}"
-                   class="nav-link @if(request()->route()->getName() == 'administration.statistics') active @endif">🚧 Statistics</a>
+                   class="nav-link @if(request()->route()->getName() == 'administration.statistics') active @endif">Statistics</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('administration.settings') }}"

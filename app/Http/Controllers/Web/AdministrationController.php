@@ -6,7 +6,13 @@ use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\SettingsRepository;
 use Arbify\Http\Requests\UpdateSettings;
+use Arbify\Models\Language;
+use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
+use Arbify\Models\Project;
+use Arbify\Models\User;
 use Illuminate\View\View;
+use Laravel\Sanctum\PersonalAccessToken as Secret;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdministrationController extends BaseController
@@ -23,7 +29,18 @@ class AdministrationController extends BaseController
 
     public function statistics(): View
     {
-        return view('administration.statistics');
+        $numbers = [
+            'users' => User::count(),
+            'languages' => Language::count(),
+            'projects' => Project::count(),
+            'messages' => Message::count(),
+            'message_values' => MessageValue::count(),
+            'secrets' => Secret::count(),
+        ];
+
+        return view('administration.statistics', [
+            'numbers' => $numbers,
+        ]);
     }
 
     public function settings(LanguageRepository $languageRepository): View
