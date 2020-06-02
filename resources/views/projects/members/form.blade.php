@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @formsection(isset($member) ? "Edit {$member->user->name} in $project->name" : "Add member to $project->name")
+        @formsection(isset($member) ? "Edit {$member->user->username} in $project->name" : "Add member to $project->name")
             @isset($member)
                 <form method="POST" action="{{ route('project-members.update', [$project, $member]) }}">
                 @method('PATCH')

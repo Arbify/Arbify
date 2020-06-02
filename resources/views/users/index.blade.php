@@ -25,7 +25,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th>Display name</th>
+                <th>Username</th>
                 <th>User email</th>
                 <th>Email</th>
                 <th>Role</th>

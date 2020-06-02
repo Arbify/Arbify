@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryContract
         $userRoleOrdering = "CASE `role` $userRolesWhens END";
 
         return User::orderByRaw($userRoleOrdering)
-            ->orderBy('name')
+            ->orderBy('username')
             ->paginate(30);
     }
 

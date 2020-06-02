@@ -23,7 +23,7 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>User display name</th>
+                    <th>Username</th>
                     <th>Project role</th>
                     <th>Actions</th>
                 </tr>
@@ -31,7 +31,7 @@
             <tbody>
                 @foreach($members as $member)
                     <tr>
-                        <td>{{ $member->user->name }}</td>
+                        <td>{{ $member->user->username }}</td>
                         <td>
                             @if($member->isLead())
                                 <span class="badge badge-danger">Lead</span>
