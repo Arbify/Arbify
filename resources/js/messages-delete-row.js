@@ -1,4 +1,4 @@
-import { updateStatistics } from "./messages-table";
+import {updateStatistics} from "./messages-table";
 
 const SELECTOR = '.delete-row';
 
@@ -20,23 +20,27 @@ $(document).on('submit', SELECTOR, e => {
     `)
         .on('click', '.btn-outline-secondary', () => $form.popover('hide'))
         .on('click', '.btn-danger', () => {
-            $.post({
+            $form.popover('hide');
+            const $row = $form.closest('tr');
+            $row.hide(400);
+
+            $.ajax({
+                type: 'DELETE',
                 url: $form.attr('action'),
                 data: $form.serialize(),
             }).done(() => {
-                $form.popover('hide');
-                const $row = $form.closest('tr');
-                $row.hide(400, () => {
-                    $row.find('td').each((index, element) => {
-                        const allFields = $(element).find('.message-field').length;
-                        const nullFields = $(element).find('.message-field[data-initial-value="$$null$$"]').length;
-                        const translatedFields = allFields - nullFields;
+                $row.find('td').each((index, element) => {
+                    const allFields = $(element).find('.message-field').length;
+                    const nullFields = $(element).find('.message-field[data-initial-value="$$null$$"]').length;
+                    const translatedFields = allFields - nullFields;
 
-                        updateStatistics(index + 1, -allFields, -translatedFields);
-                    });
-
-                    $row.remove();
+                    updateStatistics(index + 1, -allFields, -translatedFields);
                 });
+
+                $row.remove();
+            }).fail(() => {
+                $row.show();
+                console.error('XHR call failed');
             });
         });
 
