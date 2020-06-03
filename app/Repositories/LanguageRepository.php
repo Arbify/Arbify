@@ -17,6 +17,11 @@ class LanguageRepository implements LanguageRepositoryContract
         return Language::findOrFail($id);
     }
 
+    public function byIds(array $ids): Collection
+    {
+        return Language::whereIn('id', $ids)->get();
+    }
+
     public function byCode(string $code): Language
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

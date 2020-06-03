@@ -110,7 +110,7 @@ class ProjectTest extends TestCase
         $language = factory(Language::class)->create();
 
         $this->actingAsUser()->post("/projects/$project->id/languages", [
-            'language' => $language->id,
+            'languages' => [$language->id],
         ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();

@@ -13,6 +13,8 @@ interface LanguageRepository
 {
     public function byId(int $id): Language;
 
+    public function byIds(array $ids): Collection;
+
     public function byCode(string $code): Language;
 
     public function all(): Collection;

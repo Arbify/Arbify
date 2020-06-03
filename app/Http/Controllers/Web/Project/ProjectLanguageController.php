@@ -5,7 +5,7 @@ namespace Arbify\Http\Controllers\Web\Project;
 use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
-use Arbify\Http\Requests\AddLanguageToProject;
+use Arbify\Http\Requests\AddLanguagesToProject;
 use Arbify\Models\Language;
 use Arbify\Models\Project;
 use Illuminate\View\View;
@@ -60,13 +60,15 @@ class ProjectLanguageController extends BaseController
         ]);
     }
 
-    public function store(AddLanguageToProject $request, Project $project): Response
+    public function store(AddLanguagesToProject $request, Project $project): Response
     {
-        $language = $this->languageRepository->byId($request->input('language'));
-        $project->languages()->syncWithoutDetaching($language);
+        $languages = $this->languageRepository->byIds($request->input('languages'));
+        $project->languages()->syncWithoutDetaching($languages);
+
+        $codes = $languages->map(fn(Language $language) => $language->code)->implode('</b>, <b>');
 
         return redirect()->route('project-languages.index', $project)
-            ->with('success', "Added <b>$language->code</b> to <b>$project->name</b> successfully.");
+            ->with('success', "Added <b>$codes</b> to <b>$project->name</b> successfully.");
     }
 
     public function destroy(Project $project, Language $language): Response

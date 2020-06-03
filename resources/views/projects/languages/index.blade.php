@@ -3,7 +3,7 @@
 @section('project-content')
     <div class="container">
         <div class="d-flex mb-4">
-            <a href="{{ route('project-languages.create', $project) }}" class="btn btn-primary ml-auto">Add language</a>
+            <a href="{{ route('project-languages.create', $project) }}" class="btn btn-primary ml-auto">Add languages</a>
         </div>
 
         @if (session('success'))
