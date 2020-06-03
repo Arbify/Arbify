@@ -37,6 +37,10 @@ class ProjectLanguageController extends BaseController
         ];
     }
 
+    protected function resourceMethodsWithoutModels(): array
+    {
+        return [];
+    }
 
     public function index(Project $project): View
     {

@@ -9,10 +9,10 @@
                 @elseif($message->isGender())
                     <span class="badge badge-light mr-2">GENDER</span>
                 @endif
-                @can('update', [Arbify\Models\Message::class, $project])
+                @can('update', [$message, $project])
                     <a href="{{ route('messages.edit', [$project, $message]) }}" class="small">edit</a>
                 @endcan
-                @can('delete', [Arbify\Models\Message::class, $project])
+                @can('delete', [$message, $project])
                     <form method="post" action="{{ route('messages.destroy', [$project, $message]) }}"
                           class="d-inline ml-2 delete-row"
                           data-delete-text="this message">

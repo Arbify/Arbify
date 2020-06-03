@@ -2,9 +2,11 @@
 
 @section('project-content')
     <div class="container">
-        <div class="d-flex mb-4">
-            <a href="{{ route('project-languages.create', $project) }}" class="btn btn-primary ml-auto">Add languages</a>
-        </div>
+        @can('manage-languages', $project)
+            <div class="d-flex mb-4">
+                <a href="{{ route('project-languages.create', $project) }}" class="btn btn-primary ml-auto">Add languages</a>
+            </div>
+        @endcan
 
         @if (session('success'))
             <div class="alert alert-success mb-4">
@@ -42,7 +44,7 @@
                                 @include('projects.messages.translation-progress', ['statistics' => $statistics[$language->code]])
                             </td>
                             <td class="py-0 align-middle">
-                                @can('manage-languages', [$project])
+                                @can('manage-languages', $project)
                                     <form method="post" action="{{ route('project-languages.destroy', [$project, $language->code]) }}" class="d-inline delete delete-modal-show"
                                           data-delete-modal-title="Deleting language" data-delete-modal-body="<b>{{ $language->getDisplayName() }}</b> from this project">
                                         @csrf
