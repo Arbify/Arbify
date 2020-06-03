@@ -32,10 +32,11 @@
                         @php
                             $public = \Arbify\Models\Project::VISIBILITY_PUBLIC;
                             $private = \Arbify\Models\Project::VISIBILITY_PRIVATE;
+                            $oldVisibility = old('visibility', $project->visibility ?? $public);
                         @endphp
                         <div class="custom-control custom-radio custom-control">
                             <input type="radio" id="visibility.public" name="visibility" value="{{ $public }}" class="custom-control-input"
-                                   @if(old('visibility', $project->visibility ?? '') === $public) checked @endif required>
+                                   @if($oldVisibility === $public) checked @endif required>
                             <label class="custom-control-label" for="visibility.public">
                                 <b class="d-block">Public.</b>
                                 <span class="d-block mt-1 mb-2">Every registered user with the role <i>User</i> will be able to see this project.</span>
@@ -43,7 +44,7 @@
                         </div>
                         <div class="custom-control custom-radio custom-control">
                             <input type="radio" id="visibility.private" name="visibility" value="{{ $private }}" class="custom-control-input"
-                                   @if(old('visibility', $project->visibility ?? '') === $private) checked @endif required>
+                                   @if($oldVisibility === $private) checked @endif required>
                             <label class="custom-control-label" for="visibility.private">
                                 <b class="d-block">Private.</b>
                                 <span class="d-block mt-1 mb-2">Only registered users with any role in this project will be able to see it.</span>
