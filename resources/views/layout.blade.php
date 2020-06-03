@@ -115,6 +115,7 @@
                 <span class="text-super-muted">
                     Country flag icons made by <a href="https://www.flaticon.com/authors/freepik">Freepik</a>
                     from <a href="https://www.flaticon.com/">www.flaticon.com</a>.
+                    History icon from <a href="https://material.io/resources/icons/">Material icons</a>.
                 </span>
             </div>
         </footer>
