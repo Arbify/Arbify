@@ -5,9 +5,6 @@ const SELECTOR = '.delete-row';
 $(document).on('submit', SELECTOR, e => {
     e.preventDefault();
 
-    // Hide other delete-row popovers.
-    $(SELECTOR).popover('hide');
-
     const $form = $(e.target);
     const body = $form.data('deleteText');
 
@@ -50,4 +47,14 @@ $(document).on('submit', SELECTOR, e => {
         title: 'Confirm deleting',
         content: $content,
     }).popover('show');
+});
+
+$(document).on('click', (e) => {
+    $(SELECTOR).each((_, element) => {
+        const $element = $(element);
+        // hide any open popovers when the anywhere else in the body is clicked
+        if ($('.popover').has(e.target).length === 0 && $element.is('[aria-describedby]')) {
+            $element.popover('hide');
+        }
+    });
 });
