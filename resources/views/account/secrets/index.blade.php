@@ -15,43 +15,45 @@
             </div>
         @endif
 
-        <table class="table table-bordered table-striped bg-white mb-4">
-            <colgroup>
-                <col>
-                <col style="width: 350px">
-                <col style="width: 70px">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>Secret name</th>
-                    <th>Last used</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($secrets as $secret)
+        <div class="table-responsive-sm">
+            <table class="table table-bordered table-striped bg-white mb-4">
+                <colgroup>
+                    <col>
+                    <col style="width: 350px">
+                    <col style="width: 70px">
+                </colgroup>
+                <thead>
                     <tr>
-                        <td>{{ $secret->name }}</td>
-                        <td>
-                            {{ $secret->last_used_at ? $secret->last_used_at->toDayDateTimeString() : 'Never' }}
-                        </td>
-                        <td class="py-0 align-middle">
-                            <form method="post" action="{{ route('account-secrets.revoke', $secret) }}" class="d-inline delete-modal-show"
-                                  data-delete-modal-title="Revoking secret" data-delete-modal-body="<b>{{ $secret->name }}</b>">
-                                @csrf
-                                @method('DELETE')
+                        <th>Secret name</th>
+                        <th>Last used</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($secrets as $secret)
+                        <tr>
+                            <td>{{ $secret->name }}</td>
+                            <td>
+                                {{ $secret->last_used_at ? $secret->last_used_at->toDayDateTimeString() : 'Never' }}
+                            </td>
+                            <td class="py-0 align-middle">
+                                <form method="post" action="{{ route('account-secrets.revoke', $secret) }}" class="d-inline delete-modal-show"
+                                      data-delete-modal-title="Revoking secret" data-delete-modal-body="<b>{{ $secret->name }}</b>">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button class="btn btn-link btn-sm text-danger">Revoke</button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3">The list is empty.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                                    <button class="btn btn-link btn-sm text-danger">Revoke</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">The list is empty.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
         <div class="d-flex justify-content-center">
             {{ $secrets->links() }}

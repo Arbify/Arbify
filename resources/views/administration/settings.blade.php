@@ -2,7 +2,7 @@
 
 @section('administration-content')
     <div class="container d-flex flex-column align-items-center">
-        <form action="{{ route('administration.update-settings') }}" method="POST" class="col-10">
+        <form action="{{ route('administration.update-settings') }}" method="POST" class="col-md-10">
             @csrf
 
             @if(session('success'))
