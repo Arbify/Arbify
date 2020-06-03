@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/projects/{project}/arb', 'Project\ExportController@index');
-Route::get('/projects/{project}/arb/{language_code}', 'Project\ExportController@show');
+Route::get('/projects/{project}/arb', 'Project\ExportController@index')
+    ->name('projects.available-exports');
+Route::get('/projects/{project}/arb/{language_code}', 'Project\ExportController@show')
+    ->name('projects.export');
 
-Route::post('/projects/{project}/import', 'Project\ImportController@import');
+Route::post('/projects/{project}/import', 'Project\ImportController@import')
+    ->name('projects.import');
