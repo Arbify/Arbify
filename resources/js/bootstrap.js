@@ -42,4 +42,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
+
+    $(document).on('shown.bs.modal', '.modal', () => {
+        $(this).find('[autofocus]').focus();
+    });
 })

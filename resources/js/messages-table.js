@@ -117,6 +117,13 @@ $messagesTable.on('click', '.new-message', e => {
     $modal.find('.modal-dialog').addClass('modal-lg');
     $modal.find('.modal-footer').remove();
 
+    $(GLOBAL_MODAL_TITLE_SELECTOR).text('New message');
+    $modalBody.load(`${action} #create-form`, () => {
+        $modal
+            .modal()
+            .on('hidden.bs.modal', () => $modal.html(oldModalHtml));
+    });
+
     $modal.on('submit', '#create-form', e => {
         e.preventDefault();
 
@@ -145,18 +152,9 @@ $messagesTable.on('click', '.new-message', e => {
                 } else {
                     // If response is error
                     $modalBody.empty().append($response.find('#create-form').detach());
+                    $modalBody.find('[autofocus]').focus();
                 }
             });
-    });
-
-    $(GLOBAL_MODAL_TITLE_SELECTOR).text('New message');
-    $modalBody.load(`${action} #create-form`, () => {
-        // fixme: doesn't work
-        $modal.find('#name').focus();
-
-        $modal
-            .modal()
-            .on('hidden.bs.modal', () => $modal.html(oldModalHtml));
     });
 });
 
