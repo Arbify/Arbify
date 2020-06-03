@@ -8,7 +8,7 @@
 @import 'parts/messages-index';
 
 .logo {
-    font: 500 18px 'JetBrains Mono', monospace;
+    font: 500 18px $font-family-monospace;
 
     u {
         text-decoration: none;

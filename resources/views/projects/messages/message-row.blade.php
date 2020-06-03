@@ -1,7 +1,7 @@
 <tr>
     <th scope="row" class="font-weight-normal">
         <div class="d-flex flex-wrap align-items-baseline justify-content-between">
-            <strong><code class="d-block mb-1 mr-2">{{ $message->name }}</code></strong>
+            <code class="d-block mb-1 mr-2">{{ $message->name }}</code>
 
             <div>
                 @if($message->isPlural())
