@@ -25,9 +25,10 @@
                     <div class="form-group">
                         <label for="language">Language</label>
                         <select id="language" class="form-control" name="language" required>
-                            @foreach($project->languages()->getResults() as $language)
-                                <option value="{{ $language->id }}">{{ $language->getDisplayName() }}</option>
-                            @endforeach
+                            @include('partials.languages-options', [
+                                'languages' => $project->languages,
+                                'selected' => fn($language) => false,
+                            ])
                         </select>
                     </div>
                     <button class="btn btn-primary btn-block btn-lg">Export (arb)</button>

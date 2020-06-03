@@ -46,11 +46,10 @@
                     <div class="col-md-6">
                         <select name="default_language" id="default_language"
                                 class="form-control @error('default_language') is-invalid @enderror" required>
-                            @foreach($languages as $language)
-                                <option value="{{ $language->id }}" @if(old('default_language', Settings::defaultLanguage()) == $language->id) selected @endif>
-                                    {{ $language->getDisplayName() }}
-                                </option>
-                            @endforeach
+                            @include('partials.languages-options', [
+                                'languages' => $languages,
+                                'selected' => fn($language) => Settings::defaultLanguage() == $language->id,
+                            ])
                         </select>
 
                         @error('default_language')

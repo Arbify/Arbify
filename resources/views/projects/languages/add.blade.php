@@ -9,12 +9,12 @@
                     <label for="languages" class="col-md-4 col-form-label text-md-right">Languages</label>
 
                     <div class="col-md-6">
-                        <select id="languages" class="form-control @error('languages') is-invalid @enderror" name="languages[]" multiple required autofocus>
-                            @foreach($languages as $language)
-                                <option value="{{ $language->id }}" @if(in_array($language->id, old('languages', []))) selected @endif>
-                                    {{ $language->getDisplayName() }}
-                                </option>
-                            @endforeach
+                        <select id="languages" class="form-control @error('languages') is-invalid @enderror"
+                                name="languages[]" multiple required autofocus>
+                            @include('partials.languages-options', [
+                                'languages' => $languages,
+                                'selected' => fn($language) => in_array($language->id, old('languages', [])),
+                            ])
                         </select>
 
                         @error('languages')
@@ -24,7 +24,7 @@
                         @enderror
 
                         @error('languages.*')
-                        <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
