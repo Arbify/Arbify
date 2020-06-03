@@ -1,5 +1,5 @@
 <tr>
-    <th scope="row" class="font-weight-normal">
+    <th scope="row">
         <div class="d-flex flex-wrap align-items-baseline justify-content-between">
             <code class="d-block mb-1 mr-2">{{ $message->name }}</code>
 

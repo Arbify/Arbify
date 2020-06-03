@@ -1,3 +1,10 @@
+import {
+    GLOBAL_MODAL_ACTION_SELECTOR,
+    GLOBAL_MODAL_BODY_SELECTOR,
+    GLOBAL_MODAL_SELECTOR,
+    GLOBAL_MODAL_TITLE_SELECTOR
+} from "./global-modal";
+
 const $messagesTable = $('.messages-table');
 
 // Set width for table according to screen size.
@@ -99,6 +106,60 @@ $(window).on('beforeunload', () => {
     }
 });
 
+$messagesTable.on('click', '.new-message', e => {
+    e.preventDefault();
+
+    const action = $(e.target).attr('href');
+    const $modal = $(GLOBAL_MODAL_SELECTOR);
+    const $modalBody = $(GLOBAL_MODAL_BODY_SELECTOR);
+    const oldModalHtml = $modal.html();
+
+    $modal.find('.modal-dialog').addClass('modal-lg');
+    $modal.find('.modal-footer').remove();
+
+    $modal.on('submit', '#create-form', e => {
+        e.preventDefault();
+
+        const $form = $(e.target);
+        $.post({
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            dataType: 'html',
+        })
+            .done((response, __, {status}) => {
+                const $response = $(response);
+
+                // If response is message created
+                if (status === 201) {
+                    $modal.modal('hide');
+
+                    $response.hide();
+                    $messagesTable.find('tbody').append($response);
+                    $response.show('fast');
+
+                    // Update statistics
+                    $response.find('td').each((index, element) => {
+                        const inputs = $(element).find('.message-field').length;
+                        updateStatistics(index + 1, +inputs, 0);
+                    });
+                } else {
+                    // If response is error
+                    $modalBody.empty().append($response.find('#create-form').detach());
+                }
+            });
+    });
+
+    $(GLOBAL_MODAL_TITLE_SELECTOR).text('New message');
+    $modalBody.load(`${action} #create-form`, () => {
+        // fixme: doesn't work
+        $modal.find('#name').focus();
+
+        $modal
+            .modal()
+            .on('hidden.bs.modal', () => $modal.html(oldModalHtml));
+    });
+});
+
 const updateStatistics = (column, allDelta, translatedDelta) => {
     const selector = `.messages-table thead th:nth-child(${column + 1}) .messages-statistics`;
     const $stats = $(selector);
@@ -123,4 +184,4 @@ const updateStatistics = (column, allDelta, translatedDelta) => {
         .css('width', `${percent}%`);
 };
 
-export { updateStatistics };
+export {updateStatistics};

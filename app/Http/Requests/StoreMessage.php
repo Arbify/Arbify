@@ -8,6 +8,20 @@ use Illuminate\Validation\Rule;
 
 class StoreMessage extends AuthorizedFormRequest
 {
+    protected function getRedirectUrl(): string
+    {
+        $url = $this->redirector->getUrlGenerator();
+
+        if ($this->isMethod('PATCH')) {
+            return $url->route('messages.edit', [
+                $this->route('project'),
+                $this->route('message'),
+            ]);
+        }
+
+        return $url->route('messages.create', $this->route('project'));
+    }
+
     public function rules(MessageRepository $messageRepository): array
     {
         $rules = [

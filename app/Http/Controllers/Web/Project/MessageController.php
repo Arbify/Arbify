@@ -62,8 +62,15 @@ class MessageController extends BaseController
                 'project_id' => $project->id,
             ] + $request->validated());
 
-        return redirect()->route('messages.index', $project)
-            ->with('success', "Added <b>$message->name</b> successfully.");
+        // Return message row if the request is an XHR, redirect with flash otherwise.
+        return $request->isXmlHttpRequest() ?
+            response()->view('projects.messages.message-row', [
+                'project' => $project,
+                'message' => $message,
+                'messageValues' => [],
+            ], Response::HTTP_CREATED)
+            : redirect()->route('messages.index', $project)
+                ->with('success', "Added <b>$message->name</b> successfully.");
     }
 
     public function edit(Project $project, Message $message): View

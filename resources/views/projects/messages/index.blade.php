@@ -24,7 +24,7 @@
                             <div class="d-flex align-items-center">
                                 Message
                                 @can('create', [Arbify\Models\Message::class, $project])
-                                    <a href="{{ route('messages.create', $project) }}" class="btn btn-primary ml-auto">
+                                    <a href="{{ route('messages.create', $project) }}" class="btn btn-primary ml-auto new-message">
                                         New message
                                     </a>
                                 @endcan
@@ -70,7 +70,7 @@
                     <tfoot>
                         <tr>
                             <td>
-                                <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block">New message</a>
+                                <a href="{{ route('messages.create', $project) }}" class="btn btn-primary btn-block new-message">New message</a>
                             </td>
                             @if($project->languages->count() > 0)
                                 <td colspan="{{ $project->languages->count() }}"></td>

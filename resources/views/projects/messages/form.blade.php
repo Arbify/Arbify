@@ -7,7 +7,7 @@
                 <form method="POST" action="{{ route('messages.update', [$project, $message]) }}">
                 @method('PATCH')
             @else
-                <form method="POST" action="{{ route('messages.store', $project) }}">
+                <form method="POST" action="{{ route('messages.store', $project) }}" id="create-form">
             @endisset
 
                 @csrf
