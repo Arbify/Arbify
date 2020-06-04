@@ -18,7 +18,11 @@ class AccountController extends BaseController
 
     public function preferences(Request $request): View
     {
-        return view('account.preferences');
+        $user = $request->user();
+
+        return view('account.preferences', [
+            'user' => $user,
+        ]);
     }
 
     public function updatePreferences(Request $request): Response
