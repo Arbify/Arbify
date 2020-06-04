@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="5">
+        <title>502 Bad Gateway</title>
+        <style>
+            body {
+                margin: 10vmin 0 0 10vmin;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+                    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                font-size: 16px;
+                line-height: 1.7;
+                max-width: 600px;
+                color: black;
+            }
+
+            code {
+                background: black;
+                color: white;
+                padding: 3px;
+                border-radius: 3px;
+            }
+
+            .muted {
+                color: #757575;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🛑 502 Bad Gateway</h1>
+        <p>Hold on! It's not that bad! 😁</p>
+        <p>Arbify entrypoint is probably still running, downloading dependencies and building scripts... ⏳ Try again in a minute or two. You can also check the progress yourself using <code>docker-compose logs --follow arbify</code>. If you're wondering how many steps do you need to wait - just look at <a href="https://github.com/Arbify/Arbify/blob/master/docker/arbify/entrypoint.sh">the entrypoint script</a>.</p>
+        <p>You can just leave this browser tab open and take a look whether the title has changed. I'm refreshing every 5 seconds. 👀</p>
+        <p class="muted">If it takes more than 5 minutes though, something is probably wrong. Check the logs and in case of an error <a href="https://github.com/Arbify/Arbify/issues/new">report it on GitHub</a> including your docker-compose logs.</p>
+    </body>
+</html>
