@@ -40,7 +40,7 @@ Route::delete('/projects/{project}/languages/{language_code}', 'Project\ProjectL
 Route::resource('/projects/{project}/messages', 'Project\MessageController')
     ->except(['show']);
 
-Route::put('/projects/{project}/messages/{message}/{language_code}', 'Project\MessageValueController@put')
+Route::put('/projects/{project}/messages/{message}/{language_code}/{form?}', 'Project\MessageValueController@put')
     ->name('message-values.put');
 
 Route::resource('/projects/{project}/members', 'Project\ProjectMemberController', ['names' => 'project-members'])

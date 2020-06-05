@@ -19,13 +19,10 @@
         <label for="{{ $label }}" class="col-form-label message-type-col sr-only">Message</label>
     @endif
     <div class="col">
-        <form method="POST" action="{{ route('message-values.put', [$project, $message, $language->code]) }}"
+        <form method="POST" action="{{ route('message-values.put', [$project, $message, $language->code, $form]) }}"
               class="message-value-form">
             @method('PUT')
             @csrf
-            @if(!is_null($form))
-                <input type="hidden" name="form" value="{{ $form }}">
-            @endif
             <input type="text" id="{{ $label }}" name="value"
                    class="form-control message-field @if(!is_null($value)) is-accepted @endif"
                    value="{{ $value ?? '' }}" data-initial-value="{{ $value ?? '$$null$$' }}">
