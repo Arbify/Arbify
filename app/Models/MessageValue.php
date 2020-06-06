@@ -12,6 +12,7 @@ class MessageValue extends Model
         'form',
         'message_id',
         'language_id',
+        'author_id',
         'updated_at', // Mainly for tests
     ];
 
@@ -23,5 +24,10 @@ class MessageValue extends Model
     public function language(): BelongsTo
     {
         return $this->belongsTo(Language::class);
+    }
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -12,7 +12,9 @@ use Illuminate\Support\Collection;
 
 interface MessageValueRepository
 {
-    public function byMessageLanguageAndFormOrCreate(Message $message, Language $language, ?string $form): MessageValue;
+    public function latest(Message $message, Language $language, ?string $form): ?MessageValue;
+
+    public function history(Message $message, Language $language, ?string $form): Collection;
 
     /**
      * Returns an associative array with message values grouped by message id and language id.

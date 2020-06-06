@@ -92,3 +92,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.diff {
+    ins {
+        text-decoration: none;
+        background: lighten($success, 30%);
+    }
+
+    del {
+        text-decoration: none;
+        background: lighten($danger, 30%);
+    }
+}

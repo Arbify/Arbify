@@ -154,7 +154,7 @@ class ArbImporter
                     $form = $language->getGenderForms()[0];
                 }
 
-                $messageValue = $this->messageValueRepository->byMessageLanguageAndFormOrCreate(
+                $messageValue = $this->messageValueRepository->latest(
                     $message,
                     $language,
                     $form
