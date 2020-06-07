@@ -7,6 +7,8 @@
                 {!! session('success') !!}
             </div>
         @endif
+
+        <div id="messages-app"></div>
     </div>
 
     <div class="d-flex justify-content-center">
