@@ -15,7 +15,7 @@
         @stack('head')
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand logo" href="{{ route('dashboard') }}">
                         <u>.Arb</u>ify
