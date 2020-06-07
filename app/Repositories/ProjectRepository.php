@@ -57,7 +57,6 @@ class ProjectRepository implements ProjectRepositoryContract
         ];
 
         $messages = $project->messages;
-        $messageValues = $project->messageValues;
 
         foreach ($project->languages as $language) {
             $allValues = $messages

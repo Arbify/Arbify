@@ -24,9 +24,10 @@ class ImportController extends BaseController
     public function import(ImportToProject $request, Project $project): Response
     {
         $this->authorize('import', $project);
+        $overrideMessageValues = (bool)$request->input('override_message_values');
 
         foreach ($request->file('files') as $file) {
-            $this->importer->import($file);
+            $this->importer->import($project, $file, $request->user(), $overrideMessageValues);
         }
 
         return status(200);

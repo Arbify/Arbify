@@ -47,7 +47,7 @@ class ImportController extends BaseController
 
         foreach ($files as $i => $file) {
             try {
-                $importer->import($project, $file, $overrideMessageValues);
+                $importer->import($project, $file, $request->user(), $overrideMessageValues);
             } catch (ImportException $e) {
                 return back()
                     ->withInput()

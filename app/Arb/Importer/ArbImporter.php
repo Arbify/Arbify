@@ -8,7 +8,9 @@ use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\MessageRepository;
 use Arbify\Contracts\Repositories\MessageValueRepository;
 use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
 use Arbify\Models\Project;
+use Arbify\Models\User;
 use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
@@ -33,11 +35,12 @@ class ArbImporter
     /**
      * @param Project $project
      * @param UploadedFile $file
+     * @param User $importingUser
      * @param bool $overrideMessageValues
      *
      * @throws ImportException
      */
-    public function import(Project $project, UploadedFile $file, bool $overrideMessageValues): void
+    public function import(Project $project, UploadedFile $file, User $importingUser, bool $overrideMessageValues): void
     {
         $contents = $this->getContents($file);
         $json = $this->parseJson($contents);
@@ -45,7 +48,7 @@ class ArbImporter
         $language = $this->determineLanguage($json, $file->getClientOriginalName());
         $messages = $this->processMessages($json);
 
-        $this->importToDatabase($project, $language, $messages, $overrideMessageValues);
+        $this->importToDatabase($project, $importingUser, $language, $messages, $overrideMessageValues);
     }
 
     private function getContents(UploadedFile $file): string
@@ -114,6 +117,7 @@ class ArbImporter
 
     private function importToDatabase(
         Project $project,
+        User $importer,
         string $languageCode,
         array $importedMessages,
         bool $overrideMessageValues
@@ -154,14 +158,16 @@ class ArbImporter
                     $form = $language->getGenderForms()[0];
                 }
 
-                $messageValue = $this->messageValueRepository->latest(
-                    $message,
-                    $language,
-                    $form
-                );
-
-                if ($messageValue->value === null || $overrideMessageValues) {
-                    $messageValue->update([
+                if (
+                    $overrideMessageValues
+                    || ($messageValue = $this->messageValueRepository->latest($message, $language, $form)) === null
+                    || $messageValue->value === null
+                ) {
+                    MessageValue::create([
+                        'message_id' => $message->id,
+                        'language_id' => $language->id,
+                        'form' => $form,
+                        'author_id' => $importer->id,
                         'value' => $importedMessage['value'],
                     ]);
                 }
