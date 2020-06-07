@@ -42,3 +42,10 @@ jobs:
 
       - name: Run tests
         run: vendor/bin/phpunit
+
+      - name: Upload tests laravel.log
+        uses: actions/upload-artifact@v2
+        with:
+          name: laravel.log
+          path: storage/logs/laravel.log
+        if: ${{ failure() }}
