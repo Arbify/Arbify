@@ -64,21 +64,21 @@ class MessageValueRepository implements MessageValueRepositoryContract
 
     public function languageGroupedDetailsByProject(Project $project): array
     {
-        // FIXME: Maybe replace this with a query without the n+1 problem.
-        $result = $project->languages
-            ->map(function (Language $language) use ($project) {
-                /** @var string $lastModified */
-                $lastModified = $project->messageValues()
-                    ->where('language_id', $language->id)
-                    ->orderByDesc('message_values.updated_at')
-                    ->max('message_values.updated_at');
-
-                $lastModifiedIso8601 = $lastModified ? Carbon::parse($lastModified)->toIso8601String() : null;
-
-                return [$language->code => $lastModifiedIso8601];
-            });
-
-        return Arr::collapse($result);
+        return MessageValue::from('message_values AS mv')
+            ->select('l.code', 'mv.updated_at')
+            ->join('messages AS m', 'm.id', '=', 'mv.message_id')
+            ->join('languages AS l', 'l.id', '=', 'mv.language_id')
+            ->leftJoin('message_values AS mv2', function (JoinClause $query) {
+                $query
+                    ->on('mv.language_id', '=', 'mv2.language_id')
+                    ->on('mv.updated_at', '<', 'mv2.updated_at');
+            })
+            ->whereNull('mv2.id')
+            ->where('m.project_id', $project->id)
+            ->get()
+            ->map(fn($row) => [$row->code => $row->updated_at])
+            ->collapse()
+            ->toArray();
     }
 
     private function latestMessagesFrom(Project $project): Builder
