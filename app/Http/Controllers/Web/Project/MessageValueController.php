@@ -26,7 +26,7 @@ class MessageValueController extends BaseController
     public function __construct(MessageValueRepository $messageValueRepository)
     {
         $this->messageValueRepository = $messageValueRepository;
-        $this->diff = new Diff();
+        $this->diff = new Diff(new Word());
 
         $this->middleware('verified');
     }

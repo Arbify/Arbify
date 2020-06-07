@@ -14,6 +14,8 @@ interface MessageValueRepository
 {
     public function latest(Message $message, Language $language, ?string $form): ?MessageValue;
 
+    public function latestCountByProjectAndLanguage(Project $project, Language $language): int;
+
     public function history(Message $message, Language $language, ?string $form): Collection;
 
     /**

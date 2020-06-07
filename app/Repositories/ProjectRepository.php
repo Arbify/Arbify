@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Arbify\Repositories;
 
+use Arbify\Contracts\Repositories\MessageValueRepository;
 use Arbify\Contracts\Repositories\ProjectRepository as ProjectRepositoryContract;
 use Arbify\Models\Message;
 use Arbify\Models\Project;
@@ -13,6 +14,13 @@ use Illuminate\Database\Query\Builder;
 
 class ProjectRepository implements ProjectRepositoryContract
 {
+    private MessageValueRepository $messageValueRepository;
+
+    public function __construct(MessageValueRepository $messageValueRepository)
+    {
+        $this->messageValueRepository = $messageValueRepository;
+    }
+
     public function byId(int $id): Project
     {
         return Project::findOrFail($id);
@@ -64,11 +72,8 @@ class ProjectRepository implements ProjectRepositoryContract
                 })
                 ->sum();
 
-            // FIXME: Fix this once history will be added.
-            $translatedValues = $messageValues
-                ->where('language_id', $language->id)
-                ->whereNotNull('value')
-                ->count();
+            // FIXME: n+1 problem here
+            $translatedValues = $this->messageValueRepository->latestCountByProjectAndLanguage($project, $language);
 
             $statistics['all']['all'] += $allValues;
             $statistics['all']['translated'] += $translatedValues;

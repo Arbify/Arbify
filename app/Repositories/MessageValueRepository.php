@@ -12,6 +12,7 @@ use Arbify\Models\Project;
 use Arr;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class MessageValueRepository implements MessageValueRepositoryContract
@@ -26,6 +27,14 @@ class MessageValueRepository implements MessageValueRepositoryContract
             ->first();
     }
 
+    public function latestCountByProjectAndLanguage(Project $project, Language $language): int
+    {
+        return $this->countMessagesBy([
+            'project_id' => $project->id,
+            'language_id' => $language->id,
+        ]);
+    }
+
     public function history(Message $message, Language $language, ?string $form): Collection
     {
         return $message->messageValues()
@@ -37,18 +46,7 @@ class MessageValueRepository implements MessageValueRepositoryContract
 
     public function allByProjectAssociativeGrouped(Project $project): array
     {
-        // FIXME: Return only the latest ones.
-        // https://stackoverflow.com/questions/1313120/retrieving-the-last-record-in-each-group-mysql
-        $values = $project->messageValues()
-            ->orderByDesc('message_values.updated_at')
-            ->get([
-                'message_id',
-                'language_id',
-                'form',
-                'name',
-                'value',
-            ])
-            ->toArray();
+        $values = $this->latestMessagesBy(['project_id' => $project->id]);
 
         $results = [];
         foreach ($values as $value) {
@@ -60,17 +58,15 @@ class MessageValueRepository implements MessageValueRepositoryContract
 
     public function allByProjectAndLanguage(Project $project, Language $language): Collection
     {
-        // FIXME: Return only the latest ones.
-        return $project->messageValues()
-            ->where('language_id', $language->id)
-            ->orderByDesc('message_values.updated_at')
-            ->get();
+        return $this->latestMessagesBy([
+            'project_id' => $project->id,
+            'language_id' => $language->id,
+        ]);
     }
 
     public function languageGroupedDetailsByProject(Project $project): array
     {
         // FIXME: Maybe replace this with a query without the n+1 problem.
-        // FIXME: Return only the latest ones.
         $result = $project->languages
             ->map(function (Language $language) use ($project) {
                 /** @var string $lastModified */
@@ -85,5 +81,39 @@ class MessageValueRepository implements MessageValueRepositoryContract
             });
 
         return Arr::collapse($result);
+    }
+
+    private function latestMessagesBy(array $conditions = []): EloquentCollection
+    {
+        $innerQuery = $this->buildInnerLatestMessagesQuery($conditions);
+
+        $values = collect(DB::select(DB::raw(
+            "WITH latest_message_values AS ($innerQuery)
+            SELECT * FROM latest_message_values WHERE updated_at = last_updated"
+        ), array_values($conditions)));
+
+        return MessageValue::hydrate($values->toArray());
+    }
+
+    private function countMessagesBy(array $conditions = []): int
+    {
+        $innerQuery = $this->buildInnerLatestMessagesQuery($conditions);
+
+        return (int) DB::selectOne(DB::raw(
+            "WITH latest_message_values AS ($innerQuery)
+            SELECT COUNT(id) AS count FROM latest_message_values WHERE updated_at = last_updated"
+        ), array_values($conditions))->count;
+    }
+
+    private function buildInnerLatestMessagesQuery(array $conditions): string
+    {
+        $where = collect($conditions)->keys()->map(fn(string $key) => "$key = ?")->implode(' AND ');
+        $where = !empty($where) ? "WHERE $where" : '';
+
+        // https://stackoverflow.com/questions/1313120/retrieving-the-last-record-in-each-group-mysql
+        return "SELECT mv.*, MAX(mv.updated_at) OVER(PARTITION BY message_id, language_id, form) AS last_updated
+            FROM message_values AS mv
+            INNER JOIN messages on messages.id = mv.message_id
+            $where";
     }
 }
