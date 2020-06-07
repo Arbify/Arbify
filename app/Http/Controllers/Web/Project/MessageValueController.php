@@ -44,9 +44,9 @@ class MessageValueController extends BaseController
         $userId = $request->user()->id;
 
         $messageValue = $this->messageValueRepository->latest($message, $language, $form);
-        // If message value exists, belongs to the current user and was updated in the last 3 minutes...
+        // If message value exists, belongs to the current user and was updated in the last 20 seconds...
         if ($messageValue !== null && $messageValue->author !== null && $messageValue->author->id == $userId
-            && $messageValue->updated_at->diffInMinutes(now()) < 3) {
+            && $messageValue->updated_at->diffInSeconds(now()) < 20) {
             $messageValue->update($request->only('value'));
         } else {
             MessageValue::create([
