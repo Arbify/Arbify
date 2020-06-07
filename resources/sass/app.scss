@@ -94,6 +94,8 @@
 }
 
 .diff {
+    white-space: normal;
+
     ins {
         text-decoration: none;
         background: lighten($success, 30%);
