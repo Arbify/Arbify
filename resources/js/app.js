@@ -4,10 +4,7 @@ require('bootstrap-select');
 window.FilePond = require('filepond');
 require('jquery-filepond/filepond.jquery');
 
-
 require('./global-modal');
-require('./messages-table');
-require('./messages-delete-row');
 
 import Vue from 'vue';
 import store from './components/MessagesApp/store';
