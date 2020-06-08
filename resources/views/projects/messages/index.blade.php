@@ -7,7 +7,6 @@
                 {!! session('success') !!}
             </div>
         @endif
-
     </div>
 
     <div class="mx-5">
