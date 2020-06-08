@@ -43,6 +43,11 @@ class MessageValueRepository implements MessageValueRepositoryContract
             ->get();
     }
 
+    public function allByProject(Project $project): Collection
+    {
+        return $this->latestMessagesFrom($project)->get();
+    }
+
     public function allByProjectAssociativeGrouped(Project $project): array
     {
         $values = $this->latestMessagesFrom($project)->get()->toArray();

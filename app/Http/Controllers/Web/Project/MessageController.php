@@ -35,73 +35,62 @@ class MessageController extends BaseController
     {
         $this->authorize('view-any', [Message::class, $project]);
 
-        $messageValues = $this->messageValueRepository->allByProjectAssociativeGrouped($project);
+        return view('projects.messages.index', ['project' => $project]);
+    }
+
+    public function indexData(Project $project): array
+    {
+        $this->authorize('view-any', [Message::class, $project]);
+
         $statistics = $this->projectRepository->translationStatistics($project);
+        $languages = $project->languages->toArray();
+        foreach ($languages as $i => $language) {
+            $languages[$i] = array_merge($language, [
+                'stats' => [
+                    'all' => $statistics[$language['code']]['all'],
+                    'translated' => $statistics[$language['code']]['translated'],
+                ],
+            ]);
 
-        return view('projects.messages.index', [
-            'project' => $project,
-            'messageValues' => $messageValues,
-            'statistics' => $statistics,
-        ]);
+            if ($language['flag']) {
+                $languages[$i]['flag'] = asset("storage/flags/{$language['flag']}.svg");
+            }
+        }
+
+        $messages = $project->messages->toArray();
+        $values = $this->messageValueRepository->allByProject($project);
+
+        return [
+            'languages' => $languages,
+            'messages' => $messages,
+            'values' => $values,
+        ];
     }
 
-    public function create(Project $project): View
+    public function store(StoreMessage $request, Project $project): Message
     {
         $this->authorize('create', [Message::class, $project]);
 
-        return view('projects.messages.form', [
-            'project' => $project,
-        ]);
-    }
-
-    public function store(StoreMessage $request, Project $project): Response
-    {
-        $this->authorize('create', [Message::class, $project]);
-
-        $message = Message::create([
+        return Message::create([
                 'project_id' => $project->id,
             ] + $request->validated());
-
-        // Return message row if the request is an XHR, redirect with flash otherwise.
-        return $request->isXmlHttpRequest() ?
-            response()->view('projects.messages.message-row', [
-                'project' => $project,
-                'message' => $message,
-                'messageValues' => [],
-            ], Response::HTTP_CREATED)
-            : redirect()->route('messages.index', $project)
-                ->with('success', "Added <b>$message->name</b> successfully.");
     }
 
-    public function edit(Project $project, Message $message): View
-    {
-        $this->authorize('update', [$message, $project]);
-
-        return view('projects.messages.form', [
-            'project' => $project,
-            'message' => $message,
-        ]);
-    }
-
-    public function update(StoreMessage $request, Project $project, Message $message): Response
+    public function update(StoreMessage $request, Project $project, Message $message): Message
     {
         $this->authorize('update', [$message, $project]);
 
         $message->update($request->validated());
 
-        return redirect()->route('messages.index', $project)
-            ->with('success', "Updated <b>$message->name</b> successfully.");
+        return $message;
     }
 
-    public function destroy(Request $request, Project $project, Message $message): Response
+    public function destroy(Project $project, Message $message): Response
     {
         $this->authorize('delete', [$message, $project]);
 
         $message->delete();
 
-        return $request->isXmlHttpRequest() ?
-            status(Response::HTTP_NO_CONTENT)
-            : redirect()->route('messages.index', $project)
-                ->with('success', "Deleted <b>$message->name</b> successfully.");
+        return status(Response::HTTP_NO_CONTENT);
     }
 }

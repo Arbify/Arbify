@@ -13,6 +13,7 @@
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "bootstrap-select": "^1.13.17",
+        "camelcase-keys": "^6.2.2",
         "cross-env": "^7.0",
         "filepond": "^4.15.1",
         "jquery": "^3.2",
@@ -24,6 +25,7 @@
         "sass": "^1.26.8",
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "vuex": "^3.4.0"
     }
 }

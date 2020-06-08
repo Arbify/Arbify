@@ -50,19 +50,19 @@ class MessageValueController extends BaseController
             && $messageValue->updated_at->diffInSeconds(now()) < 20
         ) {
             $messageValue->update($request->only('value'));
-        } else {
-            MessageValue::create([
-                'message_id' => $message->id,
-                'language_id' => $language->id,
-                'form' => $form,
-                'author_id' => $userId,
-                'value' => $request->input('value'),
-            ]);
+
+            return response($messageValue);
         }
 
-        return $request->expectsJson() ?
-            status(Response::HTTP_CREATED)
-            : redirect()->route('messages.index', $project);
+        $messageValue = MessageValue::create([
+            'message_id' => $message->id,
+            'language_id' => $language->id,
+            'form' => $form,
+            'author_id' => $userId,
+            'value' => $request->input('value'),
+        ]);
+
+        return response($messageValue, Response::HTTP_CREATED);
     }
 
     public function history(
@@ -70,13 +70,15 @@ class MessageValueController extends BaseController
         Project $project,
         Message $message,
         Language $language
-    ): View {
+    ): array {
         $this->authorize('view', $project);
 
         $form = $request->query('form');
         $this->validateForm($form);
 
         $values = $this->messageValueRepository->history($message, $language, $form);
+
+        return $values->toArray();
 
         return view('projects.messages.history', [
             'project' => $project,

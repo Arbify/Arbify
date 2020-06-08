@@ -18,6 +18,8 @@ interface MessageValueRepository
 
     public function history(Message $message, Language $language, ?string $form): Collection;
 
+    public function allByProject(Project $project): Collection;
+
     /**
      * Returns an associative array with message values grouped by message id and language id.
      *
