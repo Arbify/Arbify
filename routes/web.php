@@ -44,13 +44,15 @@ Route::delete('/projects/{project}/languages/{language_code}', 'Project\ProjectL
 
 // Project message
 Route::resource('/projects/{project}/messages', 'Project\MessageController')
-    ->except(['show']);
+    ->only(['index', 'store', 'update', 'destroy']);
+Route::get('/projects/{project}/messages/data', 'Project\MessageController@indexData')
+    ->name('messages.index-data');
 
 // Project message value
-Route::put('/projects/{project}/messages/{message}/{language_code}/{form?}', 'Project\MessageValueController@put')
+Route::put('/projects/{project}/messages/{message}/{language}/{form?}', 'Project\MessageValueController@put')
     ->name('message-values.put');
 Route::get(
-    '/projects/{project}/messages/{message}/{language_code}/history',
+    '/projects/{project}/messages/{message}/{language}/history',
     'Project\MessageValueController@history'
 )->name('message-values.history');
 
