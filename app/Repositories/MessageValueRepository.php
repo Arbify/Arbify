@@ -9,8 +9,6 @@ use Arbify\Models\Language;
 use Arbify\Models\Message;
 use Arbify\Models\MessageValue;
 use Arbify\Models\Project;
-use Arr;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
@@ -37,6 +35,7 @@ class MessageValueRepository implements MessageValueRepositoryContract
     public function history(Message $message, Language $language, ?string $form): Collection
     {
         return $message->messageValues()
+            ->with('author')
             ->where('language_id', $language->id)
             ->where('form', $form)
             ->orderByDesc('message_values.updated_at')
