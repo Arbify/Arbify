@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="onSubmit">
-        <div id="message-form-modal" class="modal fade" tabindex="-1" role="dialog" @click.self="onClose">
+        <div :id="modalId" class="modal fade" tabindex="-1" role="dialog" @click.self="onClose">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -92,7 +92,14 @@
 </template>
 
 <script>
+    import { MESSAGE_FORM_MODAL_ID } from './consts';
+
     export default {
+        data() {
+            return {
+                modalId: MESSAGE_FORM_MODAL_ID,
+            };
+        },
         computed: {
             action() {
                 return this.$store.state.messageFormModal.action;
@@ -132,7 +139,7 @@
                 });
             },
             onClose() {
-                $('#message-form-modal').modal('hide');
+                $(`#${MESSAGE_FORM_MODAL_ID}`).modal('hide');
             },
         },
     };

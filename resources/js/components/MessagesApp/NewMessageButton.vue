@@ -6,13 +6,14 @@
 
 <script>
     import MessageFormModal from './MessageFormModal';
+    import { MESSAGE_FORM_MODAL_ID } from './consts';
 
     export default {
         components: { MessageFormModal },
         methods: {
             click() {
                 this.$store.commit('prepareMessageFormModal');
-                $('#message-form-modal').modal('show');
+                $(`#${MESSAGE_FORM_MODAL_ID}`).modal('show');
             },
         },
     };
