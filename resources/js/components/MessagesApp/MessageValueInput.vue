@@ -7,10 +7,12 @@
 
         <div class="col message-value-form">
             <div class="input-group">
-                <input type="text" :id="label" :class="inputClasses" v-model="value" @blur="save" @keypress.enter="save">
+                <input type="text" :id="label" :class="inputClasses" v-model="value" @blur="onSave"
+                       @keypress.enter="onSave">
 
                 <div class="input-group-append">
-                    <a href="#" class="btn btn-outline-secondary flex-center px-2" title="History">
+                    <a href class="btn btn-outline-secondary flex-center px-2" title="History"
+                       @click.prevent="onHistory">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18px"
                              height="18px">
                             <path d="M0 0h24v24H0z" fill="none" />
@@ -25,6 +27,8 @@
 </template>
 
 <script>
+    import { HISTORY_MODAL_ID } from './consts';
+
     export default {
         props: ['messageId', 'languageId', 'form'],
         data() {
@@ -69,7 +73,7 @@
             this.value = this.storedValue ? this.storedValue.value : '';
         },
         methods: {
-            save() {
+            onSave() {
                 if (this.state !== 'changed') return;
 
                 this.$store.dispatch('saveMessageValue', {
@@ -79,6 +83,14 @@
                     value: this.value,
                 });
             },
-        }
+            onHistory() {
+                $(`#${HISTORY_MODAL_ID}`).modal('show');
+                this.$store.dispatch('fetchMessageValuesHistoryModal', {
+                    messageId: this.messageId,
+                    languageId: this.languageId,
+                    form: this.form,
+                })
+            },
+        },
     };
 </script>
