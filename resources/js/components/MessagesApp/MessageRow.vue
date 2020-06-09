@@ -9,7 +9,7 @@
                     <span class="type badge badge-light" v-else-if="message.type === 'gender'">GENDER</span>
 
                     <a href @click.prevent="onEdit" class="text-primary small mr-2">edit</a>
-                    <a href @click.prevent="onDelete" class="text-danger small" ref="delete">delete</a>
+                    <a href @click.prevent="onDelete" :class="'text-danger small ' + deleteRowClass " ref="delete">delete</a>
                 </div>
             </div>
 
@@ -25,6 +25,8 @@
     import MessageLanguageCell from './MessageLanguageCell';
     import { MESSAGE_FORM_MODAL_ID } from './consts';
 
+    const DELETE_ROW_CLASS = 'delete-row';
+
     export default {
         components: { MessageLanguageCell },
         props: ['messageId'],
@@ -32,7 +34,10 @@
             ...mapGetters(['languages']),
             message() {
                 return this.$store.getters.messageById(this.messageId);
-            }
+            },
+            deleteRowClass() {
+                return DELETE_ROW_CLASS;
+            },
         },
         methods: {
             onEdit() {
@@ -53,6 +58,8 @@
                         $delete.popover('hide');
                         this.$store.dispatch('deleteMessage', this.messageId);
                     });
+
+                $(`.${DELETE_ROW_CLASS}`).popover('hide');
 
                 $delete.popover({
                     html: true,

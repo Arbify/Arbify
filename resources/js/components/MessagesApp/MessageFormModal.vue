@@ -95,12 +95,10 @@
     import { MESSAGE_FORM_MODAL_ID } from './consts';
 
     export default {
-        data() {
-            return {
-                modalId: MESSAGE_FORM_MODAL_ID,
-            };
-        },
         computed: {
+            modalId() {
+                return MESSAGE_FORM_MODAL_ID;
+            },
             action() {
                 return this.$store.state.messageFormModal.action;
             },
