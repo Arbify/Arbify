@@ -80,9 +80,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="onClose">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <template v-if="action === 'new'">Add message</template>
-                            <template v-else>Update message</template>
+                        <button type="submit" :class="['submit', 'btn', 'btn-primary', loading ? 'loading' : '']"
+                                :disabled="loading">
+                            <span class="submit-text">
+                                <template v-if="action === 'new'">Add message</template>
+                                <template v-else>Update message</template>
+                            </span>
+                            <span v-if="loading" class="loading spinner-border spinner-border-sm"></span>
                         </button>
                     </div>
                 </div>
@@ -93,9 +97,11 @@
 
 <script>
     import { MESSAGE_FORM_MODAL_ID } from './consts';
+    import { mapGetters } from 'vuex';
 
     export default {
         computed: {
+            ...mapGetters({ loading: 'messageFormModalLoading' }),
             modalId() {
                 return MESSAGE_FORM_MODAL_ID;
             },
@@ -142,3 +148,22 @@
         },
     };
 </script>
+
+<style lang="scss" scoped>
+    .loading {
+        position: relative;
+
+        .submit-text {
+            visibility: hidden;
+        }
+
+        .spinner-border {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    }
+</style>
