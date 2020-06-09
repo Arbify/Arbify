@@ -43,16 +43,8 @@ class MessageController extends BaseController
     {
         $this->authorize('view-any', [Message::class, $project]);
 
-        $statistics = $this->projectRepository->translationStatistics($project);
         $languages = $project->languages->toArray();
         foreach ($languages as $i => $language) {
-            $languages[$i] = array_merge($language, [
-                'stats' => [
-                    'all' => $statistics[$language['code']]['all'],
-                    'translated' => $statistics[$language['code']]['translated'],
-                ],
-            ]);
-
             if ($language['flag']) {
                 $languages[$i]['flag'] = asset("storage/flags/{$language['flag']}.svg");
             }

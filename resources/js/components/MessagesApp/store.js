@@ -27,6 +27,7 @@ const store = new Vuex.Store({
         languageById: (state) => (id) => state.languages.find(l => l.id === id),
         messages: (state) => state.messages,
         messageById: (state) => (id) => state.messages.find(m => m.id === id),
+        messageValues: (state) => state.messageValues,
         messageValueBy: (state) => (languageId, messageId, form) => state.messageValues.find(
             mv => mv.languageId === languageId && mv.messageId === messageId && mv.form === form
         ),
@@ -53,6 +54,7 @@ const store = new Vuex.Store({
         },
         deleteMessage(state, messageId) {
             state.messages = state.messages.filter(m => m.id !== messageId);
+            state.messageValues = state.messageValues.filter(mv => mv.messageId !== messageId);
         },
         updateMessageValue(state, messageValue) {
             state.messageValues = state.messageValues.filter(

@@ -21,11 +21,11 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import { mapGetters } from 'vuex';
     import MessageLanguageCell from './MessageLanguageCell';
 
     export default {
-        components: {MessageLanguageCell},
+        components: { MessageLanguageCell },
         props: ['messageId'],
         computed: {
             ...mapGetters(['languages']),

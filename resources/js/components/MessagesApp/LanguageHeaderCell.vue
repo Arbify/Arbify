@@ -6,12 +6,12 @@
             {{ displayName }}
 
             <span class="translation-progress-bg">
-                <span :class="progressClasses" :style="{ width: percentTranslated + '%' }"></span>
+                <span :class="progressClasses" :style="{ width: stats.percent }"></span>
             </span>
             <small class="ml-auto messages-statistics">
                 <span :class="statsClasses">
-                    {{ language.stats.translated }}/{{ language.stats.all }}
-                    ({{ percentTranslated }}%)
+                    {{ stats.translated }}/{{ stats.all }}
+                    ({{ stats.percent }})
                 </span>
             </small>
         </div>
@@ -25,24 +25,48 @@
             language() {
                 return this.$store.getters.languageById(this.languageId);
             },
+            stats() {
+                const language = this.language;
+
+                const all = this.$store.getters.messages.reduce((acc, message) => {
+                    if (message.type === 'plural') {
+                        return acc + language.pluralForms.length;
+                    } else if (message.type === 'gender') {
+                        return acc + language.genderForms.length;
+                    }
+
+                    return acc + 1;
+                }, 0);
+
+                const translated = this.$store.getters.messageValues.reduce((acc, messageValue) => {
+                    if (messageValue.languageId !== language.id) {
+                        return acc;
+                    }
+
+                    return acc + 1;
+                }, 0);
+
+                const percent = Math.round((translated / Math.max(all, 1) + Number.EPSILON) * 100) + '%';
+
+                return {
+                    all,
+                    translated,
+                    percent,
+                };
+            },
             displayName() {
                 return `${this.language.code} - ${this.language.name}`;
-            },
-            percentTranslated() {
-                const percent = this.language.stats.translated / Math.max(this.language.stats.all, 1);
-
-                return Math.round((percent + Number.EPSILON) * 100);
             },
             progressClasses() {
                 return [
                     'translation-progress',
-                    this.percentTranslated === 100 ? 'bg-success' : 'bg-info',
+                    this.stats.percent === '100%' ? 'bg-success' : 'bg-info',
                 ];
             },
             statsClasses() {
-                if (this.percentTranslated === 100) {
+                if (this.stats.percent === '100%') {
                     return 'text-success';
-                } else if (this.percentTranslated === 0) {
+                } else if (this.stats.percent === '0%') {
                     return 'text-danger';
                 }
 
