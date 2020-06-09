@@ -48,7 +48,7 @@
                     ])
                 @endforeach
             @elseif($message->isGender())
-                @foreach($language->getGenderForms() as $gender)
+                @foreach($language->gender_forms as $gender)
                     @include('projects.messages.message-value-input', [
                         'language' => $language,
                         'message' => $message,

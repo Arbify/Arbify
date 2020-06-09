@@ -64,7 +64,7 @@ class ProjectRepository implements ProjectRepositoryContract
                     if ($message->isPlural()) {
                         return count($language->plural_forms);
                     } elseif ($message->isGender()) {
-                        return count($language->getGenderForms());
+                        return count($language->gender_forms);
                     }
 
                     return 1;

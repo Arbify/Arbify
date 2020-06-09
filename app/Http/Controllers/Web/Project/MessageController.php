@@ -9,6 +9,7 @@ use Arbify\Contracts\Repositories\ProjectRepository;
 use Arbify\Http\Requests\StoreMessage;
 use Arbify\Models\Message;
 use Arbify\Models\Project;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;

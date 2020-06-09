@@ -43,6 +43,8 @@ class Language extends Model
         'plural_forms',
     ];
 
+    protected $appends = ['gender_forms'];
+
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
@@ -93,7 +95,7 @@ class Language extends Model
         $this->attributes['plural_forms'] = $pluralForms;
     }
 
-    public function getGenderForms(): array
+    public function getGenderFormsAttribute(): array
     {
         // AFAIK all languages support three gender forms.
         return self::GENDER_FORMS;

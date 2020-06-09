@@ -11,6 +11,16 @@ const store = new Vuex.Store({
         languages: [],
         messages: [],
         messageValues: [],
+
+        messageFormModal: {
+            action: 'new', // or edit
+            data: {
+                name: '',
+                description: '',
+                type: 'message',
+            },
+            errors: {},
+        }
     },
     getters: {
         languages: (state) => state.languages,
@@ -28,6 +38,19 @@ const store = new Vuex.Store({
             state.messages = messages;
             state.messageValues = values;
         },
+        addOrUpdateMessage(state, message) {
+            if (state.messages.some(m => m.id === message.id)) {
+                state.messages = state.messages.map(m => {
+                    if (m.id !== message.id) {
+                        return m;
+                    }
+
+                    return message;
+                });
+            } else {
+                state.messages.push(message);
+            }
+        },
         updateMessageValue(state, messageValue) {
             state.messageValues = state.messageValues.filter(
                 mv => !(mv.languageId === messageValue.languageId && mv.messageId === messageValue.messageId
@@ -36,14 +59,36 @@ const store = new Vuex.Store({
 
             state.messageValues.push(messageValue);
         },
+
+        prepareMessageFormModal(state, messageId = null) {
+            state.messageFormModal.action = messageId === null ? 'new' : 'edit';
+            state.messageFormModal.errors = {};
+
+            if (messageId !== null) {
+                state.messageFormModal.data = state.messages.find(m => m.id === messageId);
+            } else {
+                state.messageFormModal.data = {
+                    name: '',
+                    description: '',
+                    type: 'message',
+                };
+            }
+        },
+        messageFormModalUpdate(state, data) {
+            state.messageFormModal.data = { ...state.messageFormModal.data, ...data };
+        },
+        messageFormModalErrors(state, errors) {
+            state.messageFormModal.errors = errors;
+        },
     },
     actions: {
-        loadAll({ commit }, projectId) {
+        loadAll({ commit }, { projectId, onLoad }) {
             axios.get(urls.messageData(projectId)).then(({ data }) => {
                 commit('loadAll', {
                     projectId: projectId,
-                    ...camelcaseKeys(data, {deep: true})
+                    ...camelcaseKeys(data, { deep: true })
                 });
+                onLoad?.call();
             });
         },
         saveMessageValue({ state, commit }, { languageId, messageId, form, value }) {
@@ -51,10 +96,31 @@ const store = new Vuex.Store({
                 urls.putMessageValue(state.projectId, messageId, languageId, form),
                 { value: value }
             ).then(({ data }) => {
-                commit('updateMessageValue', camelcaseKeys(data, {deep: true}));
+                commit('updateMessageValue', camelcaseKeys(data));
             });
-        }
-    }
+        },
+
+        submitMessageFormModal({ state, commit }, { onSuccess }) {
+            const storing = state.messageFormModal.action === 'new';
+
+            axios.request({
+                method: storing ? 'POST' : 'PATCH',
+                url: storing ? urls.storeMessage(state.projectId)
+                    : urls.updateMessage(state.projectId, state.messageFormModal.data.id),
+                data: state.messageFormModal.data,
+            }).then(({ data }) => {
+                commit('addOrUpdateMessage', camelcaseKeys(data));
+                onSuccess?.call();
+            }).catch(error => {
+                if (error.response.status !== 422) {
+                    console.error(error);
+                    return;
+                }
+
+                commit('messageFormModalErrors', error.response.data.errors);
+            });
+        },
+    },
 });
 
 export default store;

@@ -9,7 +9,5 @@
         @endif
     </div>
 
-    <div class="mx-5">
-        <div id="messages-app" data-project-id="{{ $project->id }}"></div>
-    </div>
+    <div id="messages-app" data-project-id="{{ $project->id }}"></div>
 @endsection

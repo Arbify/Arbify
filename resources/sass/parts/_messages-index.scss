@@ -1,4 +1,6 @@
 .messages-table {
+    table-layout: fixed;
+
     thead th, tbody td {
         vertical-align: middle;
     }
