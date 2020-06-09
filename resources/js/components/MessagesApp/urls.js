@@ -5,7 +5,7 @@ const deleteMessage = (projectId, messageId) => `/projects/${projectId}/messages
 const putMessageValue = (projectId, messageId, languageId, form) =>
     `/projects/${projectId}/messages/${messageId}/${languageId}/${form ? form : ''}`;
 const messageValueHistory = (projectId, messageId, languageId, form) =>
-    `/projects/${projectId}/messages/${messageId}/${languageId}/history${form ? '?form=' + form : ''}`;
+    `/projects/${projectId}/messages/${messageId}/${languageId}/${form ? form : ''}`;
 
 export {
     messageData,

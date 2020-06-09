@@ -25,6 +25,7 @@
         </div>
 
         <MessageFormModal />
+        <MessageValuesHistoryModal />
     </div>
 </template>
 
@@ -34,9 +35,10 @@
     import LanguageHeaderCell from './LanguageHeaderCell';
     import MessageFormModal from './MessageFormModal';
     import MessageRow from './MessageRow';
+    import MessageValuesHistoryModal from './MessageValuesHistoryModal';
 
     export default {
-        components: { MessageRow, NewMessageButton, LanguageHeaderCell, MessageFormModal },
+        components: { MessageValuesHistoryModal, MessageRow, NewMessageButton, LanguageHeaderCell, MessageFormModal },
         props: ['projectId'],
         data() {
             return {
