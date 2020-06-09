@@ -51,6 +51,9 @@ const store = new Vuex.Store({
                 state.messages.push(message);
             }
         },
+        deleteMessage(state, messageId) {
+            state.messages = state.messages.filter(m => m.id !== messageId);
+        },
         updateMessageValue(state, messageValue) {
             state.messageValues = state.messageValues.filter(
                 mv => !(mv.languageId === messageValue.languageId && mv.messageId === messageValue.messageId
@@ -90,6 +93,12 @@ const store = new Vuex.Store({
                 });
                 onLoad?.call();
             });
+        },
+        deleteMessage({ commit, state }, messageId) {
+            axios.delete(urls.deleteMessage(state.projectId, messageId))
+                .then(() => {
+                    commit('deleteMessage', messageId);
+                });
         },
         saveMessageValue({ state, commit }, { languageId, messageId, form, value }) {
             axios.put(

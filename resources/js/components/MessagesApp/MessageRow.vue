@@ -8,7 +8,8 @@
                     <span class="type badge badge-light" v-if="message.type === 'plural'">PLURAL</span>
                     <span class="type badge badge-light" v-else-if="message.type === 'gender'">GENDER</span>
 
-                    <a href="#" @click.prevent="onEdit" class="text-primary small">edit</a>
+                    <a href @click.prevent="onEdit" class="text-primary small mr-2">edit</a>
+                    <a href @click.prevent="onDelete" class="text-danger small" ref="delete">delete</a>
                 </div>
             </div>
 
@@ -36,6 +37,28 @@
             onEdit() {
                 this.$store.commit('prepareMessageFormModal', this.messageId);
                 $('#message-form-modal').modal('show');
+            },
+            onDelete() {
+                const $delete = $(this.$refs.delete)
+                const $content = $(`
+                    <div class="d-flex align-items-center">
+                        <p class="mb-0">Do you really want to delete ${this.message.name}?</p>
+                        <button class="btn btn-sm btn-outline-secondary ml-2">Cancel</button>
+                        <button class="btn btn-sm btn-danger ml-2">Delete</button>
+                    </div>
+                `)
+                    .on('click', '.btn-outline-secondary', () => $delete.popover('hide'))
+                    .on('click', '.btn-danger', () => {
+                        $delete.popover('hide');
+                        this.$store.dispatch('deleteMessage', this.messageId);
+                    });
+
+                $delete.popover({
+                    html: true,
+                    trigger: 'manual',
+                    title: 'Confirm deleting',
+                    content: $content,
+                }).popover('show');
             },
         }
     };
