@@ -66,28 +66,23 @@ class MessageValueController extends BaseController
     }
 
     public function history(
-        Request $request,
         Project $project,
         Message $message,
-        Language $language
+        Language $language,
+        ?string $form = null
     ): array {
         $this->authorize('view', $project);
-
-        $form = $request->query('form');
         $this->validateForm($form);
 
-        $values = $this->messageValueRepository->history($message, $language, $form);
+        $values = $this->messageValueRepository->history($message, $language, $form)->toArray();
 
-        return $values->toArray();
+        foreach ($values as $i => $value) {
+            $values[$i] = array_merge($value, [
+                'diff' => $this->diff->render($values[$i + 1]['value'] ?? '', $value['value']),
+            ]);
+        }
 
-        return view('projects.messages.history', [
-            'project' => $project,
-            'message' => $message,
-            'language' => $language,
-            'form' => $form,
-            'values' => $values,
-            'diff' => $this->diff,
-        ]);
+        return $values;
     }
 
     private function validateForm(?string $form): void

@@ -54,26 +54,6 @@ Breadcrumbs::for('messages.index', function (Trail $trail, Project $project) {
     $trail->push('Messages', route('messages.index', $project));
 });
 
-Breadcrumbs::for('messages.create', function (Trail $trail, Project $project) {
-    $trail->parent('messages.index', $project);
-    $trail->push('New', route('messages.create', $project));
-});
-
-Breadcrumbs::for('messages.edit', function (Trail $trail, Project $project, Message $message) {
-    $trail->parent('messages.index', $project);
-    $trail->push($message->name);
-    $trail->push('Edit', route('messages.edit', [$project, $message]));
-});
-
-Breadcrumbs::for(
-    'message-values.history',
-    function (Trail $trail, Project $project, Message $message, Language $language) {
-        $trail->parent('messages.index', $project);
-        $trail->push("$language->code: $message->name");
-        $trail->push('History', route('message-values.history', [$project, $message, $language]));
-    }
-);
-
 Breadcrumbs::for('project-members.index', function (Trail $trail, Project $project) {
     $trail->parent('projects.show', $project);
     $trail->push('Members', route('project-members.index', $project));

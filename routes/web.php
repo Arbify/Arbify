@@ -51,10 +51,8 @@ Route::get('/projects/{project}/messages/data', 'Project\MessageController@index
 // Project message value
 Route::put('/projects/{project}/messages/{message}/{language}/{form?}', 'Project\MessageValueController@put')
     ->name('message-values.put');
-Route::get(
-    '/projects/{project}/messages/{message}/{language}/history',
-    'Project\MessageValueController@history'
-)->name('message-values.history');
+Route::get('/projects/{project}/messages/{message}/{language}/{form?}', 'Project\MessageValueController@history')
+    ->name('message-values.history');
 
 // Project member
 Route::resource('/projects/{project}/members', 'Project\ProjectMemberController', ['names' => 'project-members'])
