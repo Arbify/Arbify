@@ -8,8 +8,9 @@
                     <span class="type badge badge-light" v-if="message.type === 'plural'">PLURAL</span>
                     <span class="type badge badge-light" v-else-if="message.type === 'gender'">GENDER</span>
 
-                    <a href @click.prevent="onEdit" class="text-primary small mr-2">edit</a>
-                    <a href @click.prevent="onDelete" :class="'text-danger small ' + deleteRowClass " ref="delete">delete</a>
+                    <a v-if="message.canUpdate" href @click.prevent="onUpdate" class="text-primary small mr-2">edit</a>
+                    <a v-if="message.canDelete" href @click.prevent="onDelete"
+                       :class="'text-danger small ' + deleteRowClass " ref="delete">delete</a>
                 </div>
             </div>
 
@@ -40,7 +41,7 @@
             },
         },
         methods: {
-            onEdit() {
+            onUpdate() {
                 this.$store.commit('prepareMessageFormModal', this.messageId);
                 $(`#${MESSAGE_FORM_MODAL_ID}`).modal('show');
             },
