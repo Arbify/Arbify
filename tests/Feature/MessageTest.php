@@ -20,17 +20,7 @@ class MessageTest extends TestCase
 
         $this->actingAsUser()->get("/projects/$project->id/messages")
             ->assertOk()
-            ->assertSeeText($message->name);
-    }
-
-    public function testCreateShows(): void
-    {
-        $project = factory(Project::class)->create();
-
-        $this->actingAsUser()->get("/projects/$project->id/messages/create")
-            ->assertOk()
-            ->assertSeeText('Message name')
-            ->assertSeeText('Create message');
+            ->assertSeeText('Loading JavaScript widget');
     }
 
     public function testStoreWithCorrectData(): void
@@ -49,16 +39,6 @@ class MessageTest extends TestCase
         $this->assertDatabaseHas('messages', ['name' => $messageData->name, 'project_id' => $project->id]);
     }
 
-    public function testEditShows(): void
-    {
-        [$project, $message] = $this->projectAndMessage();
-
-        $this->actingAsUser()->get("/projects/$project->id/messages/$message->id/edit")
-            ->assertOk()
-            ->assertSee($message->name)
-            ->assertSeeText('Update message');
-    }
-
     public function testUpdateWithCorrectData(): void
     {
         [$project, $message] = $this->projectAndMessage();
@@ -68,8 +48,7 @@ class MessageTest extends TestCase
             'name' => $message->name,
             'description' => $newDescription,
         ])
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
+            ->assertOk();
 
         $this->assertDatabaseHas('messages', ['id' => $message->id, 'description' => $newDescription]);
     }
@@ -79,7 +58,7 @@ class MessageTest extends TestCase
         [$project, $message] = $this->projectAndMessage();
 
         $this->actingAsUser()->delete("/projects/$project->id/messages/$message->id")
-            ->assertRedirect();
+            ->assertNoContent();
 
         $this->assertDatabaseMissing('messages', ['id' => $message->id]);
     }

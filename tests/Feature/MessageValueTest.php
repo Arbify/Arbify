@@ -22,11 +22,10 @@ class MessageValueTest extends TestCase
 
         $value = $this->faker()->sentence();
 
-        $this->actingAsUser()->put("/projects/$project->id/messages/$message->id/$language->code", [
+        $this->actingAsUser()->put("/projects/$project->id/messages/$message->id/$language->id", [
             'value' => $value,
         ])
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
+            ->assertCreated();
 
         $this->assertDatabaseHas('message_values', [
             'message_id' => $message->id,
