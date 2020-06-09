@@ -1,7 +1,11 @@
 <template>
-    <div class="d-flex justify-content-center">
+    <div v-if="loading" class="mt-5 flex-center">
+        <span class="spinner-border"></span>
+    </div>
+    <div v-else class="d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table :class="['messages-table', 'table', 'table-bordered', 'table-hover', 'bg-white', overflowing ? 'overflowing' : '']">
+            <table
+                :class="['messages-table', 'table', 'table-bordered', 'table-hover', 'bg-white', overflowing ? 'overflowing' : '']">
                 <colgroup>
                     <col style="width: 300px">
                     <col style="width: 400px" v-for="language in languages" :key="language.id">
@@ -46,7 +50,11 @@
             };
         },
         computed: {
-            ...mapGetters(['languages', 'messages']),
+            ...mapGetters({
+                languages: 'languages',
+                messages: 'messages',
+                loading: 'appLoading',
+            }),
         },
         created: function () {
             this.$store.dispatch('loadAll', {
