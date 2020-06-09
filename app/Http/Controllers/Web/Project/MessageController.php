@@ -38,7 +38,7 @@ class MessageController extends BaseController
     {
         $this->authorize('view-any', [Message::class, $project]);
 
-        return view('projects.messages.index', ['project' => $project]);
+        return view('projects.messages', ['project' => $project]);
     }
 
     public function indexData(Project $project): array
