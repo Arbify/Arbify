@@ -23,6 +23,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import MessageLanguageCell from './MessageLanguageCell';
+    import { MESSAGE_FORM_MODAL_ID } from './consts';
 
     export default {
         components: { MessageLanguageCell },
@@ -36,7 +37,7 @@
         methods: {
             onEdit() {
                 this.$store.commit('prepareMessageFormModal', this.messageId);
-                $('#message-form-modal').modal('show');
+                $(`#${MESSAGE_FORM_MODAL_ID}`).modal('show');
             },
             onDelete() {
                 const $delete = $(this.$refs.delete)
