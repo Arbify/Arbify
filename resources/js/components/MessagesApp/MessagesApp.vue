@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table :class="['messages-table', 'table', 'table-bordered', 'bg-white', overflowing ? 'overflowing' : '']">
+            <table :class="['messages-table', 'table', 'table-bordered', 'table-hover', 'bg-white', overflowing ? 'overflowing' : '']">
                 <colgroup>
                     <col style="width: 300px">
                     <col style="width: 400px" v-for="language in languages" :key="language.id">
