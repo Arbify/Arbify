@@ -1,9 +1,9 @@
 <template>
     <th>
         <div class="d-flex align-items-center">
-            <img v-if="language.flag" :src="language.flag" alt="" class="country-flag">
+            <img v-if="language.flagUrl" :src="language.flagUrl" alt="" class="country-flag">
 
-            {{ displayName }}
+            {{ language.displayName }}
 
             <span class="translation-progress-bg">
                 <span :class="progressClasses" :style="{ width: stats.percent }"></span>
@@ -53,9 +53,6 @@
                     translated,
                     percent,
                 };
-            },
-            displayName() {
-                return `${this.language.code} - ${this.language.name}`;
             },
             progressClasses() {
                 return [

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loading" class="mt-5 flex-center">
+    <div v-if="appLoading" class="mt-5 flex-center">
         <span class="spinner-border"></span>
     </div>
     <div v-else class="d-flex justify-content-center">
@@ -15,7 +15,7 @@
                         <th>
                             <div class="d-flex align-items-center">
                                 Message
-                                <NewMessageButton class="ml-auto" />
+                                <NewMessageButton v-if="canCreateMessages" class="ml-auto" />
                             </div>
                         </th>
                         <LanguageHeaderCell v-for="language in languages" :key="language.id"
@@ -50,11 +50,7 @@
             };
         },
         computed: {
-            ...mapGetters({
-                languages: 'languages',
-                messages: 'messages',
-                loading: 'appLoading',
-            }),
+            ...mapGetters(['languages', 'messages', 'appLoading', 'canCreateMessages']),
         },
         created: function () {
             this.$store.dispatch('loadAll', {

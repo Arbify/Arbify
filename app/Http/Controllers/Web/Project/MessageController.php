@@ -7,6 +7,8 @@ use Arbify\Contracts\Repositories\MessageRepository;
 use Arbify\Contracts\Repositories\MessageValueRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
 use Arbify\Http\Requests\StoreMessage;
+use Arbify\Http\Resources\Language as LanguageResource;
+use Arbify\Http\Resources\Message as MessageResource;
 use Arbify\Models\Message;
 use Arbify\Models\Project;
 use Gate;
@@ -43,30 +45,27 @@ class MessageController extends BaseController
     {
         $this->authorize('view-any', [Message::class, $project]);
 
-        $languages = $project->languages->toArray();
-        foreach ($languages as $i => $language) {
-            if ($language['flag']) {
-                $languages[$i]['flag'] = asset("storage/flags/{$language['flag']}.svg");
-            }
-        }
-
-        $messages = $project->messages->toArray();
+        $languages = $project->languages;
+        $messages = $project->messages;
         $values = $this->messageValueRepository->allByProject($project);
 
         return [
-            'languages' => $languages,
-            'messages' => $messages,
+            'languages' => LanguageResource::collection($languages),
+            'messages' => MessageResource::collection($messages),
             'values' => $values,
+            'can_create_messages' => Gate::allows('create', [Message::class, $project]),
         ];
     }
 
-    public function store(StoreMessage $request, Project $project): Message
+    public function store(StoreMessage $request, Project $project): MessageResource
     {
         $this->authorize('create', [Message::class, $project]);
 
-        return Message::create([
+        $message = Message::create([
                 'project_id' => $project->id,
             ] + $request->validated());
+
+        return new MessageResource($message);
     }
 
     public function update(StoreMessage $request, Project $project, Message $message): Message

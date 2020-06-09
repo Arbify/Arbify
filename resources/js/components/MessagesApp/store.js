@@ -12,6 +12,7 @@ const store = new Vuex.Store({
         languages: [],
         messages: [],
         messageValues: [],
+        canCreateMessages: null,
 
         messageFormModalLoading: false,
         messageFormModal: {
@@ -37,6 +38,7 @@ const store = new Vuex.Store({
         messageValueBy: (state) => (languageId, messageId, form) => state.messageValues.find(
             mv => mv.languageId === languageId && mv.messageId === messageId && mv.form === form
         ),
+        canCreateMessages: (state) => state.canCreateMessages,
 
         messageFormModalLoading: (state) => state.messageFormModalLoading,
         historyModalLoading: (state) => state.historyModalLoading,
@@ -45,12 +47,13 @@ const store = new Vuex.Store({
         appStartLoading(state) {
             state.appLoading = true;
         },
-        loadAll(state, { projectId, languages, messages, values }) {
+        loadAll(state, { projectId, languages, messages, values, canCreateMessages }) {
             state.appLoading = false;
             state.projectId = projectId
             state.languages = languages;
             state.messages = messages;
             state.messageValues = values;
+            state.canCreateMessages = canCreateMessages;
         },
         addOrUpdateMessage(state, message) {
             state.messageFormModalLoading = false;
