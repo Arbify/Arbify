@@ -4,9 +4,11 @@
             <div class="row-content">
                 <code class="name">{{ message.name }}</code>
 
-                <div v-if="message.type !== 'message'">
+                <div>
                     <span class="type badge badge-light" v-if="message.type === 'plural'">PLURAL</span>
                     <span class="type badge badge-light" v-else-if="message.type === 'gender'">GENDER</span>
+
+                    <a href="#" @click.prevent="onEdit" class="text-primary small">edit</a>
                 </div>
             </div>
 
@@ -29,6 +31,12 @@
             message() {
                 return this.$store.getters.messageById(this.messageId);
             }
+        },
+        methods: {
+            onEdit() {
+                this.$store.commit('prepareMessageFormModal', this.messageId);
+                $('#message-form-modal').modal('show');
+            },
         }
     };
 </script>
@@ -46,7 +54,7 @@
         display: block;
     }
 
-    .type {
+    .type:not(:last-child) {
         margin-right: 0.5rem;
     }
 

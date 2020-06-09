@@ -155,7 +155,7 @@ class ArbImporter
                 if ($message->isPlural()) {
                     $form = $language->plural_forms[0];
                 } elseif ($message->isGender()) {
-                    $form = $language->getGenderForms()[0];
+                    $form = $language->gender_forms[0];
                 }
 
                 if (

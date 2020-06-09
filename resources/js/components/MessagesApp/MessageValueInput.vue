@@ -49,20 +49,28 @@
                 return [
                     'form-control',
                     'message-field',
-                    this.storedValue && this.storedValue.value === this.value ? 'is-accepted' : '',
+                    this.state === 'accepted' ? 'is-accepted' : '',
                 ];
             },
-            changed() {
-                return !this.storedValue && this.value !== ''
-                    || this.storedValue && this.storedValue.value !== this.value;
-            }
+            state() {
+                if (this.storedValue && (
+                    this.storedValue.value === this.value
+                    || this.storedValue.value === null && this.value === ''
+                )) {
+                    return 'accepted';
+                } else if (!this.storedValue && this.value === '') {
+                    return 'empty';
+                }
+
+                return 'changed';
+            },
         },
         mounted() {
             this.value = this.storedValue ? this.storedValue.value : '';
         },
         methods: {
             save() {
-                if (!this.changed) return;
+                if (this.state !== 'changed') return;
 
                 this.$store.dispatch('saveMessageValue', {
                     languageId: this.languageId,
