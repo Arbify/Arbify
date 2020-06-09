@@ -41,7 +41,7 @@
                                 {{ $language->getDisplayName() }}
                             </td>
                             <td>
-                                @include('projects.messages.translation-progress', ['statistics' => $statistics[$language->code]])
+                                @include('projects.partials.translation-progress', ['statistics' => $statistics[$language->code]])
                             </td>
                             <td class="py-0 align-middle">
                                 @can('manage-languages', $project)
