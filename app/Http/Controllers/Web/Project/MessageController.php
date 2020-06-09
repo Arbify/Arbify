@@ -68,13 +68,13 @@ class MessageController extends BaseController
         return new MessageResource($message);
     }
 
-    public function update(StoreMessage $request, Project $project, Message $message): Message
+    public function update(StoreMessage $request, Project $project, Message $message): MessageResource
     {
         $this->authorize('update', [$message, $project]);
 
         $message->update($request->validated());
 
-        return $message;
+        return new MessageResource($message);
     }
 
     public function destroy(Project $project, Message $message): Response
