@@ -153,7 +153,7 @@ const store = new Vuex.Store({
                     : urls.updateMessage(state.projectId, state.messageFormModal.data.id),
                 data: state.messageFormModal.data,
             }).then(({ data }) => {
-                commit('addOrUpdateMessage', camelcaseKeys(data));
+                commit('addOrUpdateMessage', camelcaseKeys(data.data));
                 onSuccess?.call();
             }).catch(error => {
                 if (error.response.status !== 422) {
