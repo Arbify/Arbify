@@ -20,8 +20,8 @@ class Message extends JsonResource
             'description' => $message->description,
             'type' => $message->type,
             'project_id' => $message->project_id,
-            'can_update' => Gate::allows('update', [$request->route('project'), $message]),
-            'can_delete' => Gate::allows('delete', [$request->route('project'), $message]),
+            'can_update' => Gate::allows('update', [$message, $request->route('project')]),
+            'can_delete' => Gate::allows('delete', [$message, $request->route('project')]),
         ];
     }
 }
