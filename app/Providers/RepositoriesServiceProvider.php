@@ -13,6 +13,8 @@ class RepositoriesServiceProvider extends ServiceProvider
         Contracts\LanguageRepository::class      => Repositories\LanguageRepository::class,
         Contracts\MessageRepository::class       => Repositories\MessageRepository::class,
         Contracts\MessageValueRepository::class  => Repositories\MessageValueRepository::class,
+        Contracts\MessagesTranslationStatisticsRepository::class
+            => Repositories\MessagesTranslationStatisticsRepository::class,
         Contracts\ProjectRepository::class       => Repositories\ProjectRepository::class,
         Contracts\ProjectMemberRepository::class => Repositories\ProjectMemberRepository::class,
         Contracts\SecretRepository::class        => Repositories\SecretRepository::class,

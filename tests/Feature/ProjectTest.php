@@ -21,7 +21,7 @@ class ProjectTest extends TestCase
 
         $this->actingAsUser()->get('/projects')
             ->assertOk()
-            ->assertSeeText('Project name')
+            ->assertSeeText('Projects')
             ->assertSeeText($project->name);
     }
 

@@ -2,6 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
+use Arbify\Contracts\Repositories\MessagesTranslationStatisticsRepository;
 use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
@@ -42,10 +43,15 @@ class ProjectLanguageController extends BaseController
         return [];
     }
 
-    public function index(Project $project): View
-    {
+    public function index(
+        Project $project,
+        MessagesTranslationStatisticsRepository $statisticsRepository
+    ): View {
         $languages = $this->languageRepository->allInProject($project);
-        $statistics = $this->projectRepository->translationStatistics($project);
+        $statistics = [];
+        foreach ($languages as $language) {
+            $statistics[$language->code] = $statisticsRepository->byProjectAndLanguage($project, $language);
+        }
 
         return view('projects.languages.index', [
             'project' => $project,

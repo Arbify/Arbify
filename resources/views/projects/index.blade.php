@@ -40,7 +40,7 @@
                             </header>
 
                             <div class="progress project-card-progress">
-                                @php $progress = $statistics[$project->id]['all']['percent']; @endphp
+                                @php $progress = $statistics[$project->id]['percent']; @endphp
                                 <div class="progress-bar {{ $progress == 100 ? 'bg-success' : 'bg-info' }}"
                                      style="width: {{ $progress }}%"></div>
                             </div>

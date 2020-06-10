@@ -25,6 +25,11 @@ class MessageValueRepository implements MessageValueRepositoryContract
             ->first();
     }
 
+    public function latestCountByProject(Project $project): int
+    {
+        return $this->latestMessagesFrom($project)->count();
+    }
+
     public function latestCountByProjectAndLanguage(Project $project, Language $language): int
     {
         return $this->latestMessagesFrom($project)

@@ -2,6 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
+use Arbify\Contracts\Repositories\MessagesTranslationStatisticsRepository;
 use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\LanguageRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
@@ -25,8 +26,10 @@ class ProjectController extends BaseController
         $this->authorizeResource(Project::class);
     }
 
-    public function index(Request $request): View
-    {
+    public function index(
+        Request $request,
+        MessagesTranslationStatisticsRepository $statisticsRepository
+    ): View {
         $user = $request->user();
 
         if ($user->can('view-private', Project::class)) {
@@ -37,7 +40,7 @@ class ProjectController extends BaseController
 
         $statistics = [];
         foreach ($projects as $project) {
-            $statistics[$project->id] = $this->projectRepository->translationStatistics($project);
+            $statistics[$project->id] = $statisticsRepository->byProject($project);
         }
 
         return view('projects.index', [
