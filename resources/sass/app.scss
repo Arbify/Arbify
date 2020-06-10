@@ -106,3 +106,40 @@
         background: lighten($danger, 30%);
     }
 }
+
+.project-card {
+    .card-body {
+        position: relative;
+        padding-top: 1.5rem;
+    }
+}
+
+.project-card-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    border-radius: 3px 3px 0 0;
+    height: 0.25rem;
+}
+
+.flags-horizontal-list {
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+
+    li {
+        //
+
+        &:not(:last-child) {
+            margin-right: 0.5rem;
+        }
+    }
+
+    img {
+        @extend .country-flag;
+    }
+}
