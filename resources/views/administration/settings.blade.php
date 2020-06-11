@@ -11,6 +11,7 @@
                 </div>
             @endif
 
+            <h3 class="mb-4 text-center">General</h3>
             <div class="card card-body mb-4">
                 <div class="form-group row">
                     <span class="col-md-6 col-form-label text-md-right">User registration</span>
@@ -68,6 +69,7 @@
                 </div>
             </div>
 
+            <h3 class="mt-5 mb-4 text-center">Projects</h3>
             <div class="card card-body mb-4">
                 <div class="row">
                     <label for="default_language" class="col-md-6 col-form-label text-md-right">Default project language</label>
