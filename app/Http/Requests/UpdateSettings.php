@@ -10,6 +10,7 @@ class UpdateSettings extends AuthorizedFormRequest
     {
         return [
             'registration_enabled' => 'required|boolean',
+            'show_arbify_github' => 'required|boolean',
             'default_language' => 'required|exists:' . Language::class . ',id',
         ];
     }

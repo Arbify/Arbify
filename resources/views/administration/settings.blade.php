@@ -12,7 +12,7 @@
             @endif
 
             <div class="card card-body mb-4">
-                <div class="row">
+                <div class="form-group row">
                     <span class="col-md-6 col-form-label text-md-right">User registration</span>
                     <div class="col-md-6 pt-2">
                         <div class="custom-control custom-control-inline custom-radio">
@@ -32,7 +32,35 @@
                         </div>
 
                         @error('registration_enabled')
-                            <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row mb-0">
+                    <span class="col-md-6 col-form-label text-md-right">
+                        Show <a href="https://github.com/Arbify/Arbify">Arbify GitHub</a> icon in navbar
+                    </span>
+                    <div class="col-md-6 pt-2">
+                        <div class="custom-control custom-control-inline custom-radio">
+                            <input type="radio" class="custom-control-input" id="show_arbify_github.enabled" name="show_arbify_github"
+                                   value="1" @if(old('show_arbify_github', Settings::showArbifyGithub())) checked @endif>
+                            <label class="custom-control-label" for="show_arbify_github.enabled">
+                                Enabled
+                            </label>
+                        </div>
+
+                        <div class="custom-control custom-control-inline custom-radio">
+                            <input type="radio" class="custom-control-input" id="show_arbify_github.disabled" name="show_arbify_github"
+                                   value="0" @unless(old('show_arbify_github', Settings::showArbifyGithub())) checked @endif>
+                            <label class="custom-control-label" for="show_arbify_github.disabled">
+                                Disabled
+                            </label>
+                        </div>
+
+                        @error('registration_enabled')
+                        <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror

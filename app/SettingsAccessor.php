@@ -25,6 +25,11 @@ class SettingsAccessor
         return (bool) $this->getSetting('registration_enabled');
     }
 
+    public function showArbifyGithub(): bool
+    {
+        return (bool) $this->getSetting('show_arbify_github');
+    }
+
     private function getSetting(string $name): ?string
     {
         return $this->settingsRepository->allAsAssociativeArray()[$name];
