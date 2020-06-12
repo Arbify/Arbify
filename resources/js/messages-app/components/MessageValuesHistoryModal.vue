@@ -31,18 +31,18 @@
 </template>
 
 <script>
-    import { HISTORY_MODAL_ID } from './consts';
     import moment from 'moment';
     import { mapGetters } from 'vuex';
+    import { HISTORY_MODAL_ID } from '../consts';
 
     export default {
         computed: {
-            ...mapGetters({ loading: 'historyModalLoading' }),
+            ...mapGetters({ loading: 'historyModal/loading' }),
             modalId() {
                 return HISTORY_MODAL_ID;
             },
             history() {
-                return this.$store.state.historyModal;
+                return this.$store.state.historyModal.history;
             },
             formatTime() {
                 return (time) => moment(time, moment.ISO_8601).format('LLL');

@@ -23,12 +23,12 @@
         props: ['languageId'],
         computed: {
             language() {
-                return this.$store.getters.languageById(this.languageId);
+                return this.$store.getters['data/languageById'](this.languageId);
             },
             stats() {
                 const language = this.language;
 
-                const all = this.$store.getters.messages.reduce((acc, message) => {
+                const all = this.$store.getters['data/messages'].reduce((acc, message) => {
                     if (message.type === 'plural') {
                         return acc + language.pluralForms.length;
                     } else if (message.type === 'gender') {
@@ -38,7 +38,7 @@
                     return acc + 1;
                 }, 0);
 
-                const translated = this.$store.getters.messageValues.reduce((acc, messageValue) => {
+                const translated = this.$store.getters['data/messageValues'].reduce((acc, messageValue) => {
                     if (messageValue.languageId !== language.id) {
                         return acc;
                     }

@@ -7,8 +7,8 @@ require('jquery-filepond/filepond.jquery');
 require('./global-modal');
 
 import Vue from 'vue';
-import store from './components/MessagesApp/store';
-import MessagesApp from './components/MessagesApp/MessagesApp';
+import store from './messages-app/store/store';
+import MessagesApp from './messages-app/components/MessagesApp';
 
 const messagesAppEl = document.getElementById('messages-app');
 

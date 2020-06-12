@@ -24,7 +24,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import MessageLanguageCell from './MessageLanguageCell';
-    import { MESSAGE_FORM_MODAL_ID } from './consts';
+    import { MESSAGE_FORM_MODAL_ID } from '../consts';
 
     const DELETE_ROW_CLASS = 'delete-row';
 
@@ -32,9 +32,9 @@
         components: { MessageLanguageCell },
         props: ['messageId'],
         computed: {
-            ...mapGetters(['languages']),
+            ...mapGetters({ languages: 'data/languages' }),
             message() {
-                return this.$store.getters.messageById(this.messageId);
+                return this.$store.getters['data/messageById'](this.messageId);
             },
             deleteRowClass() {
                 return DELETE_ROW_CLASS;
@@ -42,7 +42,7 @@
         },
         methods: {
             onUpdate() {
-                this.$store.commit('prepareMessageFormModal', this.messageId);
+                this.$store.commit('messageFormModal/prepare', this.message);
                 $(`#${MESSAGE_FORM_MODAL_ID}`).modal('show');
             },
             onDelete() {
@@ -57,7 +57,7 @@
                     .on('click', '.btn-outline-secondary', () => $delete.popover('hide'))
                     .on('click', '.btn-danger', () => {
                         $delete.popover('hide');
-                        this.$store.dispatch('deleteMessage', this.messageId);
+                        this.$store.dispatch('data/deleteMessage', this.messageId);
                     });
 
                 $(`.${DELETE_ROW_CLASS}`).popover('hide');

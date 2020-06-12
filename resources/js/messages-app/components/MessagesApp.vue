@@ -1,5 +1,5 @@
 <template>
-    <div v-if="appLoading" class="mt-5 flex-center">
+    <div v-if="loading" class="mt-5 flex-center">
         <span class="spinner-border"></span>
     </div>
     <div v-else class="d-flex justify-content-center">
@@ -45,16 +45,19 @@
         components: { MessageValuesHistoryModal, MessageRow, NewMessageButton, LanguageHeaderCell, MessageFormModal },
         props: ['projectId'],
         data() {
-            return {
-                overflowing: false,
-            };
+            return { overflowing: false };
         },
         computed: {
-            ...mapGetters(['languages', 'messages', 'appLoading', 'canCreateMessages']),
+            ...mapGetters({
+                loading: 'data/loading',
+                languages: 'data/languages',
+                messages: 'data/messages',
+                canCreateMessages: 'data/canCreateMessages',
+            }),
         },
         created: function () {
-            this.$store.dispatch('loadAll', {
-                projectId: this.projectId,
+            this.$store.commit('setProjectId', this.projectId);
+            this.$store.dispatch('data/loadAll', {
                 onLoad: () => this.updateTableWidth(),
             });
 

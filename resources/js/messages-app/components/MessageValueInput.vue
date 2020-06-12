@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import { HISTORY_MODAL_ID } from './consts';
+    import { HISTORY_MODAL_ID } from '../consts';
 
     export default {
         props: ['messageId', 'languageId', 'form'],
@@ -38,13 +38,13 @@
         },
         computed: {
             message() {
-                return this.$store.getters.messageById(this.messageId);
+                return this.$store.getters['data/messageById'](this.messageId);
             },
             language() {
-                return this.$store.getters.languageById(this.languageId);
+                return this.$store.getters['data/languageById'](this.languageId);
             },
             storedValue() {
-                return this.$store.getters.messageValueBy(this.languageId, this.messageId, this.form);
+                return this.$store.getters['data/messageValueBy'](this.languageId, this.messageId, this.form);
             },
             label() {
                 return `${this.messageId}.${this.languageId}.${this.form}`;
@@ -76,7 +76,7 @@
             onSave() {
                 if (this.state !== 'changed') return;
 
-                this.$store.dispatch('saveMessageValue', {
+                this.$store.dispatch('data/saveMessageValue', {
                     languageId: this.languageId,
                     messageId: this.messageId,
                     form: this.form,
@@ -85,7 +85,7 @@
             },
             onHistory() {
                 $(`#${HISTORY_MODAL_ID}`).modal('show');
-                this.$store.dispatch('fetchMessageValuesHistoryModal', {
+                this.$store.dispatch('historyModal/fetch', {
                     messageId: this.messageId,
                     languageId: this.languageId,
                     form: this.form,

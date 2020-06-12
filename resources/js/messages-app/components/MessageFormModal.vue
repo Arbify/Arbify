@@ -96,24 +96,25 @@
 </template>
 
 <script>
-    import { MESSAGE_FORM_MODAL_ID } from './consts';
+    import { MESSAGE_FORM_MODAL_ID } from '../consts';
     import { mapGetters } from 'vuex';
 
     export default {
         computed: {
-            ...mapGetters({ loading: 'messageFormModalLoading' }),
+            ...mapGetters({
+                loading: 'messageFormModal/loading',
+                action: 'messageFormModal/action',
+                errors: 'messageFormModal/errors',
+            }),
             modalId() {
                 return MESSAGE_FORM_MODAL_ID;
-            },
-            action() {
-                return this.$store.state.messageFormModal.action;
             },
             name: {
                 get() {
                     return this.$store.state.messageFormModal.data.name;
                 },
                 set(value) {
-                    this.$store.commit('messageFormModalUpdate', {name: value});
+                    this.$store.commit('messageFormModal/updateData', { name: value });
                 },
             },
             description: {
@@ -121,7 +122,7 @@
                     return this.$store.state.messageFormModal.data.description;
                 },
                 set(value) {
-                    this.$store.commit('messageFormModalUpdate', {description: value});
+                    this.$store.commit('messageFormModal/updateData', { description: value });
                 },
             },
             type: {
@@ -129,16 +130,13 @@
                     return this.$store.state.messageFormModal.data.type;
                 },
                 set(value) {
-                    this.$store.commit('messageFormModalUpdate', {type: value});
+                    this.$store.commit('messageFormModal/updateData', { type: value });
                 },
             },
-            errors() {
-                return this.$store.state.messageFormModal.errors;
-            }
         },
         methods: {
             onSubmit(event) {
-                this.$store.dispatch('submitMessageFormModal', {
+                this.$store.dispatch('messageFormModal/submit', {
                     onSuccess: () => this.onClose(),
                 });
             },

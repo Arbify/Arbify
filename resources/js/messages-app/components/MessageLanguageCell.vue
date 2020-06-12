@@ -16,14 +16,14 @@
     import MessageValueInput from './MessageValueInput';
 
     export default {
-        components: {MessageValueInput},
+        components: { MessageValueInput },
         props: ['messageId', 'languageId'],
         computed: {
             message() {
-                return this.$store.getters.messageById(this.messageId);
+                return this.$store.getters['data/messageById'](this.messageId);
             },
             language() {
-                return this.$store.getters.languageById(this.languageId);
+                return this.$store.getters['data/languageById'](this.languageId);
             },
         }
     };
