@@ -27,10 +27,6 @@
             </div>
             <ul class="nav nav-tabs border-bottom-0">
                 <li class="nav-item">
-                    <a href="{{ route('projects.show', $project) }}"
-                       class="nav-link @if(request()->route()->getName() == 'projects.show') active @endif">Overview</a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('messages.index', $project) }}"
                        class="nav-link @if(request()->route()->getName() == 'messages.index') active @endif"><b>Messages</b></a>
                 </li>

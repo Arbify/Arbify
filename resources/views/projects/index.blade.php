@@ -67,11 +67,9 @@
                                 @endforeach
                             </ul>
 
-                            <a class="stretched-link" href="{{ route('projects.show', $project) }}"></a>
+                            <a class="stretched-link" href="{{ route('messages.index', $project) }}"></a>
                         </div>
                         <div class="card-footer d-flex flex-wrap px-3">
-                            <a class="btn btn-sm btn-link mr-2"
-                               href="{{ route('projects.show', $project) }}">Overview</a>
                             <a class="btn btn-sm btn-outline-primary mr-2"
                                href="{{ route('messages.index', $project) }}">Messages</a>
                             <a class="btn btn-sm btn-link mr-2" href="{{ route('project-languages.index', $project) }}">Languages</a>

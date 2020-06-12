@@ -20,54 +20,49 @@ Breadcrumbs::for('projects.create', function (Trail $trail) {
     $trail->push('New', route('projects.create'));
 });
 
-Breadcrumbs::for('projects.show', function (Trail $trail, Project $project) {
-    $trail->parent('projects.index');
-    $trail->push($project->name, route('projects.show', $project));
-});
-
 Breadcrumbs::for('projects.edit', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
+    $trail->parent('messages.index', $project);
     $trail->push('Edit', route('projects.edit', $project));
 });
 
 Breadcrumbs::for('projects.import', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
+    $trail->parent('messages.index', $project);
     $trail->push('Import', route('projects.import', $project));
 });
 Breadcrumbs::for('projects.export', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
+    $trail->parent('messages.index', $project);
     $trail->push('Export', route('projects.export', $project));
 });
 
 Breadcrumbs::for('project-languages.index', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
-    $trail->push('Languages', route('project-languages.index', $project));
+    $trail->parent('projects.index');
+    $trail->push($project->name, route('project-languages.index', $project));
 });
 
 Breadcrumbs::for('project-languages.create', function (Trail $trail, Project $project) {
     $trail->parent('project-languages.index', $project);
-    $trail->push('Add', route('project-languages.create', $project));
+    $trail->push('Add languages', route('project-languages.create', $project));
 });
 
 Breadcrumbs::for('messages.index', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
-    $trail->push('Messages', route('messages.index', $project));
+    $trail->parent('projects.index');
+    $trail->push($project->name, route('messages.index', $project));
 });
 
 Breadcrumbs::for('project-members.index', function (Trail $trail, Project $project) {
-    $trail->parent('projects.show', $project);
-    $trail->push('Members', route('project-members.index', $project));
+    $trail->parent('projects.index');
+    $trail->push($project->name, route('project-members.index', $project));
 });
 
 Breadcrumbs::for('project-members.create', function (Trail $trail, Project $project) {
     $trail->parent('project-members.index', $project);
-    $trail->push('Add', route('project-members.create', $project));
+    $trail->push('Add member', route('project-members.create', $project));
 });
 
 Breadcrumbs::for('project-members.edit', function (Trail $trail, Project $project, ProjectMember $projectMember) {
     $trail->parent('project-members.index', $project);
     $trail->push($projectMember->user->name);
-    $trail->push('Edit', route('project-members.edit', [$project, $projectMember]));
+    $trail->push('Edit member', route('project-members.edit', [$project, $projectMember]));
 });
 
 Breadcrumbs::for('languages.index', function (Trail $trail) {

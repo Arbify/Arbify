@@ -50,15 +50,6 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas('projects', ['name' => $name]);
     }
 
-    public function testShowShows(): void
-    {
-        $project = factory(Project::class)->create();
-
-        $this->actingAsUser()->get("/projects/$project->id")
-            ->assertOk()
-            ->assertSeeText($project->name);
-    }
-
     public function testEditShows(): void
     {
         $project = factory(Project::class)->create();

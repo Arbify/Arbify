@@ -21,7 +21,8 @@ Auth::routes([
 Route::get('/', 'DashboardController')->name('dashboard');
 
 // Project
-Route::resource('/projects', 'Project\ProjectController');
+Route::resource('/projects', 'Project\ProjectController')
+    ->except(['show']);
 
 // Project import
 Route::get('/projects/{project}/import', 'Project\ImportController@show')->name('projects.import');
