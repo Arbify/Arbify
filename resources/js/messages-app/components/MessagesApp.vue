@@ -4,11 +4,11 @@
     </div>
     <div v-else class="d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table
-                :class="['messages-table', 'table', 'table-bordered', 'table-hover', 'bg-white', overflowing ? 'overflowing' : '']">
+            <table class="messages-table table table-bordered table-hover bg-white">
                 <colgroup>
                     <col style="width: 300px">
-                    <col style="width: 400px" v-for="language in languages" :key="language.id">
+                    <col style="width: 400px" v-for="language in shownLanguages" :key="language.id">
+                    <col v-if="showCollapsed" style="width: 70px">
                 </colgroup>
                 <thead>
                     <tr>
@@ -18,12 +18,33 @@
                                 <NewMessageButton v-if="canCreateMessages" class="ml-auto" />
                             </div>
                         </th>
-                        <LanguageHeaderCell v-for="language in languages" :key="language.id"
+                        <LanguageHeaderCell v-for="language in shownLanguages" :key="language.id"
                                             :language-id="language.id" />
+                        <th v-if="showCollapsed"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <MessageRow v-for="message in messages" :key="message.id" :message-id="message.id" />
+                    <tr class="languages-overflow">
+                        <td :colspan="shownLanguages.length + 1"></td>
+                        <td v-if="showCollapsed" :rowspan="messages.length + 2">
+                            <div class="languages-overflow-items">
+                                <a v-for="language in collapsedLanguages" href
+                                   @click.prevent="() => onShowLanguage(language.id)" :title="language.displayName">
+                                    <img v-if="language.flagUrl" :src="language.flagUrl" alt="" class="country-flag">
+                                    <span v-else>{{ language.code }}</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <MessageRow v-for="message in messages" :key="message.id" :message-id="message.id"
+                                :language-ids="shownLanguages.map(language => language.id)" />
+
+                    <tr>
+                        <td :colspan="shownLanguages.length + 1" class="text-center">
+                            <NewMessageButton v-if="canCreateMessages" class="ml-auto" />
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -45,39 +66,93 @@
         components: { MessageValuesHistoryModal, MessageRow, NewMessageButton, LanguageHeaderCell, MessageFormModal },
         props: ['projectId'],
         data() {
-            return { overflowing: false };
+            return {
+                shownLanguagesIds: [],
+            };
         },
         computed: {
             ...mapGetters({
                 loading: 'data/loading',
                 languages: 'data/languages',
+                languageById: 'data/languageById',
                 messages: 'data/messages',
                 canCreateMessages: 'data/canCreateMessages',
             }),
+            shownLanguages() {
+                return this.shownLanguagesIds.map(id => this.languages.find(l => l.id === id));
+            },
+            collapsedLanguages() {
+                return this.languages.filter(language => !this.shownLanguagesIds.includes(language.id));
+            },
+            showCollapsed() {
+                return this.collapsedLanguages.length !== 0;
+            }
         },
         created: function () {
             this.$store.commit('setProjectId', this.projectId);
             this.$store.dispatch('data/loadAll', {
-                onLoad: () => this.updateTableWidth(),
+                onLoad: () => this.updateShownLanguages(),
             });
 
-            this.updateTableWidth();
-            window.addEventListener('resize', this.updateTableWidth);
+            this.updateShownLanguages();
+            window.addEventListener('resize', this.updateShownLanguages);
         },
         destroyed: function () {
-            window.removeEventListener('resize', this.updateTableWidth);
+            window.removeEventListener('resize', this.updateShownLanguages);
         },
         methods: {
-            updateTableWidth() {
-                const width = 300 + 400 * this.languages.length;
-                this.overflowing = window.innerWidth >= width;
-            }
+            updateShownLanguages() {
+                this.shownLanguagesIds = [];
+
+                const staticColsWidth = 370;
+                const colWidth = 400;
+
+                let width = staticColsWidth;
+                for (let language of this.languages) {
+                    if (width + colWidth > window.innerWidth && this.shownLanguagesIds.length >= 1) {
+                        break;
+                    }
+
+                    width += colWidth;
+                    this.shownLanguagesIds.push(language.id);
+                }
+            },
+            onShowLanguage(languageId) {
+                this.shownLanguagesIds.shift();
+                this.shownLanguagesIds.push(languageId);
+            },
         },
     };
 </script>
 
 <style lang="scss" scoped>
-    .overflowing {
-        width: initial;
+    .languages-overflow {
+        height: 0;
+
+        &:hover {
+            background: #fff;
+        }
+
+        td {
+            text-align: center;
+            vertical-align: top;
+
+            &:nth-child(1) {
+                padding: 0;
+            }
+
+            &:nth-child(2) {
+                border-top-width: 3px;
+            }
+        }
+    }
+
+    .languages-overflow-items {
+        display: flex;
+        flex-direction: column;
+
+        > * {
+            margin-bottom: 1rem;
+        }
     }
 </style>

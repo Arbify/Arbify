@@ -16,7 +16,7 @@
 
             <small class="description" v-if="message.description">{{ message.description }}</small>
         </th>
-        <MessageLanguageCell v-for="language in languages" :key="language.id"
+        <MessageLanguageCell v-for="language in shownLanguages" :key="language.id"
                              :message-id="messageId" :language-id="language.id" />
     </tr>
 </template>
@@ -30,9 +30,12 @@
 
     export default {
         components: { MessageLanguageCell },
-        props: ['messageId'],
+        props: ['messageId', 'languageIds'],
         computed: {
             ...mapGetters({ languages: 'data/languages' }),
+            shownLanguages() {
+                return this.languageIds.map(id => this.languages.find(l => l.id === id));
+            },
             message() {
                 return this.$store.getters['data/messageById'](this.messageId);
             },

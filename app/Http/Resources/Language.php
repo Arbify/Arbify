@@ -16,7 +16,7 @@ class Language extends JsonResource
             'name' => $language->name,
             'code' => $language->code,
             'display_name' => $language->getDisplayName(),
-            'flag_url' => asset("images/flags/{$language->flag}.svg"),
+            'flag_url' => $language->flag === null ? null : asset("images/flags/{$language->flag}.svg"),
             'plural_forms' => $language->plural_forms,
             'gender_forms' => $language->gender_forms,
         ];
