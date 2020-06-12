@@ -9,6 +9,9 @@
             {{ Breadcrumbs::current() ? Breadcrumbs::current()->title . ' ‹ ' : '' }}{{ config('app.name', 'Arbify') }}
         </title>
 
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+        <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
+
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -18,7 +21,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand logo" href="{{ route('dashboard') }}">
-                        <u>.Arb</u>ify
+                    <img src="{{ asset('images/logo-dark.svg') }}" alt="Arbify">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
