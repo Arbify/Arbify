@@ -36,7 +36,7 @@
                     <tr>
                         <td class="p-0 text-center align-middle">
                             @if(!is_null($language->flag))
-                                <img src="{{ asset("storage/flags/$language->flag.svg") }}" alt="" class="country-flag">
+                                <img src="{{ asset("images/flags/$language->flag.svg") }}" alt="" class="country-flag">
                             @endif
                         </td>
                         <td class="align-middle">{{ $language->code }}</td>

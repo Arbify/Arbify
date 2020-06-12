@@ -60,7 +60,7 @@
                                 @foreach($project->languages as $language)
                                     @if(!is_null($language->flag))
                                         <li>
-                                            <img src="{{ asset("storage/flags/$language->flag.svg") }}"
+                                            <img src="{{ asset("images/flags/$language->flag.svg") }}"
                                                  alt="{{ $language->getDisplayName() }}">
                                         </li>
                                     @endif
