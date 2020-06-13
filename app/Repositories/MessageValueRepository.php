@@ -10,6 +10,7 @@ use Arbify\Models\Message;
 use Arbify\Models\MessageValue;
 use Arbify\Models\Project;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 
@@ -77,10 +78,16 @@ class MessageValueRepository implements MessageValueRepositoryContract
             ->select('l.code', 'mv.updated_at')
             ->join('messages AS m', 'm.id', '=', 'mv.message_id')
             ->join('languages AS l', 'l.id', '=', 'mv.language_id')
-            ->leftJoin('message_values AS mv2', function (JoinClause $query) {
+            ->leftJoin('message_values AS mv2', function (JoinClause $query) use ($project) {
                 $query
                     ->on('mv.language_id', '=', 'mv2.language_id')
-                    ->on('mv.updated_at', '<', 'mv2.updated_at');
+                    ->on('mv.updated_at', '<', 'mv2.updated_at')
+                    ->whereIn('mv2.message_id', function (QueryBuilder $builder) use ($project) {
+                        $builder
+                            ->select('m.id')
+                            ->from('messages AS m')
+                            ->where('m.project_id', $project->id);
+                    });
             })
             ->whereNull('mv2.id')
             ->where('m.project_id', $project->id)
