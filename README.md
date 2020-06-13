@@ -32,4 +32,4 @@ After this you're ready to go to [http://localhost:8000](http://localhost:8000) 
 The database is seeded with a pre-verified super administrator account `admin@arbify.io` with password `password`. 
 
 [php-workflow]: https://github.com/Arbify/Arbify/actions?query=workflow%3APHP
-[php-workflow-badge]: https://github.com/Arbify/Arbify/workflows/PHP/badge.svg
+[php-workflow-badge]: https://img.shields.io/github/workflow/status/Arbify/Arbify/PHP
