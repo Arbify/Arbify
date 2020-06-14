@@ -56,7 +56,9 @@ class ArbExporter implements ArbExporterContract
 
     public function getDownloadResponse(ExportedFile $file): StreamedResponse
     {
-        return $this->filesystemAdapter->download($file->getFilepath(), $file->getFilename());
+        return $this->filesystemAdapter->download($file->getFilepath(), $file->getFilename(), [
+            'Content-Type' => 'text/plain',
+        ]);
     }
 
     private function createArbFile(Project $project, Language $language): ExportedFile
