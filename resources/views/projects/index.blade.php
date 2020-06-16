@@ -15,8 +15,23 @@
             </div>
         @endif
 
-        <div class="row row-cols-1 row-cols-md-2 mb-4">
+        @php
+            $memberships = Auth::user()->projectMemberships->toBase();
+        @endphp
             @foreach($projects as $project)
+                @php $member = $memberships->where('project_id', $project->id)->first(); @endphp
+                @if($loop->index == 0 && !is_null($member))
+                    <h3 class="h5 mb-4">Your projects</h3>
+                    <div class="row row-cols-1 row-cols-md-2 mb-4">
+                @elseif(is_null($member) && $loop->index == 0)
+                    <h3 class="h5 mb-4">Other projects</h3>
+                    <div class="row row-cols-1 row-cols-md-2 mb-4">
+                @elseif(is_null($member)
+                        && $memberships->where('project_id', $projects[$loop->index - 1]->id)->isNotEmpty())
+                    </div>
+                    <h3 class="h5 mb-4">Other projects</h3>
+                    <div class="row row-cols-1 row-cols-md-2 mb-4">
+                @endif
                 <div class="col mb-4">
                     <article class="card project-card">
                         <div class="card-body">
@@ -25,9 +40,6 @@
                                 @if($project->isPrivate())
                                     <span class="badge badge-dark ml-2 align-self-center">Private</span>
                                 @endif
-                                @php
-                                    $member = Auth::user()->projectMemberships->where('project_id', $project->id)->first();
-                                @endphp
                                 @if(!is_null($member))
                                     @if($member->isLead())
                                         <span class="badge badge-danger ml-auto">Lead</span>
