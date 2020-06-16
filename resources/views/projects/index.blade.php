@@ -18,7 +18,7 @@
         @php
             $memberships = Auth::user()->projectMemberships->toBase();
         @endphp
-            @foreach($projects as $project)
+            @forelse($projects as $project)
                 @php $member = $memberships->where('project_id', $project->id)->first(); @endphp
                 @if($loop->index == 0 && !is_null($member))
                     <h3 class="h5 mb-4">Your projects</h3>
@@ -112,7 +112,9 @@
                         </div>
                     </article>
                 </div>
-            @endforeach
+            @empty
+                <p>No projects to show here.</p>
+            @endforelse
         </div>
 
         <div class="d-flex justify-content-center">
