@@ -21,7 +21,7 @@
                                        :class="['form-control', errors.name ? 'is-invalid' : '']">
 
                                 <span v-if="errors.name" class="invalid-feedback" role="alert">
-                                    <strong>{{ errors.name[0] }}</strong>
+                                    <strong v-html="errors.name[0]" />
                                 </span>
                             </div>
                         </div>

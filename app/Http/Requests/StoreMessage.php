@@ -8,25 +8,14 @@ use Illuminate\Validation\Rule;
 
 class StoreMessage extends AuthorizedFormRequest
 {
-//    protected function getRedirectUrl(): string
-//    {
-//        $url = $this->redirector->getUrlGenerator();
-//
-//        if ($this->isMethod('PATCH')) {
-//            return $url->route('messages.edit', [
-//                $this->route('project'),
-//                $this->route('message'),
-//            ]);
-//        }
-//
-//        return $url->route('messages.create', $this->route('project'));
-//    }
+    private const NAME_REGEX = '/^[a-z][a-z0-9_]*$/i';
 
     public function rules(MessageRepository $messageRepository): array
     {
         $rules = [
             'name' => [
                 'required',
+                'regex:' . self::NAME_REGEX,
                 $this->makeNameUniqueInProjectValidator($messageRepository),
             ],
             'description' => '',
@@ -45,6 +34,15 @@ class StoreMessage extends AuthorizedFormRequest
         }
 
         return $rules;
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.regex' => 'The :attribute should only begin with a letter '
+                . 'followed by alphanumeric characters or underscores '
+                . '(pattern: <code>' . self::NAME_REGEX . '</code>).',
+        ];
     }
 
     private function makeNameUniqueInProjectValidator(MessageRepository $messageRepository): callable
