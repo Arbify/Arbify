@@ -48,6 +48,20 @@
     }
 }
 
+.messages-header-cell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(xs) {
+        flex-direction: column;
+
+        .messages-header-cell--wrapping {
+            margin-top: 0.5rem;
+        }
+    }
+}
+
 .message-type-col {
     @extend .col-1;
     flex: 0 0 52px;

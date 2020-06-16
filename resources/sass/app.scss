@@ -36,7 +36,7 @@
     height: 2rem;
 
     &:not(:last-child) {
-        @extend .mr-3;
+        @extend .mr-2;
     }
 }
 
@@ -132,5 +132,21 @@
 
     img {
         @extend .country-flag;
+    }
+}
+
+.btn-xs-sm {
+    @media (max-width: #{map-get($grid-breakpoints, sm)}) {
+        // Hardcoded .btn-sm because we can't @extend inside media queries :(
+        padding: 0.25rem 0.5rem;
+        font-size: 0.7875rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+    }
+}
+
+.align-items-center-sm-up {
+    @media (min-width: #{map-get($grid-breakpoints, sm)}) {
+        align-items: center;
     }
 }

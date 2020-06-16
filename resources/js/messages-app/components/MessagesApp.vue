@@ -13,9 +13,9 @@
                 <thead>
                     <tr>
                         <th>
-                            <div class="d-flex align-items-center">
+                            <div class="messages-header-cell">
                                 Message
-                                <NewMessageButton v-if="canCreateMessages" class="ml-auto" />
+                                <NewMessageButton v-if="canCreateMessages" class="messages-header-cell--wrapping" />
                             </div>
                         </th>
                         <LanguageHeaderCell v-for="language in shownLanguages" :key="language.id"

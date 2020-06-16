@@ -1,19 +1,21 @@
 <template>
     <th>
-        <div class="d-flex align-items-center">
-            <img v-if="language.flagUrl" :src="language.flagUrl" alt="" class="country-flag">
-
-            {{ language.displayName }}
-
-            <span class="translation-progress-bg">
-                <span :class="progressClasses" :style="{ width: stats.percent }"></span>
+        <div class="messages-header-cell">
+            <span>
+                <img v-if="language.flagUrl" :src="language.flagUrl" alt="" class="country-flag">
+                <span>{{ language.displayName }}</span>
             </span>
-            <small class="ml-auto messages-statistics">
+
+            <small class="messages-header-cell--wrapping messages-statistics">
                 <span :class="statsClasses">
                     {{ stats.translated }}/{{ stats.all }}
                     ({{ stats.percent }})
                 </span>
             </small>
+
+            <span class="translation-progress-bg">
+                <span :class="progressClasses" :style="{ width: stats.percent }"></span>
+            </span>
         </div>
     </th>
 </template>

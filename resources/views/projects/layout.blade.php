@@ -9,19 +9,22 @@
                 {{ Breadcrumbs::render() }}
             </nav>
 
-            <div class="mb-3 d-flex align-items-center flex-column flex-sm-row">
+            <div class="mb-3 d-flex align-items-center-sm-up flex-column flex-sm-row">
                 <h2 class="mr-auto">{{ $project->name }}</h2>
                 <div class="mt-2 mt-sm-0">
                     <div class="btn-group mr-2">
                         @can('update', $project)
-                            <a href="{{ route('projects.edit', $project) }}" class="btn btn-outline-secondary">Edit</a>
+                            <a href="{{ route('projects.edit', $project) }}"
+                               class="btn btn-outline-secondary btn-xs-sm">Edit</a>
                         @endcan
                     </div>
                     <div class="btn-group">
                         @can('import', $project)
-                            <a href="{{ route('projects.import', $project) }}" class="btn btn-outline-primary">Import</a>
+                            <a href="{{ route('projects.import', $project) }}"
+                               class="btn btn-outline-primary btn-xs-sm">Import</a>
                         @endcan
-                        <a href="{{ route('projects.export', $project) }}" class="btn btn-outline-primary">Export</a>
+                        <a href="{{ route('projects.export', $project) }}"
+                           class="btn btn-outline-primary btn-xs-sm">Export</a>
                     </div>
                 </div>
             </div>
