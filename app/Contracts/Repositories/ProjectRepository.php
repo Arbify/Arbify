@@ -14,5 +14,5 @@ interface ProjectRepository
 
     public function visibleToUserPaginated(User $user): LengthAwarePaginator;
 
-    public function allPaginated(): LengthAwarePaginator;
+    public function allPaginated(User $user): LengthAwarePaginator;
 }

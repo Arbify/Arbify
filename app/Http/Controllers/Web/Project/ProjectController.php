@@ -33,7 +33,7 @@ class ProjectController extends BaseController
         $user = $request->user();
 
         if ($user->can('view-private', Project::class)) {
-            $projects = $this->projectRepository->allPaginated();
+            $projects = $this->projectRepository->allPaginated($user);
         } else {
             $projects = $this->projectRepository->visibleToUserPaginated($user);
         }

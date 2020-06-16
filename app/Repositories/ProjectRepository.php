@@ -27,12 +27,20 @@ class ProjectRepository implements ProjectRepositoryContract
             })
             ->where('visibility', '=', Project::VISIBILITY_PUBLIC)
             ->orWhereNotNull('project_members.id')
+            ->orderByRaw('CASE WHEN `project_members`.`id` IS NOT NULL THEN 0 ELSE 1 END')
             ->orderBy('name')
             ->paginate(30);
     }
 
-    public function allPaginated(): LengthAwarePaginator
+    public function allPaginated(User $user): LengthAwarePaginator
     {
-        return Project::orderBy('name')->paginate(30);
+        return Project::select('projects.*')
+            ->leftJoin('project_members', function (JoinClause $builder) use ($user) {
+                $builder
+                    ->on('project_members.project_id', '=', 'projects.id')
+                    ->where('project_members.user_id', '=', $user->id);
+            })
+            ->orderByRaw('CASE WHEN `project_members`.`id` IS NOT NULL THEN 0 ELSE 1 END')
+            ->orderBy('name')->paginate(30);
     }
 }
