@@ -8,7 +8,7 @@
                 <colgroup>
                     <col style="width: 300px">
                     <col style="width: 400px" v-for="language in shownLanguages" :key="language.id">
-                    <col v-if="showCollapsed" style="width: 70px">
+                    <col v-if="showCollapsedFlags" style="width: 70px">
                 </colgroup>
                 <thead>
                     <tr>
@@ -20,13 +20,13 @@
                         </th>
                         <LanguageHeaderCell v-for="language in shownLanguages" :key="language.id"
                                             :language-id="language.id" />
-                        <th v-if="showCollapsed"></th>
+                        <th v-if="showCollapsedFlags"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="languages-overflow">
                         <td :colspan="shownLanguages.length + 1"></td>
-                        <td v-if="showCollapsed" :rowspan="messages.length + 2">
+                        <td v-if="showCollapsedFlags" :rowspan="messages.length + 2">
                             <div class="languages-overflow-items">
                                 <a v-for="language in collapsedLanguages" href
                                    @click.prevent="() => onShowLanguage(language.id)" :title="language.displayName">
@@ -84,7 +84,7 @@
             collapsedLanguages() {
                 return this.languages.filter(language => !this.shownLanguagesIds.includes(language.id));
             },
-            showCollapsed() {
+            showCollapsedFlags() {
                 return this.collapsedLanguages.length !== 0;
             }
         },
@@ -102,19 +102,17 @@
         },
         methods: {
             updateShownLanguages() {
-                this.shownLanguagesIds = [];
-
                 const staticColsWidth = 370;
                 const colWidth = 400;
 
-                let width = staticColsWidth;
-                for (let language of this.languages) {
-                    if (width + colWidth > window.innerWidth && this.shownLanguagesIds.length >= 1) {
-                        break;
-                    }
+                let columns = Math.floor((window.innerWidth - staticColsWidth) / colWidth);
+                columns = columns > 1 ? columns : 1;
 
-                    width += colWidth;
-                    this.shownLanguagesIds.push(language.id);
+                while (this.shownLanguagesIds.length > columns) {
+                    this.shownLanguagesIds.pop();
+                }
+                while (this.shownLanguagesIds.length < columns && this.collapsedLanguages.length > 0) {
+                    this.shownLanguagesIds.push(this.collapsedLanguages[0].id);
                 }
             },
             onShowLanguage(languageId) {
