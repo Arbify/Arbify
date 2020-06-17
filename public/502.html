@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="5">
+        <meta http-equiv="refresh" content="10;url=/">
         <title>502 Bad Gateway</title>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg">
         <link rel="alternate icon" href="/favicon.ico">
@@ -31,9 +31,18 @@
     </head>
     <body>
         <h1>🛑 502 Bad Gateway</h1>
-        <p>Hold on! It's not that bad! 😁</p>
-        <p>Arbify entrypoint is probably still running, downloading dependencies and building scripts... ⏳ Try again in a minute or two. You can also check the progress yourself using <code>docker-compose logs --follow arbify</code>. If you're wondering how many steps do you need to wait - just look at <a href="https://github.com/Arbify/Arbify/blob/master/docker/arbify/entrypoint.sh">the entrypoint script</a>.</p>
-        <p>You can just leave this browser tab open and take a look whether the title has changed. I'm refreshing every 5 seconds. 👀</p>
-        <p class="muted">If it takes more than 5 minutes though, something is probably wrong. Check the logs and in case of an error <a href="https://github.com/Arbify/Arbify/issues/new">report it on GitHub</a> including your docker-compose logs.</p>
+        <p>Hold on! It's probably not that bad! 😁</p>
+        <p>You probably ran into one of those scenarios:</p>
+        <ol>
+            <li>
+                <p>You just installed or updated Arbify. In that case you will still need to run <code>docker-compose run --rm arbify docker/arbify/upgrade.sh</code></p>
+            </li>
+            <li>The database service is still not up. Give it a moment.</li>
+            <li>
+                <p>If it's none of the above, something bad probably happened. Check the status and/or logs of the docker-compose services.</p>
+                <p>If you think that this issue is our fault, please <a href="https://github.com/Arbify/Arbify/issues/new">report it to us on GitHub</a> including your docker-compose logs.</p>
+            </li>
+        </ol>
+        <p class="muted">This page will automatically refresh after 10 seconds. 👀</p>
     </body>
 </html>
