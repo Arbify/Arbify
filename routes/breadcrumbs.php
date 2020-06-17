@@ -61,7 +61,7 @@ Breadcrumbs::for('project-members.create', function (Trail $trail, Project $proj
 
 Breadcrumbs::for('project-members.edit', function (Trail $trail, Project $project, ProjectMember $projectMember) {
     $trail->parent('project-members.index', $project);
-    $trail->push($projectMember->user->name);
+    $trail->push($projectMember->user->username);
     $trail->push('Edit member', route('project-members.edit', [$project, $projectMember]));
 });
 
