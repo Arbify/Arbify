@@ -6,10 +6,7 @@
             <div class="card text-center">
                 <div class="card-body">
                             <span class="h2">
-                                Unversioned
-                                <span class="help-icon" data-toggle="tooltip" data-placement="right"
-                                      title="Arbify is still a work-in-progress and doesn't
-                                      even use a proper versioning yet.">?</span>
+                                {{ config('app.version') }}
                             </span>
                 </div>
                 <div class="card-footer font-weight-bold">Version</div>
