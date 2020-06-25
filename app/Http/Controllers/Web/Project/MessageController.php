@@ -7,12 +7,11 @@ use Arbify\Contracts\Repositories\MessageRepository;
 use Arbify\Contracts\Repositories\MessageValueRepository;
 use Arbify\Contracts\Repositories\ProjectRepository;
 use Arbify\Http\Requests\StoreMessage;
-use Arbify\Http\Resources\Language as LanguageResource;
 use Arbify\Http\Resources\Message as MessageResource;
+use Arbify\Http\Resources\ProjectLanguage as ProjectLanguageResource;
 use Arbify\Models\Message;
 use Arbify\Models\Project;
 use Gate;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,7 +49,7 @@ class MessageController extends BaseController
         $values = $this->messageValueRepository->allByProject($project);
 
         return [
-            'languages' => LanguageResource::collection($languages),
+            'languages' => ProjectLanguageResource::collection($languages),
             'messages' => MessageResource::collection($messages),
             'values' => $values,
             'can_create_messages' => Gate::allows('create', [Message::class, $project]),

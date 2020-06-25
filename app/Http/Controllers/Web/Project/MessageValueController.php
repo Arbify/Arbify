@@ -38,7 +38,7 @@ class MessageValueController extends BaseController
         Language $language,
         ?string $form = null
     ): Response {
-        $this->authorize('put', [MessageValue::class, $project, $message, $language]);
+        $this->authorize('putLanguage', [MessageValue::class, $project, $language]);
         $this->validateForm($form);
 
         $userId = $request->user()->id;

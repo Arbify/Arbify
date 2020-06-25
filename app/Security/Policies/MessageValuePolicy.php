@@ -26,10 +26,9 @@ class MessageValuePolicy extends BasePolicy
         return null;
     }
 
-    public function put(
+    public function putLanguage(
         User $user,
         Project $project,
-        Message $message,
         Language $language
     ): bool {
         if ($this->isLeadOrMemberInProject($user, $project)) {

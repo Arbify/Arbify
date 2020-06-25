@@ -50,6 +50,10 @@
                 return `${this.messageId}.${this.languageId}.${this.form}`;
             },
             inputClasses() {
+                if (!this.language.canPutValues) {
+                    return ['form-control-plaintext'];
+                }
+
                 return [
                     'form-control',
                     'message-field',

@@ -2,17 +2,18 @@
 
 namespace Arbify\Http\Resources;
 
-use Gate;
-use Illuminate\Http\Request;
+use Arbify\Models\Message as MessageModel;
+use Arbify\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Message extends JsonResource
 {
     public function toArray($request): array
     {
-        /** @var $request Request */
-        /** @var $message \Arbify\Models\Message */
+        /** @var $message MessageModel */
         $message = $this->resource;
+        /** @var User $user */
+        $user = $request->user();
 
         return [
             'id' => $message->id,
@@ -20,8 +21,8 @@ class Message extends JsonResource
             'description' => $message->description,
             'type' => $message->type,
             'project_id' => $message->project_id,
-            'can_update' => Gate::allows('update', [$message, $request->route('project')]),
-            'can_delete' => Gate::allows('delete', [$message, $request->route('project')]),
+            'can_update' => $user->can('update', [$message, $request->route('project')]),
+            'can_delete' => $user->can('delete', [$message, $request->route('project')]),
         ];
     }
 }
