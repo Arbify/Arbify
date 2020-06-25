@@ -16,7 +16,7 @@ trait ProjectMemberChecks
 
     protected function canViewProject(User $user, Project $project): bool
     {
-        if ($project->isPublic()) {
+        if ($project->isPublic() && !$user->isGuest()) {
             return true;
         }
 
