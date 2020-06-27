@@ -2,6 +2,7 @@
 
 namespace Arbify\Http\Requests;
 
+use Arbify\Models\Language;
 use Arbify\Models\ProjectMember;
 use Arbify\Models\User;
 use Illuminate\Validation\Rule;
@@ -14,6 +15,15 @@ class StoreProjectMember extends AuthorizedFormRequest
             'role' => [
                 'required',
                 Rule::in(ProjectMember::ROLES),
+            ],
+            'allowed_languages' => [
+                'exclude_unless:role,' . ProjectMember::ROLE_TRANSLATOR,
+                'required',
+                'array',
+            ],
+            'allowed_languages.*' => [
+                'required',
+                'exists:' . Language::class . ',id',
             ],
         ];
 

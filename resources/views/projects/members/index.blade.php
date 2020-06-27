@@ -32,7 +32,18 @@
                 <tbody>
                     @foreach($members as $member)
                         <tr>
-                            <td>{{ $member->user->username }}</td>
+                            <td>
+                                {{ $member->user->username }}
+                                @if($member->isTranslator())
+                                    <br>
+                                    <small>
+                                        <b>Allowed languages:</b>
+                                        @foreach($member->allowedLanguages as $language)
+                                            <span class='badge badge-light'>{{ $language->code }}</span>
+                                        @endforeach
+                                    </small>
+                                @endif
+                            </td>
                             <td>
                                 @if($member->isLead())
                                     <span class="badge badge-danger">Lead</span>

@@ -28,6 +28,10 @@ class ProjectMember extends Model
         'extra',
     ];
 
+    protected $casts = [
+        'role' => 'integer',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -55,10 +59,6 @@ class ProjectMember extends Model
 
     public function allowedLanguages(): BelongsToMany
     {
-        if (!$this->isTranslator()) {
-            throw new RuntimeException('You cannot access allowedLanguages on member that is not a translator');
-        }
-
         return $this->belongsToMany(Language::class);
     }
 }

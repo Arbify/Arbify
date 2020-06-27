@@ -78,6 +78,37 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label for="allowed_languages" class="col-md-4 col-form-label text-md-right">Allowed languages</label>
+
+                    <div class="col-md-6">
+                        <input type="text" class="form-control-plaintext allowed_languages-all" value="All">
+
+                        <div id="allowed_languages_group">
+                            <select name="allowed_languages[]" id="allowed_languages"
+                                    class="form-control @error('allowed_languages.*') is-invalid @enderror" required multiple>
+                                @include('partials.languages-options', [
+                                    'languages' => $project->languages,
+                                    'selected' => function($language) use($member) {
+                                        return in_array($language->id, old(
+                                            'allowed_languages',
+                                            !is_null($member) && $member->isTranslator() ?
+                                                $member->allowedLanguages->pluck('id')->toArray()
+                                                : []
+                                        ));
+                                    },
+                                ])
+                            </select>
+
+                            @error('allowed_languages.*')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group row mb-0">
                     <div class="col-md-8 offset-md-4">
                         <button type="submit" class="btn btn-primary">
@@ -96,8 +127,24 @@
 
 @push('scripts')
     <script>
-        $('#user_id').selectpicker({
+        $('#user_id, #allowed_languages').selectpicker({
             liveSearch: true,
         });
+
+        toggleAllowedLanguages();
+        $('[name=role]').change(() => toggleAllowedLanguages());
+
+        function toggleAllowedLanguages() {
+            console.log('siem');
+            if ($('#role\\.translator').is(':checked')) {
+                $('#allowed_languages').attr('disabled', false);
+                $('.allowed_languages-all').css('display', 'none');
+                $('#allowed_languages_group').css('display', 'flex');
+            } else {
+                $('#allowed_languages').attr('disabled', true);
+                $('.allowed_languages-all').css('display', 'block');
+                $('#allowed_languages_group').css('display', 'none');
+            }
+        }
     </script>
 @endpush

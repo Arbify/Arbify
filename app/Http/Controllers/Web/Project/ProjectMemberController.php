@@ -47,6 +47,7 @@ class ProjectMemberController extends BaseController
         return view('projects.members.form', [
             'project' => $project,
             'users' => $users,
+            'member' => null,
         ]);
     }
 
@@ -57,6 +58,10 @@ class ProjectMemberController extends BaseController
         $member = ProjectMember::create([
             'project_id' => $project->id
         ] + $request->validated());
+
+        if ($member->isTranslator()) {
+            $member->allowedLanguages()->sync($request->input('allowed_languages'));
+        }
 
         return redirect()->route('project-members.index', $project)
             ->with('success', "Added <b>{$member->user->name}</b> to this project successfully.");
@@ -80,6 +85,9 @@ class ProjectMemberController extends BaseController
         $this->authorize('update', [$projectMember, $project]);
 
         $projectMember->update($request->validated());
+        if ($projectMember->isTranslator()) {
+            $projectMember->allowedLanguages()->sync($request->input('allowed_languages'));
+        }
 
         return redirect()->route('project-members.index', $project)
             ->with('success', "Updated <b>{$projectMember->user->name}</b> in this project successfully.");
