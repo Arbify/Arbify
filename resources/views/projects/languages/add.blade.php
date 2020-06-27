@@ -45,6 +45,7 @@
     <script>
         $('#languages').selectpicker({
             liveSearch: true,
+            selectedTextFormat: 'count',
         });
     </script>
 @endpush

@@ -127,8 +127,14 @@
 
 @push('scripts')
     <script>
-        $('#user_id, #allowed_languages').selectpicker({
+        $('#user_id').selectpicker({
             liveSearch: true,
+        });
+
+        $('#allowed_languages').selectpicker({
+            liveSearch: true,
+            actionsBox: true,
+            selectedTextFormat: 'count',
         });
 
         toggleAllowedLanguages();
