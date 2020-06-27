@@ -4,6 +4,10 @@ namespace Arbify\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use RuntimeException;
 
 class ProjectMember extends Model
 {
@@ -47,5 +51,14 @@ class ProjectMember extends Model
     public function isTranslator(): bool
     {
         return $this->role === self::ROLE_TRANSLATOR;
+    }
+
+    public function allowedLanguages(): BelongsToMany
+    {
+        if (!$this->isTranslator()) {
+            throw new RuntimeException('You cannot access allowedLanguages on member that is not a translator');
+        }
+
+        return $this->belongsToMany(Language::class);
     }
 }

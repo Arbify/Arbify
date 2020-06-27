@@ -31,11 +31,15 @@ class MessageValuePolicy extends BasePolicy
         Project $project,
         Language $language
     ): bool {
+        // fixme(Albert221): I don't like this code, maybe I'll fix it sometime.
         if ($this->isLeadOrMemberInProject($user, $project)) {
             return true;
         }
 
-        // TODO: Check user's membership for `extra` if translator is only for given language.
-        return $this->isInProject($user, $project);
+        if (!$this->isInProject($user, $project)) {
+            return false;
+        }
+
+        return $this->cachedMemberByUserAndProject($user, $project)->allowedLanguages()->get()->contains($language);
     }
 }
