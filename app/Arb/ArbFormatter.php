@@ -77,13 +77,21 @@ class ArbFormatter implements ArbFormatterContract
                 throw new Exception("Message type \"$message->type\" is not a type supported by exporter.");
         }
 
-        return is_null($value) ? [] : [
-            $message->name => $value,
-            "@$message->name" => [
-                'type' => 'text',
-                'description' => $message->description ?? '',
-            ],
-        ];
+        if (is_null($value)) {
+            return [];
+        }
+
+        $attributes = [];
+        if (!is_null($message->description)) {
+            $attributes['description'] = $message->description;
+        }
+
+        $return = [$message->name => $value];
+        if (!empty($attributes)) {
+            $return["@$message->name"] = $attributes;
+        }
+
+        return $return;
     }
 
     private function formatPluralValue(Collection $values): string
