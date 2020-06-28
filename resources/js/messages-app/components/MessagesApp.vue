@@ -4,25 +4,16 @@
     </div>
     <div v-else class="d-flex justify-content-center">
         <div class="table-responsive w-auto">
-            <table class="messages-table table table-bordered table-hover bg-white">
-                <colgroup>
-                    <col style="width: 300px">
-                    <col style="width: 400px" v-for="language in shownLanguages" :key="language.id">
-                    <col v-if="showCollapsedFlags" style="width: 70px">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>
-                            <div class="messages-header-cell">
-                                Message
-                                <NewMessageButton v-if="canCreateMessages" class="messages-header-cell--wrapping" />
-                            </div>
-                        </th>
-                        <LanguageHeaderCell v-for="language in shownLanguages" :key="language.id"
-                                            :language-id="language.id" />
-                        <th v-if="showCollapsedFlags"></th>
-                    </tr>
-                </thead>
+            <table v-show="stickyHeaderShown" class="sticky-header messages-table table table-bordered bg-white">
+                <TableColgroup :shown-languages="shownLanguages" :show-collapsed-flags="showCollapsedFlags" />
+                <TableHeader :shown-languages="shownLanguages" :show-collapsed-flags="showCollapsedFlags"
+                             :can-create-messages="canCreateMessages" />
+            </table>
+            <table class="messages-table table table-bordered table-hover bg-white" id="messages-table">
+                <TableColgroup :shown-languages="shownLanguages" :show-collapsed-flags="showCollapsedFlags" />
+                <TableHeader :shown-languages="shownLanguages" :show-collapsed-flags="showCollapsedFlags"
+                             :can-create-messages="canCreateMessages" />
+
                 <tbody>
                     <tr class="languages-overflow">
                         <td :colspan="shownLanguages.length + 1"></td>
@@ -61,13 +52,24 @@
     import MessageFormModal from './MessageFormModal';
     import MessageRow from './MessageRow';
     import MessageValuesHistoryModal from './MessageValuesHistoryModal';
+    import TableHeader from './TableHeader';
+    import TableColgroup from './TableColgroup';
 
     export default {
-        components: { MessageValuesHistoryModal, MessageRow, NewMessageButton, LanguageHeaderCell, MessageFormModal },
+        components: {
+            TableColgroup,
+            TableHeader,
+            MessageValuesHistoryModal,
+            MessageRow,
+            NewMessageButton,
+            LanguageHeaderCell,
+            MessageFormModal
+        },
         props: ['projectId'],
         data() {
             return {
                 shownLanguagesIds: [],
+                stickyHeaderShown: false,
             };
         },
         computed: {
@@ -94,13 +96,22 @@
                 onLoad: () => this.updateShownLanguages(),
             });
 
+            window.addEventListener('scroll', this.updateStickyHeader);
+
             this.updateShownLanguages();
             window.addEventListener('resize', this.updateShownLanguages);
         },
         destroyed: function () {
+            window.removeEventListener('scroll', this.updateStickyHeader);
             window.removeEventListener('resize', this.updateShownLanguages);
         },
         methods: {
+            updateStickyHeader() {
+                const messagesTable = document.getElementById('messages-table');
+                const offset = window.pageYOffset + messagesTable.getBoundingClientRect().top - window.scrollY;
+
+                this.stickyHeaderShown = offset - 1 < 0;
+            },
             updateShownLanguages() {
                 const staticColsWidth = 370;
                 const colWidth = 400;
@@ -124,6 +135,13 @@
 </script>
 
 <style lang="scss" scoped>
+    .sticky-header {
+        position: fixed;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+    }
+
     .languages-overflow {
         height: 0;
 
