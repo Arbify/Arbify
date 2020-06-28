@@ -65,7 +65,7 @@ class ArbFormatter implements ArbFormatterContract
     {
         switch ($message->type) {
             case Message::TYPE_MESSAGE:
-                $value = $this->escapeValue($values->first()->value);
+                $value = is_null($values->first()->value) ? null : $this->escapeValue($values->first()->value);
                 break;
             case Message::TYPE_PLURAL:
                 $value = $this->formatPluralValue($values);
@@ -77,7 +77,7 @@ class ArbFormatter implements ArbFormatterContract
                 throw new Exception("Message type \"$message->type\" is not a type supported by exporter.");
         }
 
-        return [
+        return is_null($value) ? [] : [
             $message->name => $value,
             "@$message->name" => [
                 'type' => 'text',
@@ -90,6 +90,10 @@ class ArbFormatter implements ArbFormatterContract
     {
         $forms = [];
         foreach ($values as $value) {
+            if (is_null($value->value)) {
+                continue;
+            }
+
             $forms[] = sprintf('%s {%s}', $value->form, $this->escapeValue($value->value));
         }
 
@@ -100,6 +104,10 @@ class ArbFormatter implements ArbFormatterContract
     {
         $forms = [];
         foreach ($values as $value) {
+            if (is_null($value->value)) {
+                continue;
+            }
+
             $forms[] = sprintf('%s {%s}', $value->form, $this->escapeValue($value->value));
         }
 
