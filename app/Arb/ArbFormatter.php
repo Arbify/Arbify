@@ -21,7 +21,7 @@ class ArbFormatter implements ArbFormatterContract
         $result = [];
 
         $result = array_merge($result, $this->formatLocale($locale));
-        $result = array_merge($result, $this->formatLastModified($values));
+        $result = array_merge($result, $this->formatLastModified($messages, $values));
 
         // We group all values by message id, so that all forms of the same message stay together.
         $valuesGrouped = $values->groupBy(function (MessageValue $item, $key) {
@@ -47,18 +47,15 @@ class ArbFormatter implements ArbFormatterContract
         return ['@@locale' => $locale];
     }
 
-    public function formatLastModified(Collection $values): array
+    public function formatLastModified(Collection $messages, Collection $values): array
     {
-        /** @var Carbon $lastModified */
-        $lastModified = $values->max(function (MessageValue $value) {
-            return $value->updated_at;
-        });
+        $valuesLastModified = $values->max(fn(MessageValue $value) => $value->updated_at);
+        $messagesLastModified = $messages->max(fn(Message $message) => $message->updated_at);
 
-        if ($lastModified == null) {
-            return [];
-        }
+        /** @var null|Carbon $lastModified */
+        $lastModified = max($valuesLastModified, $messagesLastModified);
 
-        return ['@@last_modified' => $lastModified->toIso8601String()];
+        return is_null($lastModified) ? [] : ['@@last_modified' => $lastModified->toIso8601String()];
     }
 
     public function formatValue(Message $message, Collection $values): array

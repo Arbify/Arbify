@@ -22,7 +22,7 @@ interface ArbFormatter
 
     public function formatLocale(string $locale): array;
 
-    public function formatLastModified(Collection $values): array;
+    public function formatLastModified(Collection $messages, Collection $values): array;
 
     public function formatValue(Message $message, Collection $values): array;
 }

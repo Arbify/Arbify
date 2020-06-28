@@ -66,7 +66,7 @@ class ArbExporter implements ArbExporterContract
         $messages = $this->messageRepository->byProject($project);
         $values = $this->messageValueRepository->allByProjectAndLanguage($project, $language);
 
-        $lastModified = md5($this->arbFormatter->formatLastModified($values)['@@last_modified'] ?? '');
+        $lastModified = md5($this->arbFormatter->formatLastModified($messages, $values)['@@last_modified'] ?? '');
         $filepath = sprintf('%s/%s/%s.arb', $project->id, $language->code, $lastModified);
 
         if ($this->filesystemAdapter->missing($filepath)) {
