@@ -2,6 +2,7 @@
 
 namespace Arbify\Http\Controllers\Web\Project;
 
+use Albert221\Filepond\Filepond;
 use Arbify\Http\Controllers\BaseController;
 use Arbify\Contracts\Repositories\MessageRepository;
 use Arbify\Contracts\Repositories\MessageValueRepository;
@@ -20,17 +21,20 @@ class MessageController extends BaseController
     private ProjectRepository $projectRepository;
     private MessageRepository $messageRepository;
     private MessageValueRepository $messageValueRepository;
+    private Filepond $filepond;
 
     public function __construct(
         ProjectRepository $projectRepository,
         MessageRepository $messageRepository,
-        MessageValueRepository $messageValueRepository
+        MessageValueRepository $messageValueRepository,
+        Filepond $filepond
     ) {
         $this->projectRepository = $projectRepository;
         $this->messageRepository = $messageRepository;
         $this->messageValueRepository = $messageValueRepository;
 
         $this->middleware('verified');
+        $this->filepond = $filepond;
     }
 
     public function index(Project $project): View
@@ -56,13 +60,17 @@ class MessageController extends BaseController
         ];
     }
 
-    public function store(StoreMessage $request, Project $project): MessageResource
-    {
+    public function store(
+        StoreMessage $request,
+        Project $project
+    ): MessageResource {
         $this->authorize('create', [Message::class, $project]);
 
         $message = Message::create([
                 'project_id' => $project->id,
             ] + $request->validated());
+
+        $screenshotFile = $this->filepond->fromRequest($request, 'screenshot');
 
         return new MessageResource($message);
     }

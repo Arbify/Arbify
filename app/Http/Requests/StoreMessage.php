@@ -2,6 +2,8 @@
 
 namespace Arbify\Http\Requests;
 
+use Albert221\Filepond\FilepondRule;
+use Albert221\Filepond\FilepondSerializer;
 use Arbify\Contracts\Repositories\MessageRepository;
 use Arbify\Models\Message;
 use Illuminate\Validation\Rule;
@@ -10,8 +12,10 @@ class StoreMessage extends AuthorizedFormRequest
 {
     private const NAME_REGEX = '/^[a-z][a-z0-9_]*$/i';
 
-    public function rules(MessageRepository $messageRepository): array
-    {
+    public function rules(
+        MessageRepository $messageRepository,
+        FilepondSerializer $filepondSerializer
+    ): array {
         $rules = [
             'name' => [
                 'required',
@@ -19,6 +23,12 @@ class StoreMessage extends AuthorizedFormRequest
                 $this->makeNameUniqueInProjectValidator($messageRepository),
             ],
             'description' => '',
+            'screenshot' => [
+                // It validates both UploadedFile and FilePond's serverId
+                new FilepondRule($filepondSerializer, [
+                    'mimetypes:image/*'
+                ]),
+            ],
         ];
 
         if ($this->isMethod('POST')) {
