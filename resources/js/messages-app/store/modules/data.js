@@ -31,6 +31,8 @@ const mutations = {
         state.loading = true;
     },
     loadAll(state, { languages, messages, values, canCreateMessages }) {
+        languages.sort((a, b) => a.canPutValues ? -1 : 1)
+
         state.loading = false;
         state.languages = languages;
         state.messages = messages;
