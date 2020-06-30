@@ -65,8 +65,7 @@ class ProjectController extends BaseController
         // Add default language
         $project->languages()->attach(Settings::defaultLanguage());
 
-        return redirect()->route('projects.index')
-            ->with('success', "Added <b>$project->name</b> successfully.");
+        return redirect()->route('messages.index', $project);
     }
 
     public function edit(Project $project): View
