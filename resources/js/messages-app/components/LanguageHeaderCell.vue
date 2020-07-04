@@ -41,7 +41,7 @@
                 }, 0);
 
                 const translated = this.$store.getters['data/messageValues'].reduce((acc, messageValue) => {
-                    if (messageValue.languageId !== language.id) {
+                    if (messageValue.languageId !== language.id || messageValue.value === null) {
                         return acc;
                     }
 

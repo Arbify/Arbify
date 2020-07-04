@@ -61,12 +61,10 @@
                 ];
             },
             state() {
-                if (this.storedValue && (
-                    this.storedValue.value === this.value
-                    || this.storedValue.value === null && this.value === ''
-                )) {
+                if (this.storedValue && this.storedValue.value === this.value) {
                     return 'accepted';
-                } else if (!this.storedValue && this.value === '') {
+                } else if (this.storedValue && this.storedValue.value == null && this.value === ''
+                    || !this.storedValue && this.value === '') {
                     return 'empty';
                 }
 
@@ -74,7 +72,7 @@
             },
         },
         mounted() {
-            this.value = this.storedValue ? this.storedValue.value : '';
+            this.value = this.storedValue?.value ?? '';
         },
         methods: {
             onSave() {

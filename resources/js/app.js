@@ -10,6 +10,8 @@ import Vue from 'vue';
 import store from './messages-app/store/store';
 import MessagesApp from './messages-app/components/MessagesApp';
 
+window.Vue = Vue;
+
 const messagesAppEl = document.getElementById('messages-app');
 
 if (messagesAppEl) {
