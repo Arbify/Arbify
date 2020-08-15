@@ -59,7 +59,7 @@ class MessageValueController extends BaseController
             'language_id' => $language->id,
             'form' => $form,
             'author_id' => $userId,
-            'value' => $request->input('value'),
+            'value' => $request->input('message_value'),
         ]);
 
         return response($messageValue, Response::HTTP_CREATED);

@@ -86,7 +86,7 @@ const actions = {
     saveMessageValue({ state, commit, rootGetters }, { languageId, messageId, form, value }) {
         axios.put(
             urls.putMessageValue(rootGetters.projectId, messageId, languageId, form),
-            { value: value }
+            { message_value: value }
         ).then(({ data }) => {
             commit('updateMessageValue', camelcaseKeys(data));
         });

@@ -23,7 +23,7 @@ class MessageValueTest extends TestCase
         $value = $this->faker()->sentence();
 
         $this->actingAsUser()->put("/projects/$project->id/messages/$message->id/$language->id", [
-            'value' => $value,
+            'message_value' => $value,
         ])
             ->assertCreated();
 

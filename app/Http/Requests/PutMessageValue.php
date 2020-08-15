@@ -10,7 +10,7 @@ class PutMessageValue extends AuthorizedFormRequest
     public function rules(): array
     {
         return [
-            'value' => 'nullable',
+            'message_value' => 'nullable',
         ];
     }
 }
