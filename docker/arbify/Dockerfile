@@ -11,8 +11,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libzip-dev \
-    mariadb-client \
-    iputils-ping
+    mariadb-client
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
