@@ -1,50 +1,50 @@
 version: '3.7'
 
 services:
-  arbify:
-    build:
-      args:
-        user: arbify
-        uid: 1000
-      context: .
-      dockerfile: docker/arbify/Dockerfile
-    image: arbify
-    restart: unless-stopped
-    working_dir: /var/www
-    environment:
-      DB_USER: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      XDEBUG_CONFIG: >-
-        remote_enable=1
-        remote_autostart=0
-        remote_connect_back=0
-        remote_port=${XDEBUG_REMOTE_PORT}
-        remote_host=${XDEBUG_REMOTE_HOST}
-        idekey=arbify
-      PHP_IDE_CONFIG: serverName=arbify
-    volumes:
-      - .:/var/www
+    arbify:
+        build:
+            args:
+                user: arbify
+                uid: 1000
+            context: .
+            dockerfile: docker/arbify/Dockerfile
+        image: arbify
+        restart: unless-stopped
+        working_dir: /var/www
+        environment:
+            DB_USER: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            XDEBUG_CONFIG: >-
+              remote_enable=1
+              remote_autostart=0
+              remote_connect_back=0
+              remote_port=${XDEBUG_REMOTE_PORT}
+              remote_host=${XDEBUG_REMOTE_HOST}
+              idekey=arbify
+            PHP_IDE_CONFIG: serverName=arbify
+        volumes:
+            - .:/var/www
 
-  db:
-    image: mariadb:10
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    volumes:
-      - db-data:/var/lib/mysql
+    db:
+        image: mariadb:10
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - db-data:/var/lib/mysql
 
-  nginx:
-    image: nginx:1.17-alpine
-    restart: unless-stopped
-    ports:
-      - 8000:80
-    volumes:
-      - .:/var/www
-      - ./docker/nginx:/etc/nginx/conf.d
+    nginx:
+        image: nginx:1.17-alpine
+        restart: unless-stopped
+        ports:
+            - 8000:80
+        volumes:
+            - .:/var/www
+            - ./docker/nginx:/etc/nginx/conf.d
 
 volumes:
-  db-data:
+    db-data:
