@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  arbify:
+    build:
+      args:
+        app_env: ${APP_ENV}
+    environment:
+      XDEBUG_CONFIG: >-
+        remote_enable=1
+        remote_autostart=0
+        remote_connect_back=0
+        remote_port=${XDEBUG_REMOTE_PORT}
+        remote_host=${XDEBUG_REMOTE_HOST}
+        idekey=arbify
+      PHP_IDE_CONFIG: serverName=arbify

@@ -2,6 +2,9 @@ FROM php:7.4-fpm
 
 ARG user
 ARG uid
+ARG app_env
+
+ENV APP_ENV $app_env
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -36,9 +39,9 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /usr/local/etc/php/conf.d/blackfire.ini \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
-# XDebug install
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+# XDebug install (local env only)
+COPY docker/arbify/xdebug.sh xdebug.sh
+RUN chmod u+x xdebug.sh && ./xdebug.sh
 
 WORKDIR /var/www
 
