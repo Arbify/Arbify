@@ -23,3 +23,25 @@ function canGiveRole(?User $model, int $role): bool
 
     return Auth::user()->can('create-role', [User::class, $role]);
 }
+
+function escapeWhitespace(string $value): string
+{
+    $replacements = [
+        "\n" => '\n',
+        "\r" => '\r',
+        "\t" => '\t',
+    ];
+
+    return str_replace(array_keys($replacements), array_values($replacements), $value);
+}
+
+function unescapeWhitespace(string $value): string
+{
+    $replacements = [
+        '\n' => "\n",
+        '\r' => "\r",
+        '\t' => "\t",
+    ];
+
+    return str_replace(array_keys($replacements), array_values($replacements), $value);
+}

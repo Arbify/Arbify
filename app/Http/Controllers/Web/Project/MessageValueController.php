@@ -49,7 +49,9 @@ class MessageValueController extends BaseController
             $messageValue !== null && $messageValue->author !== null && $messageValue->author->id == $userId
             && $messageValue->updated_at->diffInSeconds(now()) < 20
         ) {
-            $messageValue->update($request->only('value'));
+            $messageValue->update([
+                'value' => unescapeWhitespace($request->input('message_value')),
+            ]);
 
             return response($messageValue);
         }
@@ -59,7 +61,7 @@ class MessageValueController extends BaseController
             'language_id' => $language->id,
             'form' => $form,
             'author_id' => $userId,
-            'value' => $request->input('message_value'),
+            'value' => unescapeWhitespace($request->input('message_value')),
         ]);
 
         return response($messageValue, Response::HTTP_CREATED);
@@ -77,8 +79,11 @@ class MessageValueController extends BaseController
         $values = $this->messageValueRepository->history($message, $language, $form)->toArray();
 
         foreach ($values as $i => $value) {
+            $a = escapeWhitespace($values[$i + 1]['value'] ?? '');
+            $b = escapeWhitespace($value['value']);
+
             $values[$i] = array_merge($value, [
-                'diff' => $this->diff->render($values[$i + 1]['value'] ?? '', $value['value']),
+                'diff' => $this->diff->render($a, $b),
             ]);
         }
 

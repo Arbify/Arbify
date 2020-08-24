@@ -10,6 +10,7 @@ use Arbify\Http\Requests\StoreMessage;
 use Arbify\Http\Resources\Message as MessageResource;
 use Arbify\Http\Resources\ProjectLanguage as ProjectLanguageResource;
 use Arbify\Models\Message;
+use Arbify\Models\MessageValue;
 use Arbify\Models\Project;
 use Gate;
 use Illuminate\View\View;
@@ -46,7 +47,14 @@ class MessageController extends BaseController
 
         $languages = $project->languages;
         $messages = $project->messages;
-        $values = $this->messageValueRepository->allByProject($project);
+        $values = $this->messageValueRepository
+            ->allByProject($project)
+            ->map(function (MessageValue $messageValue) {
+                $json = $messageValue->toArray();
+                $json['value'] = escapeWhitespace($json['value']);
+
+                return $json;
+            });
 
         return [
             'languages' => ProjectLanguageResource::collection($languages),
