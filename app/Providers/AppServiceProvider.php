@@ -8,6 +8,7 @@ use Arbify\Arb\Exporter\ArbExporter;
 use Arbify\Contracts\Arb\ArbExporter as ArbExporterContract;
 use Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->extendBlade();
+        if (env('APP_HTTPS') === true) {
+            URL::forceScheme('https');
+        }
     }
 
     private function extendBlade(): void
