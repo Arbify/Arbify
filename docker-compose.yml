@@ -2,20 +2,24 @@ version: '3.7'
 
 services:
     arbify:
-        build:
-            args:
-                user: arbify
-                uid: 1000
-            context: .
-            dockerfile: docker/arbify/Dockerfile
+        # build:
+        #     args:
+        #         user: arbify
+        #         uid: 1000
+        #     context: .
+        #     dockerfile: docker/arbify/Dockerfile
         image: arbify
+        # image: hzgood/arbify
         restart: unless-stopped
         working_dir: /var/www
+        command: ["/var/www/docker/arbify/run.sh"]
+        # command: sleep 3000
         environment:
             DB_USER: ${DB_USERNAME}
             DB_PASSWORD: ${DB_PASSWORD}
         volumes:
-            - .:/var/www
+            - .env:/var/www/.env
+            - ./docker/arbify/:/var/www/docker/arbify/
 
     db:
         image: mariadb:10

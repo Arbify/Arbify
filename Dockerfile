@@ -35,17 +35,17 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /usr/local/etc/php/conf.d/blackfire.ini \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
-WORKDIR /var/www
-COPY . /var/www
 
-RUN usermod -a -G www-data $user
-RUN chown root:root /var/www
-RUN chmod 755 /var/www/
-RUN mkdir /var/www/vendor
-RUN chown -R www-data:www-data /var/www/vendor
-RUN chmod -R 774 /var/www/vendor
+
+# USER $user
+
+
+COPY . /var/www
+RUN chown -R $user:$user /var/www
+RUN rm -fr html
 
 USER $user
+WORKDIR /var/www
+RUN composer install --no-interaction --no-suggest
 
-
-CMD ["docker/arbify/entrypoint.sh"]
+CMD ["docker/arbify/run.sh"]
