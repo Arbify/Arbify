@@ -5,7 +5,7 @@ then
 else
     echo "run upgrade.sh to init-config"
     docker/arbify/upgrade.sh
-    docker/arbify/entrypoint.sh
     touch startup.log
     echo success>>startup.log
+    docker/arbify/entrypoint.sh
 fi
