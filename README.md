@@ -1,8 +1,15 @@
+
+
 <div align="center">
 <h1>Arbify</h1>
     
 [![PHP workflow][php-workflow-badge]][php-workflow]
+
+
+**Arbify is currently abandoned. Features that are already present should work without a problem, but no further support or development will be made here, at least for some time. Feel free to fork it!**
+
 </div>
+
 
 ![Screenshot](resources/images/screenshot.png)
 
